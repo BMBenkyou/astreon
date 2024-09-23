@@ -1,0 +1,20 @@
+// Manage users*
+GET /api/admin/users
+Authorization: Bearer <admin_token>
+
+// Manage subjects and topics
+GET /api/admin/subjects
+POST /api/admin/subjects
+PUT /api/admin/subjects/:id
+DELETE /api/admin/subjects/:id
+
+GET /api/admin/topics
+POST /api/admin/topics
+PUT /api/admin/topics/:id
+DELETE /api/admin/topics/:id
+
+// Manage AI models
+GET /api/admin/models
+POST /api/admin/models
+PUT /api/admin/models/:id
+DELETE /api/admin/models/:id

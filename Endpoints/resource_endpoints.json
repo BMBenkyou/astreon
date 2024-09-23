@@ -1,0 +1,22 @@
+// Search for study resources*
+GET /api/resources/search
+{
+  query: String,
+  subject: String,
+  topic: String
+}
+
+// Get resource details
+GET /api/resources/:id
+Authorization: Bearer <auth_token>
+
+// Add resource to favorites
+POST /api/resources/favorites
+{
+  resourceId: String,
+  userId: String
+}
+
+// Get user's favorite resources
+GET /api/resources/favorites
+Authorization: Bearer <auth_token>

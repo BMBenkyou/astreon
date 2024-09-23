@@ -1,0 +1,39 @@
+// Get initial AI study plan*
+GET /api/study/plan
+Authorization: Bearer <auth_token>
+
+// Ask AI a question
+POST /api/study/question
+{
+  subject: String,
+  topic: String,
+  difficulty: String,
+  question: String
+}
+Response: {
+  answer: String,
+  explanation: String,
+  resources: Array<String>
+}
+
+// Get AI study materials
+GET /api/study/materials
+Authorization: Bearer <auth_token>
+
+// Submit practice problem
+POST /api/study/practice
+{
+  subject: String,
+  topic: String,
+  difficulty: String,
+  problem: String,
+  solution: String
+}
+Response: {
+  feedback: String,
+  correctness: Boolean
+}
+
+// Get personalized study schedule
+GET /api/study/schedule
+Authorization: Bearer <auth_token>

@@ -1,0 +1,18 @@
+// Get user profile*
+GET /api/user/profile
+Authorization: Bearer <auth_token>
+
+// Update user profile
+PATCH /api/user/profile
+{
+  username: String,
+  email: String,
+  bio: String
+}
+
+// Change password
+POST /api/user/password
+{
+  oldPassword: String,
+  newPassword: String
+}

@@ -1,0 +1,22 @@
+// Register new user*
+POST /api/auth/register
+{
+  username: String,
+  email: String,
+  password: String
+}
+
+// Login existing user
+POST /api/auth/login
+{
+  username: String,
+  password: String
+}
+
+// Refresh authentication token
+GET /api/auth/token/refresh
+Authorization: Bearer <existing_token>
+
+// Logout current session
+POST /api/auth/logout
+Cookie: <auth_cookie>

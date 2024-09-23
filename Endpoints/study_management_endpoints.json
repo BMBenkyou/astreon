@@ -1,0 +1,28 @@
+// Create new study session*
+POST /api/study/session
+{
+  subject: String,
+  duration: Number,
+  notes: String
+}
+
+// Get current study session
+GET /api/study/session/current
+Authorization: Bearer <auth_token>
+
+// Update study progress
+PATCH /api/study/progress
+{
+  subject: String,
+  topic: String,
+  completed: Boolean
+}
+
+// Get study statistics
+GET /api/study/stats
+Authorization: Bearer <auth_token>
+
+// Export study data
+GET /api/study/export
+Authorization: Bearer <auth_token>
+Content-Disposition: attachment; filename="study_data.csv"
