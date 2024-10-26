@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/SignUp.css">
+    <title>Sign Up to Astreon</title>
+</head>
+
+<body>
+
+    <div class="Headercontainer">
+        <div class="titleheader">
+            <img class="logo" src="/Astreon/imgs/AstreonLogoNBG.png">
+            <p class="header">Astreon Study Buddy</p>
+        </div>
+        <div class="logindiv">
+            <input type="button" class="loginbutton" value="Login" />
+        </div>
+
+    </div>
+
+
+    <hr>
+
+    <div class="form-container">
+        <h1>Create an account</h1>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-group">
+                <button type="submit" class="signup-btn">Sign Up <button>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p class="pFooter">About</p>
+        <p class="pFooter">Vlog</p>
+        <p class="pFooter">Careers</p>
+        <p class="pFooter">Blog</p>
+        <p class="pFooter">Help Centers</p>
+        <p class="footerp">@ 2024 <strong>Astreon Study Buddy</strong></p>
+    </div>
+</body>
+
+</html>
+
+</body>
+
+</html>
