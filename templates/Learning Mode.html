@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AstreonApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Astreon Study Buddy - Learning Modes">
+  <meta name="keywords" content="Astreon, Study Buddy, Learning Modes, Flashcards, Memorization, Matching Type">
+  <meta property="og:title" content="Astreon Study Buddy - Learning Modes">
+  <meta property="og:description" content="Study your flashcards in a simple, easy-to-use interface.">
+  <title>Astreon Study Buddy - Learning Modes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="../static/javascript/learning_mode(angular).js"></script>
+  <link rel="stylesheet" href="../static/css/learning_mode.css">
+</head>
+<body class="bg-[#FFFFFF] text-[#1C170D] font-sans" ng-controller="LearningModesController">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-[#FFFFFF] border-b border-[#E5E8EB]">
+    <div class="flex items-center gap-4">
+      <!-- Logo and Name -->
+      <img src="../static/imgs/Astreon.png" alt="Astreon Logo" class="h-25 w-25">
+      <a href="/home" class="text-xl font-semibold">Astreon Study Buddy</a>
+    </div>
+
+    <!-- Right Header Elements -->
+    <div class="flex items-center gap-4">
+      <!-- Search Bar -->
+      <div class="relative">
+        <input 
+          type="text" 
+          placeholder="Search" 
+          class="hidden lg:block w-0 transition-all duration-300 focus:w-48 bg-[#F5F0E5] px-10 py-2 rounded-full border border-[#E5E8EB] focus:outline-none text-[#A1824A] placeholder-[#A1824A]"
+        >
+        <!-- Search Icon -->
+        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#A1824A]">
+          <img src="../static/imgs/search.png" alt="Notifications" class="h-5 w-5">
+        </span>
+      </div>
+
+      <!-- New Study Session Button -->
+      <button ng-click="openModal()" class="px-4 py-2 text-white bg-[#36A86C] rounded-full hover:bg-[#1C170D]">New Study Session</button>
+
+      <!-- Notification, Calendar, Profile Icons -->
+      <button class="p-2 rounded-full hover:bg-[#E8DECF]" aria-label="Notifications">
+        <img src="../static/imgs/notification.png" alt="Notifications" class="h-6 w-6">
+      </button>
+      <button class="p-2 rounded-full hover:bg-[#E8DECF]" aria-label="Calendar">
+        <img src="../static/imgs/calendar.png" alt="Calendar" class="h-6 w-6">
+      </button>
+      <button class="p-2 rounded-full hover:bg-[#E8DECF]" aria-label="Profile">
+        <img src="../static/imgs/profile.png" alt="Profile" class="h-9 w-9">
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="flex">
+    <!-- Sidebar Navigation -->
+    <aside class="w-1/5 bg-[#FFFFFF] p-6">
+      <h2 class="text-xl font-bold mb-4">Astreon</h2>
+      <nav>
+        <ul class="space-y-2">
+          <li><a href="#" class="flex items-center gap-2 p-3 border border-[#E8DECF] rounded-[8px] text-[#1C170D] hover:bg-[#F5F0E5]"><img src="../static/imgs/aichat.png" alt="AI Study" class="h-6 w-6"> AI Study</a></li>
+          <li><a href="#" class="flex items-center gap-2 p-3 border border-[#E8DECF] rounded-[8px] text-[#1C170D] hover:bg-[#F5F0E5]"><img src="../static/imgs/sessions.png" alt="Sessions" class="h-6 w-6"> Sessions</a></li>
+          <li><a href="#" class="flex items-center gap-2 p-3 border border-[#E8DECF] rounded-[8px] text-[#1C170D] hover:bg-[#F5F0E5]"><img src="../static/imgs/quiz.png" alt="Quiz Me" class="h-6 w-6"> Quiz Me</a></li>
+          <li><a href="#" class="flex items-center gap-2 p-3 border border-[#E8DECF] rounded-[8px] text-[#1C170D] hover:bg-[#F5F0E5]"><img src="../static/imgs/cards.png" alt="Flashcards" class="h-6 w-6"> Flashcards</a></li>
+          <li><a href="#" class="flex items-center gap-2 p-3 bg-[#F5F0E5] border border-[#E8DECF] rounded-[8px] text-[#1C170D] font-bold"><img src="../static/imgs/learn_mode.png" alt="Learning Modes" class="h-6 w-6"> Learning Modes</a></li>
+          <li><a href="#" class="flex items-center gap-2 p-3 border border-[#E8DECF] rounded-[8px] text-[#1C170D] hover:bg-[#F5F0E5]"><img src="../static/imgs/course.png" alt="Course Subject" class="h-6 w-6"> Course Subject</a></li>
+        </ul>
+      </nav>
+      <div class="mt-6 space-y-2">
+        <button class="flex items-center gap-2 p-3 bg-[#FFFFFF] rounded-[8px] text-[#1C170D]"><img src="../static/imgs/help.png" alt="Help" class="h-6 w-6"> Help</button>
+        <button class="flex items-center gap-2 p-3 bg-[#FFFFFF] rounded-[8px] text-[#1C170D]"><img src="../static/imgs/feedback.png" alt="Feedback" class="h-6 w-6"> Feedback</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8">
+      <div class="flex items-center gap-4 mb-4">
+        <button ng-click="goBack()" class="text-2xl text-[#A1824A]" aria-label="Go Back">&#8592;</button>
+        <h1 class="text-2xl font-semibold text-[#1C170D]">Learning Modes</h1>
+      </div>
+      <hr class="border-[#E8DECF] mb-6">
+      
+      <!-- Learning Modes Cards -->
+      <div class="space-y-[18px]" ng-if="!loading">
+        <div class="flex items-center justify-between p-4 bg-[#F5F0E5] border border-[#1C170D] rounded-lg shadow cursor-pointer hover:bg-[#E8DECF]" ng-repeat="mode in learningModes">
+          <div>
+            <h3 class="text-lg font-semibold text-[#1C170D]">{{ mode.title }}</h3>
+            <p class="text-[#A1824A]">{{ mode.description }}</p>
+          </div>
+          <img ng-src="{{ mode.image }}" ng-error="this.src='default_image.png'" alt="{{ mode.title }} image" class="h-16 w-32 rounded flex-shrink-0">
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for New Study Session -->
+  <div ng-show="isModalOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg animate-slide-down">
+      <h2 class="text-lg font-semibold">New Study Session</h2>
+      <p>Start a new study session...</p>
+      <button ng-click="closeModal()" class="mt-4 px-4 py-2 bg-[#36A86C] hover:bg-[#E8DECF] text-white rounded">Close</button>
+    </div>
+  </div>
+</body>
+</html>
