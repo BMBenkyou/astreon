@@ -111,3 +111,12 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.title} on {self.get_day_of_the_week_display()} ({self.start_time})-{self.end_time}"
 
+class StudyPlan(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="study_plans")
+    day_of_the_week = models.CharField(max_length=3, choices=Schedule.DAYS_OF_WEEK)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    task = models.TextField()  
+    
+    def __str__(self):
+        return f"Study task on {self.get_day_of_the_week_display()} ({self.start_time})-{self.end_time}"
