@@ -1,0 +1,32 @@
+.main-div-01 {
+  padding: 16px;
+  flex-shrink: 0;
+  position: relative;
+  background-color: lightblue;
+}
+.main-div-02 {
+  padding: 16px;
+  flex-shrink: 0;
+  position: relative;
+  background-color: lightgreen;
+}
+.main-page-div {
+
+  flex-direction: column;
+  width: 100%;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.page-title {
+  color: #1c170d;
+  text-align: left;
+  font-family: "Lexend-Bold", sans-serif;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+  margin-top:10px;
+  margin-bottom:10px;
+  font-weight:bold;
+}

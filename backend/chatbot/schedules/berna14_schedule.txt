@@ -1,0 +1,38 @@
+<p><strong>Monday:</strong></p>
+
+<ul>
+<li>7:00AM - 9:00AM Physical Activities Toward Health-Fit 4 (SRDB1)</li>
+<li>11:30AM - 1:00PM Reading Visual Art (TBA)</li>
+<li>2:30PM - 4:00PM Readings in Philippine History (C-607)</li>
+<li>4:30PM - 6:00PM Algorithms and Complexity (C-605)</li>
+</ul>
+
+<p><strong>Tuesday:</strong></p>
+
+<ul>
+<li>7:00AM - 10:00AM Information Management LAB (C-302)</li>
+<li>10:00AM - 11:30AM Science, Technology and Society (C-707)</li>
+<li>1:00PM - 3:00PM CS Elective 2 LEC (C-606)</li>
+<li>4:00PM - 5:30PM Probability &amp; Statistics (C-609)</li>
+</ul>
+
+<p><strong>Wednesday:</strong></p>
+
+<ul>
+<li>11:30AM - 1:00PM Reading Visual Art (TBA)</li>
+<li>2:30PM - 4:00PM Readings in Philippine History (C-607)</li>
+<li>4:30PM - 6:00PM Algorithms and Complexity (C-605)</li>
+</ul>
+
+<p><strong>Thursday:</strong></p>
+
+<ul>
+<li>7:00AM - 9:00AM Information Management LEC (C-607)</li>
+<li>10:00AM - 11:30AM Science, Technology and Society (C-707)</li>
+<li>1:00PM - 4:00PM CS Elective 2 LAB (C-204)</li>
+<li>4:00PM - 5:30PM Probability &amp; Statistics (C-609)</li>
+</ul>
+
+<p><strong>Friday:</strong></p>
+
+<p>(No scheduled classes)</p>

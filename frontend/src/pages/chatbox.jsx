@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Header } from "../components/headerLoggedin";
 import { Footer } from "../components/footer";
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support (links, tables, etc.)
 import rehypeRaw from 'rehype-raw'; 
 import "./chatbox.css";
+
+
 
 export function ChatBox() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -89,6 +92,7 @@ export function ChatBox() {
             method: 'POST',
             headers:{
               'Authorization': `Token ${token}`,
+             
             },
             body: formData,
         });
@@ -122,67 +126,67 @@ return (
     <Header />
     <div className="grid">
       <div className="sidebar">
-        <button className="sidebarbutton">
-          <img
-            className="sidebaricon"
-            src="./imgs/svgs/aichat.svg"
-            alt="AI Study"
-          />
-          AI Study
-        </button>
-        <button className="sidebarbutton">
-          <img
-            className="sidebaricon"
-            src="./imgs/svgs/quiz.svg"
-            alt="Quiz Me"
-          />
-          Quiz Me
-        </button>
-        <button className="sidebarbutton">
-          <img
-            className="sidebaricon"
-            src="./imgs/svgs/cards.svg"
-            alt="Flashcards"
-          />
-          Flashcards
-        </button>
-        <button className="sidebarbutton">
-          <img
-            className="sidebaricon"
-            src="./imgs/svgs/sessions.svg"
-            alt="Sessions"
-          />
-          Sessions
-        </button>
-        <button className="sidebarbutton">
-          <img
-            className="sidebaricon"
-            src="./imgs/svgs/learn_mode.svg"
-            alt="Learning Modes"
-          />
-          Learning Modes
-        </button>
-        <div className="helpbuttonsdiv">
-          <a className="helplink" href="#">
-            <img
-            className="helpbuttons"
-            src="./imgs/svgs/help.svg"
-            alt="Help"
-          />
-          <p className="phelpbuttons">Help</p>
-          </a>
-        </div>
-        <div className="helpbuttonsdiv">
-          <a className="helplink" href="#">
-            <img
-              className="helpbuttons"
-              src="./imgs/svgs/feedback.svg"
-              alt="Feedback"
-            />
-            <p className="phelpbuttons">Feedback</p>
-          </a>
-        </div>
-      </div>
+                <Link to="/chatbox" className="sidebarbutton">
+                    <img
+                        className="sidebaricon"
+                        src="./imgs/svgs/aichat.svg"
+                        alt="AI Study"
+                    />
+                    AI Study
+                </Link>
+                <Link to="/quizme" className="sidebarbutton">
+                    <img
+                        className="sidebaricon"
+                        src="./imgs/svgs/quiz.svg"
+                        alt="Quiz Me"
+                    />
+                    Quiz Me
+                </Link>
+                <Link to="/flashcards" className="sidebarbutton">
+                    <img
+                        className="sidebaricon"
+                        src="./imgs/svgs/cards.svg"
+                        alt="Flashcards"
+                    />
+                    Flashcards
+                </Link>
+                <Link to="/sessions" className="sidebarbutton">
+                    <img
+                        className="sidebaricon"
+                        src="./imgs/svgs/sessions.svg"
+                        alt="Sessions"
+                    />
+                    Sessions
+                </Link>
+                <Link to="/schedule" className="sidebarbutton" id='schedule'>
+                    <img
+                        className="sidebaricon"
+                        src="./imgs/add.png"
+                        alt="Flashcards"
+                    />
+                    Generate Schedule
+                  </Link>
+                <div className="helpbuttonsdiv">
+                    <a className="helplink" href="#">
+                        <img
+                            className="helpbuttons"
+                            src="./imgs/svgs/help.svg"
+                            alt="Help"
+                        />
+                        <p className="phelpbuttons">Help</p>
+                    </a>
+                </div>
+                <div className="helpbuttonsdiv">
+                    <a className="helplink" href="#">
+                        <img
+                            className="helpbuttons"
+                            src="./imgs/svgs/feedback.svg"
+                            alt="Feedback"
+                        />
+                        <p className="phelpbuttons">Feedback</p>
+                    </a>
+                </div>
+            </div>
 
       <div className="chat-box">
         <div className="chat-bot-title">

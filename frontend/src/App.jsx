@@ -5,6 +5,9 @@ import { Login } from "./pages/login.jsx";
 import { SignUp } from "./pages/signUp.jsx";
 import { Session } from "./pages/session.jsx"; 
 import { Quiz } from "./pages/quiz.jsx";
+import { Flashcards} from "./pages/flashcards.jsx";
+import {Calendar} from "./pages/calendar.jsx";
+import { Schedule } from './pages/schedule.jsx';
 
 function App() {
     return (
@@ -14,8 +17,12 @@ function App() {
                 <Route path="/" element={<Welcome />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
-                <Route path="/session" element={<Session />} />
+                <Route path="/sessions" element={<Session />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/flashcards" element={<Flashcards />} />
                 <Route path="/quizme" element={<Quiz />} />
+                <Route path="/schedule" element={<Schedule/>} />
+                
             </Routes>
         </Router>
     );

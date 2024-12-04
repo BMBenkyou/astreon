@@ -2,10 +2,10 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from "../components/headerLoggedin";
 import { Footer } from "../components/footer";
-import "./quiz.css";
+import "./flashcards.css";
 import "./sidebar.css";
 
-export function Quiz() {
+export function Flashcards() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const fileInputRef = useRef(null); // Reference for file input
@@ -100,7 +100,7 @@ export function Quiz() {
 
                 <div className="main-page-div">
                     <div className="main-age-title-div">
-                        <div className="page-title">Quiz</div>
+                        <div className="page-title">Flashcards</div>
                         <hr />
                     </div>
                     <div className="main-div-1">
@@ -124,10 +124,7 @@ export function Quiz() {
 
                             <br />
                             <div className="quiz-body-input-div">
-                                <div className="quiz-body-border">
-                                    <br />
-                                    <textarea className="quiz-body-text" id="lname" name="lname" placeholder="Enter your text here..."></textarea>
-                                </div>
+
                             </div>
 
                             <br></br>
