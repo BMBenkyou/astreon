@@ -7,14 +7,13 @@ import remarkGfm from 'remark-gfm'; // For GitHub Flavored Markdown support (lin
 import rehypeRaw from 'rehype-raw'; 
 import "./chatbox.css";
 
-
-
 export function ChatBox() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false); // Fix: Add this state
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState([]);
+  const [filePreviews, setFilePreviews] = useState([]); // Added: Manage file previews
   const [conversation, setConversation] = useState([
     { sender: 'ai', message: "Hi, I'm here to help you study. What would you like to learn today?" }
   ]);
@@ -37,13 +36,13 @@ export function ChatBox() {
   function RenderMessage({ msg }) {
     return (
       <div className="message-content">
-        {renderMessageContent(msg.message)} {/* Render the content */}
+        {renderMessageContent(msg.message)}
         {msg.files && msg.files.map((file, fileIndex) => (
           <div key={fileIndex} className="uploaded-file">📄 {file}</div>
         ))}
       </div>
     );
-}
+  }
 
   const handleFileUploadClick = () => setIsFileUploadModalOpen(true); // Fix: toggle file upload modal
   const handleImageUploadClick = () => setIsImageModalOpen(true);
@@ -51,17 +50,53 @@ export function ChatBox() {
   const handleCloseImageModal = () => setIsImageModalOpen(false);
   const handleCloseFileModal = () => setIsFileUploadModalOpen(false); // Fix: close file upload modal
 
+  // Modified file upload handling to include previews
   const handleFileUpload = (event) => {
-    const uploadedFiles = Array.from(event.target.files); 
-    setFiles(prevFiles => [...prevFiles, ...uploadedFiles]);
+    const uploadedFiles = Array.from(event.target.files);
+    const previews = uploadedFiles.map((file) => ({
+      name: file.name,
+      type: file.type,
+      url: file.type.startsWith("image") ? URL.createObjectURL(file) : null
+    }));
+    setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    setFilePreviews((prevPreviews) => [...prevPreviews, ...previews]);
     setIsModalOpen(false);
   };
 
   const handleImageUpload = (event) => {
     const uploadedImages = Array.from(event.target.files);
-    setFiles(prevFiles => [...prevFiles, ...uploadedImages]);
+    const previews = uploadedImages.map((image) => ({
+      name: image.name,
+      type: image.type,
+      url: URL.createObjectURL(image)
+    }));
+    setFiles((prevFiles) => [...prevFiles, ...uploadedImages]);
+    setFilePreviews((prevPreviews) => [...prevPreviews, ...previews]);
     setIsImageModalOpen(false);
   };
+
+  const handleCancelPreview = (event, index) => {
+    event.preventDefault();
+    console.log("Cancel preview for index:", index);
+    console.log("Files before cancel:", files);
+    console.log("Previews before cancel:", filePreviews);
+  
+    setFiles((prevFiles) => {
+      const updatedFiles = prevFiles.filter((_, i) => i !== index);
+      console.log("Files after cancel:", updatedFiles);
+      return updatedFiles;
+    });
+  
+    setFilePreviews((prevPreviews) => {
+      const updatedPreviews = [...prevPreviews];
+      const removedPreview = updatedPreviews.splice(index, 1)[0];
+      if (removedPreview.url) URL.revokeObjectURL(removedPreview.url);
+      console.log("Previews after cancel:", updatedPreviews);
+      return updatedPreviews;
+    });
+  };
+  
+  
 
   const handleSendMessage = async () => {
     if (!message.trim() && files.length === 0) return; // check if there is user input
@@ -71,7 +106,7 @@ export function ChatBox() {
 
     // Append each file to the FormData object
     files.forEach((file) => {
-        formData.append('files', file); //Append file object (returns non-file object from rest) 
+        formData.append('files', file); // Append file object
     });
 
     const userMessageEntry = { 
@@ -83,14 +118,11 @@ export function ChatBox() {
     setConversation(prevConversation => [...prevConversation, userMessageEntry]);
     setLoading(true); // Show loading animation
 
-    
-
-    const token = localStorage.getItem('authToken')
-    console.log(token)
+    const token = localStorage.getItem('authToken');
     try {
         const response = await fetch('http://localhost:8000/api/chat/', {
             method: 'POST',
-            headers:{
+            headers: {
               'Authorization': `Token ${token}`,
             },
             body: formData,
@@ -98,11 +130,11 @@ export function ChatBox() {
 
         const data = await response.json();
         if (response.ok) {
-            //fetch response 
             const aiMessageEntry = { sender: 'ai', message: data.text }; 
             setConversation(prevConversation => [...prevConversation, aiMessageEntry]);
             setMessage(''); 
             setFiles([]); 
+            setFilePreviews([]); // Clear previews after sending
         } else {
             setConversation(prevConversation => [
                 ...prevConversation,
@@ -208,31 +240,35 @@ return (
 
         <div className="chat-messages">
           {conversation.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender === 'ai' ? 'ai-message' : 'user-message'}`}>
-                  <RenderMessage msg={msg} />
-              </div>
-          ))} 
-        
+            <div
+              key={index}
+              className={`message ${
+                msg.sender === "ai" ? "ai-message" : "user-message"
+              }`}
+            >
+              <RenderMessage msg={msg} />
+            </div>
+          ))}
           {loading && <div className="loader"></div>}
         </div>
 
         <div className="chat-input-container">
-            <input
-                className="userinput"
-                type="text"
-                placeholder="Type a message or upload a file/image..."
-                id="userinput"
-                name="userinput"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
+          <input
+            className="userinput"
+            type="text"
+            placeholder="Type a message or upload a file/image..."
+            id="userinput"
+            name="userinput"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
             <div className="image-file-send">
-                <img
-                    className="uploadicon"
-                    src="./imgs/svgs/upload_image.svg"
-                    alt="Upload Image"
-                    onClick={handleImageUploadClick} 
-                />
+              <img
+                className="uploadicon"
+                src="./imgs/svgs/upload_image.svg"
+                alt="Upload Image"
+                onClick={handleImageUploadClick}
+              />
             </div>
 
             {isImageModalOpen && (
@@ -248,12 +284,12 @@ return (
 
             {/* Fix: File upload modal */}
             <div className="file-upload-container">
-                <img
-                    className="uploadicon"
-                    src="./imgs/svgs/upload_file.svg"
-                    alt="Upload File"
-                    onClick={handleFileUploadClick}
-                />
+              <img
+                className="uploadicon"
+                src="./imgs/svgs/upload_file.svg"
+                alt="Upload File"
+                onClick={handleFileUploadClick}
+              />
             </div>
         <button className="send-button" onClick={handleSendMessage}>
           Send
@@ -269,10 +305,26 @@ return (
                 </div>
             )}
         </div>
-
+        {filePreviews && filePreviews.length > 0 && (
+        <div className="file-previews-container">
+          {filePreviews.map((file, index) => (
+            <div key={index} className="file-preview">
+              {file.url ? (
+                <img src={file.url} alt={file.name} className="preview-thumbnail" />
+              ) : (
+                <p className="doc-preview">{file.name}</p>
+              )}
+              <button
+                className="cancel-button"
+                onClick={(e) => handleCancelPreview(e, index)}
+              >×</button>
+            </div>
+          ))}
+        </div>
+      )}
       </div>
     </div>
     <Footer />
   </div>
 );
-} 
+}

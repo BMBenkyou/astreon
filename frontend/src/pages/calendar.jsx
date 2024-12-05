@@ -20,7 +20,7 @@ export function Calendar() {
 
     const fetchSchedule = async () => {
         try {
-            const username = "berna"; // Replace with dynamic username
+            const username = "Hannes"; // Replace with dynamic username
             const response = await fetch(`http://localhost:8000/api/chat/schedule/${username}/`);
             if (response.ok) {
                 const data = await response.json();
