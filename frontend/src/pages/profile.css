@@ -1,0 +1,625 @@
+
+.main-page-div {
+
+  flex-direction: column;
+  width: 100%;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.page-title {
+  color: #1c170d;
+  text-align: left;
+  font-family: "Lexend-Bold", sans-serif;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+  margin-top:10px;
+  margin-bottom:10px;
+  font-weight:bold;
+}
+.main-div-profile-01 {
+  padding: 16px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex; /* Use flexbox to arrange calendars side by side */
+  justify-content: space-between; /* Space between calendars */
+  flex-wrap: wrap; /* Allow wrapping if needed */
+  border-bottom:#a08249;
+
+}
+.main-div-profile-02 {
+  padding: 16px;
+  flex-shrink: 0;
+  position: relative;
+  
+}
+
+/* Main Profile Css */
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+      "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+      "Source Han Sans CN", sans-serif;
+  }
+  
+  .user-profile-div {
+    overflow: hidden;
+  }
+  
+  .user-profile-div,
+  .user-profile-div * {
+    box-sizing: border-box;
+  }
+  
+  input,
+  select,
+  textarea,
+  button {
+    outline: 0;
+  }
+  
+  .main-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 876px;
+    margin: 0 auto;
+  }
+  .user-profile-info-div {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 16px;
+    position: relative;
+    width: 333px;
+  }
+  .profile-pic-div {
+    flex-shrink: 0;
+    position: relative;
+    width: 128px;
+    height: 128px;
+    min-height: 128px;
+    background: url(./assets/images/985510109970831b0a79c7764936398d2c31abf6.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 64px;
+  }
+  .user-information-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 189px;
+    height: 128px;
+    z-index: 2;
+  }
+  .username {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 189px;
+    height: 28px;
+    z-index: 3;
+  }
+  .text {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    min-width: 0;
+    height: 28px;
+    color: #1c160c;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 28px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 4;
+  }
+  .user-location {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 189px;
+    z-index: 5;
+  }
+  .location {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 24px;
+    color: #a08249;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 6;
+  }
+  .user-additional-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 189px;
+    z-index: 7;
+  }
+  .teaching-since {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    min-width: 0;
+    height: 24px;
+    color: #a08249;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 8;
+  }
+  .edit-button {
+    margin-top:50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    position: relative;
+    min-width: 84px;
+    height: 40px;
+    padding: 0 16px 0 16px;
+    cursor: pointer;
+    background: #f4efe5;
+    border: none;
+    z-index: 9;
+    overflow: hidden;
+    max-width: 480px;
+    border-radius: 12px;
+  }
+  .edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 27px;
+    z-index: 10;
+    overflow: hidden;
+  }
+  .edit-1 {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 21px;
+    color: #1c160c;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 11;
+    overflow: hidden;
+  }
+  
+
+  /*sub categories of the settings css*/
+  .sub-title {
+    color: #1C170D;
+    font-feature-settings: 'dlig' on;
+    font-family: "Space Grotesk";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 23px; /* 127.778% */
+    font-family: lexend;
+  }
+
+  .div-indented{
+    margin-top:20px;
+    margin-bottom:20px;
+  }
+
+  .input-title{
+    color: #1C170D;
+    font-feature-settings: 'dlig' on;
+    font-family: "Space Grotesk";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 24px; /* 150% */
+    
+  }
+  
+  .userinf-css-input{
+    border-radius: 12px;
+    background: #F5F0E5;
+    border: none;
+    height:40px;
+    width:600px;
+    padding-left:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    font-family: lexend;
+  }
+
+  .userinf-css-input:placeholder-shown{
+    color: #1C170D;
+    font-family: lexend;
+  }
+
+
+  /*login methods css*/
+ 
+  
+  input,
+  select,
+  textarea,
+  button {
+    outline: 0;
+  }
+  
+  .login-method-mainest-div {
+    width: 908px;
+    height: 170px;
+  }
+  .login-method-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 908px;
+    margin: 0 0 0 0;
+    padding: 4px 16px 12px 16px;
+ 
+  }
+  .login-method-desc-1 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    width: 876px;
+    min-width: 0;
+    height: 42px;
+    color: #a08249;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    text-align: left;
+    z-index: 1;
+    font-size: medium;
+  }
+  .full-google {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 908px;
+    height: 56px;
+    min-height: 56px;
+    margin: 0 0 0 0;
+    padding: 0 16px 0 16px;
+    z-index: 2;
+  }
+  .google {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 16px;
+    position: relative;
+    width: 110px;
+    z-index: 3;
+  }
+  .google-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: #f4efe5;
+    z-index: 4;
+    border-radius: 8px;
+  }
+  .google-logo {
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .vector {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0;
+    background: url(./assets/images/877935cc-e3bc-4869-b905-7cef6cc664fd.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 6;
+  }
+  .google-title-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    position: relative;
+    z-index: 7;
+    overflow: hidden;
+  }
+  .title {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 24px;
+    color: #1c160c;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 8;
+    overflow: hidden;
+  }
+  .trash-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 28px;
+    z-index: 9;
+  }
+  .trash-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    position: relative;
+    width: 28px;
+    z-index: 10;
+  }
+  .trash-icon {
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 11;
+    overflow: hidden;
+  }
+  .vector-2 {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0;
+    background: url(./assets/images/6a809ffe-bbbb-4452-b6b6-2f82617dece5.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 12;
+  }
+  .microsoft-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 908px;
+    height: 56px;
+    min-height: 56px;
+    margin: 0 0 0 0;
+    padding: 0 16px 0 16px;
+    z-index: 13;
+  }
+  .microsoft-main {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 16px;
+    position: relative;
+    width: 178px;
+    z-index: 14;
+  }
+  .microsoft-frame-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: #f4efe5;
+    z-index: 15;
+    border-radius: 8px;
+  }
+  .mdi-microsoft {
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 16;
+    overflow: hidden;
+  }
+  .vector-3 {
+    position: relative;
+    width: 19px;
+    height: 19px;
+    margin: 3px 0 0 2px;
+    background: url(./assets/images/b5a4abf4-7049-41fe-bae9-a830f6389abc.png)
+      no-repeat center;
+    background-size: 100% 100%;
+    z-index: 17;
+  }
+  .microsoft-title-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    position: relative;
+    min-width: 0;
+    z-index: 18;
+    overflow: hidden;
+  }
+  .microsoft {
+    align-self: stretch;
+    flex-shrink: 0;
+    flex-basis: auto;
+    position: relative;
+    height: 24px;
+    color: #1c160c;
+    font-family: Space Grotesk, var(--default-font-family);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 19;
+    overflow: hidden;
+  }
+  .trash-div-microsoft {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    width: 28px;
+    z-index: 20;
+  }
+  .trash-frame-microsoft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    position: relative;
+    width: 28px;
+    z-index: 21;
+  }
+  .trash-icon-microsoft {
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    z-index: 22;
+    overflow: hidden;
+  }
+  
+  /*change password css*/
+  .userinf-css-input-pass{
+    border-radius: 12px;
+    border: 1px solid #E8DECF;
+    background: #FFF;
+    display: flex;
+    height: 56px;
+    padding: 15px;
+    align-items: center;
+    align-self: stretch;
+    width:600px;
+    font-family: lexend;
+
+  }
+
+  .new-password-button{
+    margin-top: 20px;
+    border-radius: 12px;
+    background: #F5F0E5;
+    display: flex;
+    height: 40px;
+    font-weight:bold;
+    font-size: medium;
+    width:600px;
+    padding: 0px 16px;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+    border: none;
+  }
+
+  /*delete acc css*/
+  .delete-desc{
+    color: #1C170D;
+    font-feature-settings: 'dlig' on;
+    font-family: "Space Grotesk";
+    font-size: medium;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px; 
+  }
+
+  .delete-acc-button{
+    margin-top:20px;
+    overflow: hidden;
+    color: #C03232;
+    text-align: center;
+    font-feature-settings: 'dlig' on;
+    text-overflow: ellipsis;
+    font-family: "Space Grotesk";
+    font-size: medium;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px; /* 150% */
+
+    border-radius: 12px;
+    border: 1px solid #1C170D;
+    width: 600px;
+    height:40px;
+    background-color:white;
+  }

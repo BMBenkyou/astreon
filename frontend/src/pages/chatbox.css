@@ -96,7 +96,7 @@ loader {
   flex: 1; /* Allow this section to grow */
   overflow-y: auto; /* Enable scrolling if messages exceed height */
   padding: 20px; /* Adjust padding as needed */
-  background-color: #f8f9fa; /* Background for contrast */
+  background-color: #f7f7f7; /* Background for contrast */
   border-radius: 8px; /* Add border radius for softer edges */
   width: 100%; /* Use full width of the parent container */
 
@@ -107,7 +107,7 @@ loader {
   gap: 10px;
   padding: 10px;
   border-top: 1px solid #ddd;
-  background-color: white;
+  background-color: #f7f7f7;
   width: 100%;
   align-items: center; /* Vertically center content */
 }

@@ -117,11 +117,7 @@
 }
 
 /* Layout for Two Calendars Side by Side */
-.main-div-01 {
-  display: flex; /* Use flexbox to arrange calendars side by side */
-  justify-content: space-between; /* Space between calendars */
-  flex-wrap: wrap; /* Allow wrapping if needed */
-}
+
 
 /* Media Query for Responsive Design */
 @media (max-width: 768px) {
@@ -162,3 +158,4 @@
 .next-buttons-calendar:hover{
   cursor: pointer;
 }
+
