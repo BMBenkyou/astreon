@@ -37,13 +37,13 @@ export function ChatBox() {
   function RenderMessage({ msg }) {
     return (
       <div className="message-content">
-        {renderMessageContent(msg.message)}
+        {renderMessageContent(msg.message)} {/* Render the content */}
         {msg.files && msg.files.map((file, fileIndex) => (
           <div key={fileIndex} className="uploaded-file">📄 {file}</div>
         ))}
       </div>
     );
-  }
+}
 
   const handleFileUploadClick = () => setIsFileUploadModalOpen(true); // Fix: toggle file upload modal
   const handleImageUploadClick = () => setIsImageModalOpen(true);
@@ -92,7 +92,6 @@ export function ChatBox() {
             method: 'POST',
             headers:{
               'Authorization': `Token ${token}`,
-             
             },
             body: formData,
         });
