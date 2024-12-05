@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "../components/headerLoggedin";
 import { Footer } from "../components/footer";
 import "./quiz.css";
@@ -8,25 +8,28 @@ import "./sidebar.css";
 export function Quiz() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
-    const fileInputRef = useRef(null); // Reference for file input
-    const imageInputRef = useRef(null); // Reference for image input
+    const [quizTitle, setQuizTitle] = useState("");
+    const [quizPrompt, setQuizPrompt] = useState("");
+    const [statusMessage, setStatusMessage] = useState(""); // For feedback to the user
+
+    const fileInputRef = useRef(null);
+    const imageInputRef = useRef(null);
 
     const handleCancel = () => {
-        // Logic for cancel button (e.g., reset the form or navigate away)
-        console.log("Cancel button clicked");
-    };
-
-    const handleNext = () => {
-        // Logic for next button (e.g., validate inputs and proceed to the next step)
-        console.log("Next button clicked");
+        // Clear form inputs
+        setSelectedFile(null);
+        setSelectedImage(null);
+        setQuizTitle("");
+        setQuizPrompt("");
+        setStatusMessage("");
     };
 
     const handleFileUpload = () => {
-        fileInputRef.current.click(); // Trigger file input click
+        fileInputRef.current.click();
     };
 
     const handleImageUpload = () => {
-        imageInputRef.current.click(); // Trigger image input click
+        imageInputRef.current.click();
     };
 
     const handleFileChange = (event) => {
@@ -35,6 +38,57 @@ export function Quiz() {
 
     const handleImageChange = (event) => {
         setSelectedImage(event.target.files[0]);
+    };
+
+    const handleNext = async (event) => {
+    event.preventDefault(); // Prevent the form from submitting and appending to the URL
+
+    // Validate inputs
+    if (!quizTitle || !quizPrompt) {
+        setStatusMessage("Title and prompt are required.");
+        return;
+    }
+
+    if (!selectedFile && !selectedImage) {
+        setStatusMessage("Please upload at least one file or image.");
+        return;
+    }
+
+    // Prepare form data
+    const formData = new FormData();
+    if (selectedFile) {
+        formData.append("files", selectedFile);
+    }
+    if (selectedImage) {
+        formData.append("images", selectedImage);
+    }
+    formData.append("action", "generate_quiz");
+    formData.append("fname", quizTitle);
+    formData.append("lname", quizPrompt);
+    const token = localStorage.getItem('authToken')
+
+        // Send data to the backend
+        try {
+            const response = await fetch("http://localhost:8000/api/chat/", {
+                method: "POST",
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setStatusMessage("Quiz generated successfully!");
+                console.log(data); 
+            } else {
+                setStatusMessage(data.error_message || "Failed to generate quiz.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setStatusMessage("An error occurred while generating the quiz.");
+        }
     };
 
     return (
@@ -104,86 +158,97 @@ export function Quiz() {
                         <hr />
                     </div>
                     <div className="main-div-1">
-                        <form>
-                            <div className="title-body-div">
-                                <div className="title-main-border">
-                                   <br />
-                                    <input className="title-input" type="text" id="fname" name="fname" placeholder="Title" />
-                                    <div className="title-div-chat-icon">
-                                        <div className="chat-icon-div">
-                                            <img
-                                                className="vector"
-                                                src="./imgs/svgs/chatIcon.svg"
-                                                alt="quizchaticon"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
+                        <form onSubmit={(e) => e.preventDefault()}>
+    <div className="title-body-div">
+        <div className="title-main-border">
+            <br />
+            <input 
+                className="title-input" 
+                type="text" 
+                id="fname" 
+                name="fname" 
+                placeholder="Title" 
+                value={quizTitle}
+                onChange={(e) => setQuizTitle(e.target.value)} 
+            />
+            <div className="title-div-chat-icon">
+                <div className="chat-icon-div">
+                    <img
+                        className="vector"
+                        src="./imgs/svgs/chatIcon.svg"
+                        alt="quizchaticon"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <br />
-                            <div className="quiz-body-input-div">
-                                <div className="quiz-body-border">
-                                    <br />
-                                    <textarea className="quiz-body-text" id="lname" name="lname" placeholder="Enter your text here..."></textarea>
-                                </div>
-                            </div>
+    <br />
+    <div className="quiz-body-input-div">
+        <div className="quiz-body-border">
+            <br />
+            <textarea 
+                className="quiz-body-text" 
+                id="lname" 
+                name="lname" 
+                placeholder="Generate me a 10 question quiz about this"
+                value={quizPrompt}
+                onChange={(e) => setQuizPrompt(e.target.value)}
+            ></textarea>
+        </div>
+    </div>
 
-                            <br></br>
+    <br></br>
 
-                            <span className="upload-label" onClick={handleFileUpload}>
-                                <div className="upload-icon-div">
-                                    <img
-                                        className="quiz-upload-css"
-                                        src="./imgs/svgs/UploadFile.svg"
-                                        alt="quizuploadfile"
-                                    />
-                                </div>
-                                Upload a File
-                            </span>
+    <span className="upload-label" onClick={handleFileUpload}>
+        <div className="upload-icon-div">
+            <img
+                className="quiz-upload-css"
+                src="./imgs/svgs/UploadFile.svg"
+                alt="quizuploadfile"
+            />
+        </div>
+        Upload a File
+    </span>
 
-                            <br />
+    <br />
 
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: 'none' }} // Hide the file input
-                                onChange={handleFileChange} // Handle file selection
-                            />
+    <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }} 
+        onChange={handleFileChange} 
+    />
 
-                            <span className="upload-label" onClick={handleImageUpload}>
-                                <div className="upload-icon-div">
-                                    <img 
-                                        className="quiz-upload-css"
-                                        src="./imgs/svgs/Uploadimg.svg"
-                                        alt="quizuploadimage"
-                                    />
-                                </div>
+    <span className="upload-label" onClick={handleImageUpload}>
+        <div className="upload-icon-div">
+            <img 
+                className="quiz-upload-css"
+                src="./imgs/svgs/Uploadimg.svg"
+                alt="quizuploadimage"
+            />
+        </div>
+        Upload an Image
+    </span>
 
-                                Upload an Image
-                            </span>
+    <input
+        type="file"
+        ref={imageInputRef}
+        accept="image/*"
+        style={{ display: 'none' }} 
+        onChange={handleImageChange} 
+    />
 
-                            <input
-                                type="file"
-                                ref={imageInputRef}
-                                accept="image/*" // Restrict to image files
-                                style={{ display: 'none' }} // Hide the image input
-                                onChange={handleImageChange} // Handle image selection
-                            />
+    <div className="button-container">
+        <button type="button" onClick={handleCancel} className="cancel-button">
+            Cancel
+        </button>
+        <button type="button" onClick={handleNext} className="next-button">
+            Next
+        </button>
+    </div>
+</form>
 
-                            {/* Buttons and Upload Labels */}
-                            <div className="button-container">
-
-
-                                <button type="button" onClick={handleCancel} className="cancel-button">
-                                    Cancel
-                                </button>
-                                <button type="button" onClick={handleNext} className="next-button">
-                                    Next
-                                </button>
-                            </div>
-                        </form>
                     </div>
                     <div className="main-div-2">
                         {selectedFile && (

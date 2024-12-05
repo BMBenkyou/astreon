@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "../components/headerLoggedin";
 import { Footer } from "../components/footer";
-
 import "./calendar.css";
 import "./sidebar.css";
 
@@ -10,10 +9,29 @@ export function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [daysInMonth, setDaysInMonth] = useState(0);
     const [firstDay, setFirstDay] = useState(0);
+    const [schedule, setSchedule] = useState({});
+    const [selectedDay, setSelectedDay] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         updateCalendar();
+        fetchSchedule(); // Fetch schedule when component mounts
     }, [currentDate]);
+
+    const fetchSchedule = async () => {
+        try {
+            const username = "berna"; // Replace with dynamic username
+            const response = await fetch(`http://localhost:8000/api/chat/schedule/${username}/`);
+            if (response.ok) {
+                const data = await response.json();
+                setSchedule(data);
+            } else {
+                console.error("Failed to fetch schedule");
+            }
+        } catch (error) {
+            console.error("Error fetching schedule:", error);
+        }
+    };
 
     const updateCalendar = () => {
         const year = currentDate.getFullYear();
@@ -32,24 +50,58 @@ export function Calendar() {
             calendarDays.push(<div className="day empty" key={`empty-${i}`}></div>);
         }
         for (let day = 1; day <= daysInMonth; day++) {
-            calendarDays.push(
-                <div className="day" key={day}>
-                    {day}
-                </div>
-            );
-        }
-        return calendarDays;
-    };
+            const date = new Date(Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), day))
+                .toISOString()
+                .split("T")[0]; // Format date as "YYYY-MM-DD"
+            const isScheduled = schedule[date]; // Check if the day has tasks
+            const isToday = date === new Date().toISOString().split("T")[0];
 
+            calendarDays.push(
+            <div
+                className={`day ${isScheduled ? "scheduled" : ""} ${isToday ? "today" : ""}`}
+                key={day}
+                onClick={() => openModal(date)}
+            >
+                {day}
+                {isScheduled && <div className="dot"></div>} {/* Add a visual indicator */}
+            </div>
+        );
+    }
+    return calendarDays;
+};
     const changeMonth = (increment) => {
         const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + increment, 1);
         setCurrentDate(newDate);
     };
+    const openModal = (date) => {
+        setSelectedDay(date);
+        setIsModalOpen(true); // Open the modal
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false); // Close the modal
+    };
+
+    const renderTasks = () => {
+        if (!selectedDay || !schedule[selectedDay]) return <p>No tasks for this day.</p>;
+
+        return (
+        <div className="schedule-grid">
+            {schedule[selectedDay].map((task, index) => (
+                <div key={index} className="schedule-item">
+                    <div className="schedule-time">{task.time}</div>
+                    <div className="schedule-description">{task.description}</div>
+                </div>
+            ))}
+        </div>
+    );
+}; 
+
     return (
         <div className="body">
             <Header />
             <div className="grid">
-                {/* Sidebar */}
+                <div className="sidebar">
                 <div className="sidebar">
                     <Link to="/chatbox" className="sidebarbutton">
                         <img className="sidebaricon" src="./imgs/svgs/aichat.svg" alt="AI Study" />
@@ -79,9 +131,9 @@ export function Calendar() {
                             <p className="phelpbuttons">Feedback</p>
                         </a>
                     </div>
+                </div> 
                 </div>
 
-      
                 <div className="main-page-div">
                     <div className="main-age-title-div">
                         <div className="page-title">Daily Progression</div>
@@ -92,52 +144,43 @@ export function Calendar() {
                             <div className="calendar-header-title">
                                 <div className="calendar-title-div">
                                     <span className="calendar-purpose-name">Normal Calendar</span>
-                                    </div>
-                                    <div className="calendar-nav">
-                                        <button className="next-buttons-calendar" onClick={() => changeMonth(-1)}>&lt;</button>
-                                        <span>{currentDate.toLocaleString("default", { month: "long", year: "numeric" })}</span>
-                                        <button className="next-buttons-calendar" onClick={() => changeMonth(1)}>&gt;</button>
-                                    </div>
-                            </div>
-                                <div className="calendar-grid">
-                                    <div className="calendar-weekdays">
-                                        <div className="weekday">Sun</div>
-                                        <div className="weekday">Mon</div>
-                                        <div className="weekday">Tues</div>
-                                        <div className="weekday">Wed</div>
-                                        <div className="weekday">Thurs</div>
-                                        <div className="weekday">Fri</div>
-                                        <div className="weekday">Sat</div>
-                                    </div>
-                                         <div className="calendar-days">{renderCalendar()}</div>
                                 </div>
+                                <div className="calendar-nav">
+                                    <button className="next-buttons-calendar" onClick={() => changeMonth(-1)}>
+                                        &lt;
+                                    </button>
+                                    <span>{currentDate.toLocaleString("default", { month: "long", year: "numeric" })}</span>
+                                    <button className="next-buttons-calendar" onClick={() => changeMonth(1)}>
+                                        &gt;
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="calendar-grid">
+                                <div className="calendar-weekdays">
+                                    <div className="weekday">Sun</div>
+                                    <div className="weekday">Mon</div>
+                                    <div className="weekday">Tues</div>
+                                    <div className="weekday">Wed</div>
+                                    <div className="weekday">Thurs</div>
+                                    <div className="weekday">Fri</div>
+                                    <div className="weekday">Sat</div>
+                                </div>
+                                <div className="calendar-days">{renderCalendar()}</div>
+                            </div>
                         </div>
 
-                        <div className="calendar-border">
-                            <div className="calendar-header-title">
-                                <div className="calendar-title-div">
-                                    <span className="calendar-purpose-name">Progression Calendar</span>
+                        {/* Modal for Selected Day Tasks */}
+                        {isModalOpen && (
+                            <div className="modal">
+                                <div className="modal-content">
+                                    <h3>Tasks for {selectedDay || "the day"}</h3>
+                                    {renderTasks()}
+                                    <button className="close-modal" onClick={closeModal}>
+                                        Close
+                                    </button>
                                 </div>
-                                    <div className="calendar-nav">
-                                        <button className="next-buttons-calendar" onClick={() => changeMonth(-1)}>&lt;</button>
-                                        <span>{currentDate.toLocaleString("default", { month: "long", year: "numeric" })}</span>
-                                        <button className="next-buttons-calendar" onClick={() => changeMonth(1)}>&gt;</button>
-                                    </div>
                             </div>
-                                <div className="calendar-grid">
-                                    <div className="calendar-weekdays">
-                                        <div className="weekday">Sun</div>
-                                        <div className="weekday">Mon</div>
-                                        <div className="weekday">Tues</div>
-                                        <div className="weekday">Wed</div>
-                                        <div className="weekday">Thurs</div>
-                                        <div className="weekday">Fri</div>
-                                        <div className="weekday">Sat</div>
-                                    </div>
-                                         <div className="calendar-days">{renderCalendar()}</div>
-                                </div>
-                        </div>
-
+                        )}
                     </div>
                 </div>
             </div>
