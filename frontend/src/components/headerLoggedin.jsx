@@ -1,5 +1,7 @@
+
 import { Button } from "../components/button";
 import { ButtonGroup } from "./buttonGroup";
+import { Link } from 'react-router-dom';
 import "./headerLoggedin.css";
 
 export function Header({ buttons }) {
@@ -7,23 +9,47 @@ export function Header({ buttons }) {
         <header>
             <div className="Headercontainer">
                 <div className="titleheader">
-                    <p className="header">Astreon Study Buddy</p>
+                    <h1 className="header-title">Astreon Study Buddy</h1>
                 </div>
                 <div className="logindiv">
-                    <input className="SearchButton" type="text" placeholder="Search" id="search" name="search" />
-                    <button className="sessionbutton">Add to Notebook</button>
-                    <a href="#"><img className="iconButton" src="./imgs/svgs/notification.svg" alt="Notification" /></a>
-                    <Link to="/calendar" className="sidebarbutton">
-                    <img
-                        className="sidebaricon"
-                        src="./imgs/svgs/calendar.svg"
-                        alt="Sessions"
-                    />
-                </Link> 
-                    <a href="#"><img className="profile" src="./imgs/profile.png" alt="Profile" /></a>
+                   
+                    <button className="sessionbutton">New Study Session</button>
+                   
+                    <Link to="/notification">
+                    <div className="headerBox">
+                       
+                            <img 
+                                className="iconButton" 
+                                src="./imgs/svgs/notification.svg" 
+                                alt="Notification" 
+                                title="Notification"
+                            />
+                       
+                    </div>
+                    </Link>
+                        <Link to="/calendar">
+                        <div  className="headerBox">
+                                <img 
+                                    className="iconButton" 
+                                    src="./imgs/svgs/calendar.svg" 
+                                    alt="Calendar" 
+                                    title="Calendar"
+                                />
+                        </div>
+                        </Link>
+
+
+                    <Link to="/profile">
+                        <img 
+                            className="profile" 
+                            src="./imgs/profile.png" 
+                            alt="Profile" 
+                            title="Profile"
+                        />
+                    </Link>
                 </div>
             </div>
-            <hr className="header-hr"></hr>
+            
         </header>
     );
 }
