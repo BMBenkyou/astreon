@@ -115,8 +115,20 @@ class StudyPlan(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="study_plans")
     day_of_the_week = models.CharField(max_length=3, choices=Schedule.DAYS_OF_WEEK)
     start_time = models.TimeField()
-    end_time = models.TimeField()
+    end_time = models.TimeField(null=True)
     task = models.TextField()  
     
     def __str__(self):
         return f"Study task on {self.get_day_of_the_week_display()} ({self.start_time})-{self.end_time}"
+
+class Quiz(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="quizzes")
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    file = models.FileField(upload_to="uploads/quiz/", blank=True, null=True)
+    image = models.ImageField(upload_to="uploads/quiz/", blank=True, null=True)
+    generated_content = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
