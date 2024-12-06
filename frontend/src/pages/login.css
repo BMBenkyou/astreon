@@ -10,6 +10,12 @@ h2 {
 .login_form a{
   color:#a1824a;
 }
+.submit_btns{
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 400;
+}
 
 .login_form input[type=text], .login_form input[type=password]  {
   display: block;

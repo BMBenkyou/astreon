@@ -1,9 +1,10 @@
 from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from .serializers import ChatMessageSerializer
+from .serializers import ChatMessageSerializer,SessionSerializer,QuizSerializer
 import google.generativeai as genai
-from users.models import Prompt, CustomUser,StudyPlan,Quiz 
+from users.models import Prompt, CustomUser,StudyPlan,Quiz,Session 
 import markdown2
 from datetime import datetime
 import os
@@ -12,6 +13,9 @@ import json
 import bleach
 import logging
 import re 
+from django.http import JsonResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 from bs4 import BeautifulSoup
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseNotFound
@@ -43,6 +47,9 @@ class ChatWithGeminiView(generics.CreateAPIView):
         images = request.FILES.getlist("images")  # Get list of images
         title = request.data.get("fname")  # Quiz title
         quiz_prompt = request.data.get("lname")  # Quiz prompt
+        quiz_prompt += " Provide the response in JSON format, structured as a list of questions, where each question includes a 'question' field and an 'answers' field. The 'answers' field should be a list of four answer options, with one marked as correct."
+        print(quiz_prompt)
+
 
         if not title:
             return Response(
@@ -92,13 +99,17 @@ class ChatWithGeminiView(generics.CreateAPIView):
         return Response(response, status=status.HTTP_200_OK)
 
     def save_quiz_to_db(self, user, quiz_title, user_prompt, response, files, images):
+
+        soup = BeautifulSoup(response, "html.parser")
+        plain_text = soup.get_text()
+        quiz_response_formatted = plain_text.strip("json").strip()
         """Save quiz data to the database."""
         # Select the first file or image if available
         file_to_save = files[0] if files else None
         image_to_save = images[0] if images else None
 
         # Clean response content before saving
-        clean_response = clean_html(response)
+    
 
         # Create and save quiz
         quiz = Quiz(
@@ -107,9 +118,25 @@ class ChatWithGeminiView(generics.CreateAPIView):
             body=user_prompt,
             file=file_to_save,
             image=image_to_save,
-            generated_content=clean_response,
+            questions=quiz_response_formatted,
         )
         quiz.save()
+
+        session = Session(
+                    user=user,
+                    category="quiz",
+                    title=quiz_title,
+                    quiz=quiz,
+                )
+        session.save()
+
+        return Response({
+        'quiz_id': quiz.id,
+        'session_id': session.id,
+        'session_title': session.title,
+        'session_category': session.category,
+    })
+        logger.debug(f"Session created for {quiz_title} under quiz category.")
         logger.debug("Quiz saved successfully.")
 
 
@@ -364,3 +391,25 @@ def get_user_schedule(request, username):
         return JsonResponse(eval(study_plan_data))  # Convert string to JSON and return
     else:
         return HttpResponseNotFound("Schedule not found.")
+
+
+class UserSessionsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        sessions = Session.objects.filter(user=request.user)
+        serializer = SessionSerializer(sessions, many=True)
+        return Response(serializer.data)
+
+
+
+
+class QuizListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Fetch quizzes for the authenticated user
+        quizzes = Quiz.objects.filter(user=request.user)
+        serializer = QuizSerializer(quizzes, many=True)
+        lookup_field = 'id'
+        return Response(serializer.data)

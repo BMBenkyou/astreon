@@ -1,0 +1,51 @@
+<p>This study plan prioritizes longer study blocks where possible, incorporating short breaks.  It assumes a reasonable commute time is already factored into the gaps between classes.  Specific subjects to study during these slots should be adjusted based on individual priorities and workload.</p>
+
+<p><strong>Monday:</strong></p>
+
+<ul>
+<li><strong>9:00 AM - 11:30 AM (2.5 hours):</strong>  Study block.  Focus on a demanding subject like Algorithms and Complexity or Readings in Philippine History.</li>
+<li><strong>1:00 PM - 2:30 PM (1.5 hours):</strong> Study block.  Good for a shorter subject review or catching up on lighter reading.</li>
+<li><strong>6:00 PM onwards:</strong> Flexible time for longer study sessions or other activities.</li>
+</ul>
+
+<p><strong>Tuesday:</strong></p>
+
+<ul>
+<li><strong>11:30 AM - 1:00 PM (1.5 hours):</strong> Study block.  Suitable for a subject needing focused attention.</li>
+<li><strong>3:00 PM - 4:00 PM (1 hour):</strong> Study block.  Ideal for a quick review or light reading.</li>
+<li><strong>5:30 PM onwards:</strong> Flexible time for longer study sessions or other activities.</li>
+</ul>
+
+<p><strong>Wednesday:</strong></p>
+
+<ul>
+<li><strong>9:00 AM - 11:30 AM (2.5 hours):</strong> Study block.  Similar to Monday's morning slot.</li>
+<li><strong>1:00 PM - 2:30 PM (1.5 hours):</strong> Study block.  Similar to Monday's afternoon slot.</li>
+<li><strong>6:00 PM onwards:</strong> Flexible time for longer study sessions or other activities.</li>
+</ul>
+
+<p><strong>Thursday:</strong></p>
+
+<ul>
+<li><strong>9:00 AM - 10:00 AM (1 hour):</strong> Study block.  Suitable for a quick review or focused work on a specific problem.</li>
+<li><strong>11:30 AM - 1:00 PM (1.5 hours):</strong> Study block.  Allows for dedicated study time.</li>
+<li><strong>4:00PM - 5:30 PM (1.5 hours):</strong> Study block.  Similar to Tuesday's late afternoon slot.</li>
+<li><strong>5:30 PM onwards:</strong> Flexible time for longer study sessions or other activities.</li>
+</ul>
+
+<p><strong>Friday:</strong></p>
+
+<ul>
+<li><strong>Entire day:</strong>  This is a full day dedicated to studying. Prioritize subjects needing the most attention or those you find most challenging. Break this into smaller study blocks with regular breaks to maintain focus and avoid burnout.</li>
+</ul>
+
+<p><strong>Important Considerations:</strong></p>
+
+<ul>
+<li><strong>Breaks:</strong>  Incorporate short breaks (5-10 minutes) between study blocks to prevent mental fatigue.</li>
+<li><strong>Subject Prioritization:</strong> This plan provides the time; you need to decide which subject gets prioritized in each slot based on deadlines, difficulty, and your personal learning style.</li>
+<li><strong>Flexibility:</strong>  This is a template.  Adjust it based on your energy levels, understanding of the material, and unforeseen circumstances.</li>
+<li><strong>Weekend Study:</strong>  The plan does not include weekends, which should also be utilized for studying.</li>
+</ul>
+
+<p>Remember to schedule regular breaks and ensure you get sufficient sleep to optimize your study time.  This schedule aims to maximize your available time effectively, but the success depends on effective time management and consistent effort.</p>

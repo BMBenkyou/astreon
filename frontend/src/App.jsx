@@ -8,7 +8,8 @@ import { Quiz } from "./pages/quiz.jsx";
 import { Flashcards} from "./pages/flashcards.jsx";
 import {Calendar} from "./pages/calendar.jsx";
 import { Schedule } from './pages/schedule.jsx';
-
+import { QuizList } from './pages/quizList.jsx';
+import { FlashcardsList } from './pages/flashcardsList.jsx';
 function App() {
     return (
         <Router>
@@ -22,6 +23,10 @@ function App() {
                 <Route path="/flashcards" element={<Flashcards />} />
                 <Route path="/quizme" element={<Quiz />} />
                 <Route path="/schedule" element={<Schedule/>} />
+                <Route path="/sessions" element={<Session />} />
+                <Route path="/quizlist" element={<QuizList />} />
+                <Route path="/flashcardslist" element={<FlashcardsList />} />
+              
                 
             </Routes>
         </Router>

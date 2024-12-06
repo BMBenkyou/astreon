@@ -64,10 +64,6 @@ box-sizing: border-box;
   overflow: hidden;
 }
 
-.session-main-div{
-
-}
-
 .session-frame {
 overflow: hidden;
 }
@@ -338,3 +334,4 @@ overflow: hidden;
   column-gap:10px;
   gap:50px;
 }
+

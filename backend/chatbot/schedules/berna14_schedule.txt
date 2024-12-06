@@ -35,4 +35,6 @@
 
 <p><strong>Friday:</strong></p>
 
-<p>(No scheduled classes)</p>
+<ul>
+<li>(No scheduled classes)</li>
+</ul>

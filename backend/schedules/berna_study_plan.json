@@ -1,0 +1,24 @@
+{
+  "2024-12-04": [
+    { "time": "9:00 AM - 11:30 AM", "description": "Study Reading Visual Art" },
+    { "time": "1:00 PM - 2:30 PM", "description": "Study Science, Technology and Society" },
+    { "time": "6:00 PM onwards", "description": "Study Information Management LAB or review" }
+  ],
+  "2024-12-05": [
+    { "time": "11:30 AM - 1:00 PM", "description": "Study Probability & Statistics" },
+    { "time": "3:00 PM - 4:00 PM", "description": "Shorter subject review" }
+  ],
+  "2024-12-06": [
+    { "time": "9:00 AM - 11:30 AM", "description": "Study Reading Visual Art" },
+    { "time": "1:00 PM - 2:30 PM", "description": "Study Algorithms and Complexity" },
+    { "time": "6:00 PM onwards", "description": "Study Readings in Philippine History" }
+  ],
+  "2024-12-07": [
+    { "time": "9:00 AM - 10:00 AM", "description": "Study Science, Technology and Society" },
+    { "time": "11:30 AM - 1:00 PM", "description": "Study Information Management LEC" },
+    { "time": "5:30 PM onwards", "description": "Longer study block (flexible)" }
+  ],
+  "2024-12-08": [
+    { "time": "All day", "description": "Study any subject needing more attention or review all subjects." }
+  ]
+}

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import UserFile
+from users.models import Session,Quiz
 
 class UserFileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +25,15 @@ class VerifyEmailSerializer(serializers.Serializer):
         if not value:
             raise serializers.ValidationError(_("This field is required."))
         return value
+
+
+class SessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ['id', 'user', 'category', 'title', 'created_at', 'updated_at']
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ['id', 'title', 'questions', 'created_at']

@@ -127,8 +127,26 @@ class Quiz(models.Model):
     body = models.TextField()
     file = models.FileField(upload_to="uploads/quiz/", blank=True, null=True)
     image = models.ImageField(upload_to="uploads/quiz/", blank=True, null=True)
-    generated_content = models.TextField(blank=True, null=True)
+    questions = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+
+class Session(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link the session to a user
+    CATEGORY_CHOICES = [
+        ('quiz', 'Quiz'),
+        ('flashcard', 'Flashcard'),
+        # Add more categories as needed
+    ]
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, null=True)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True) 
+    title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+
+    def __str__(self):
+        return f"{self.title} - {self.user.username}"
