@@ -1055,3 +1055,60 @@ button {
   margin-top: 5px;
   font-size: 0.9em;
 }
+
+
+/* Container for previews */
+.file-previews-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows previews to wrap onto a new row */
+  gap: 10px; /* Space between previews */
+  padding: 10px; /* Spacing around the container */
+  border-bottom: 1px solid #ddd; /* Separate from the chat input */
+  background-color: #f8f9fa; /* Light background for contrast */
+}
+
+/* Individual preview */
+.file-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  max-width: 100px; /* Thumbnail size for both images and documents */
+}
+
+/* Thumbnail for images */
+.preview-thumbnail {
+  width: 100px; /* Set constant width */
+  height: 100px; /* Set constant height */
+  object-fit: cover; /* Crop image to fit the box */
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #ccc; /* Optional border for better visibility */
+}
+
+/* Document name styling */
+.doc-preview {
+  font-size: 12px;
+  text-align: center;
+  color: #555;
+  margin-top: 5px;
+  word-wrap: break-word; /* Handle long filenames */
+}
+
+/* Cancel button */
+.cancel-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: darkred;
+}
