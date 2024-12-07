@@ -83,8 +83,8 @@ export function Quiz() {
             if (response.ok) {
                 setStatusMessage("Quiz generated successfully!");
                 console.log(data);
-                // Redirect with data passed in state
-                navigate("/sessions", { state: { title: quizTitle, category: quizPrompt } });
+                navigate("/sessions");
+               
             } else {
                 setStatusMessage(data.error_message || "Failed to generate quiz.");
             }
