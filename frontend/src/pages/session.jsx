@@ -6,39 +6,36 @@ import "./session.css";
 import "./sidebar.css";
 
 export function Session() {
-    const { state } = useLocation(); // Retrieve the state passed from Quiz.jsx
     const [sessions, setSessions] = useState([]);
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    // Load saved sessions from localStorage on component mount
     useEffect(() => {
-        const savedSessions = localStorage.getItem("sessions");
-        if (savedSessions) {
-            setSessions(JSON.parse(savedSessions));
-        }
+        const fetchSessions = async () => {
+            setLoading(true);
+            const token = localStorage.getItem("authToken");
+            try {
+                const response = await fetch("http://localhost:8000/api/chat/session/", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sessions");
+                }
+                const data = await response.json();
+                setSessions(data);
+            } catch (error) {
+                setError(error.message || "An error occurred while fetching sessions");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSessions();
     }, []);
 
-    useEffect(() => {
-        if (state) {
-            // If quiz data exists, update the session
-            const { title, category } = state;
-            const newSession = {
-                id: Date.now(), // Create a unique ID based on the current timestamp
-                title: title,
-                subject: category,
-                percentage: 0, // You can update this as per your requirement
-            };
-
-            // Update sessions state and localStorage
-            const updatedSessions = [...sessions, newSession];
-            setSessions(updatedSessions);
-            localStorage.setItem("sessions", JSON.stringify(updatedSessions));
-        }
-    }, [state, sessions]);
-
-    const handleSessionClick = (sessionTitle, sessionCategory) => {
-        navigate(`/quiz?title=${sessionTitle}&category=${sessionCategory}`);
-    };
     return (
         <div className="body">
             <Header />
@@ -106,38 +103,45 @@ export function Session() {
                     </div>
 
                     <div className="session-main-div">
-                        <div className="grid-session">
-                            {sessions.map((session) => (
-                                <div key={session.id} className="session-border">
-                                    <div className="session-frame">
-                                        <div className="session-design">
-                                            <div className="session-bottom-frame"></div>
-                                            <button className="session-choice">
-                                                <div className="depth-frame">
-                                                    <div className="huge-icons-bot">
-                                                        <div className="group"></div>
+                        {loading ? (
+                            <p>Loading sessions...</p>
+                        ) : error ? (
+                            <p>Error: {error}</p>
+                        ) : (
+                            <div className="grid-session">
+                                {sessions.map((session) => (
+                                    <div key={session.id} className="session-border">
+                                        <div className="session-frame">
+                                            <div className="session-design">
+                                                <div className="session-bottom-frame"></div>
+                                                <button className="session-choice">
+                                                    <div className="depth-frame">
+                                                        <div className="huge-icons-bot">
+                                                            <div className="group"></div>
+                                                        </div>
                                                     </div>
+                                                    <div className="depth-frame-1">
+                                                        <span className="ai-study">{session.title}</span>
+                                                    </div>
+                                                </button>
+                                                <span className="subject-session-title">{session.subject}</span>
+                                                <button className="session-percentage">
+                                                    <div className="depth-frame-2">
+                                                        <div className="depth-frame-3"></div>
+                                                    </div>
+                                                    <div className="depth-frame-4">
+                                                        <span className="percentage">{session.percentage}%</span>
+                                                    </div>
+                                                </button>
+                                                <div className="session-options">
+                                                    <div className="charm-menu-kebab"></div>
                                                 </div>
-                                                <div className="depth-frame-1">
-                                                    <span className="ai-study">Quiz</span>
-                                                </div>
-                                            </button>
-                                            <Link to="/quizlist">
-                                            <span className="subject-session-title">{session.title}</span>
-                                            </Link>
-                                            <button className="session-percentage">
-                                                <div className="depth-frame-2">
-                                                    <div className="depth-frame-3"></div>
-                                                </div>
-                                                <div className="depth-frame-4">
-                                                    <span className="percentage">{session.percentage} %</span>
-                                                </div>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
