@@ -8,8 +8,10 @@ import { Quiz } from "./pages/quiz.jsx";
 import { Flashcards} from "./pages/flashcards.jsx";
 import {Calendar} from "./pages/calendar.jsx";
 import { Schedule } from './pages/schedule.jsx';
-import { QuizList } from './pages/quizList.jsx';
-import { FlashcardsList } from './pages/flashcardsList.jsx';
+import { Profile } from "./pages/profile.jsx";
+import {QuizList} from './pages/quizList';
+import { FlashcardList } from './pages/flashcardList.jsx';
+import { QuizSummary } from './pages/quizSummary';
 function App() {
     return (
         <Router>
@@ -24,8 +26,10 @@ function App() {
                 <Route path="/quizme" element={<Quiz />} />
                 <Route path="/schedule" element={<Schedule/>} />
                 <Route path="/sessions" element={<Session />} />
-                <Route path="/quizlist" element={<QuizList />} />
-                <Route path="/flashcardslist" element={<FlashcardsList />} />
+                 <Route path="/profile" element={<Profile />} />
+                 <Route path="/quiz-detail/:id" element={<QuizList />} />
+                <Route path="/flashcard-detail/:id" element={<FlashcardList />} /> 
+                <Route path="/quiz-summary" element={<QuizSummary />} />
               
                 
             </Routes>

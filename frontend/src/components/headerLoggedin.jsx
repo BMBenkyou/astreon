@@ -4,7 +4,7 @@ import { ButtonGroup } from "./buttonGroup";
 import { Link } from 'react-router-dom';
 import "./headerLoggedin.css";
 
-export function Header({ buttons }) {
+export function Header() {
     return (
         <header>
             <div className="Headercontainer">
@@ -12,8 +12,10 @@ export function Header({ buttons }) {
                     <h1 className="header-title">Astreon Study Buddy</h1>
                 </div>
                 <div className="logindiv">
-                   
+
+                    <Link to="/chatbox">
                     <button className="sessionbutton">New Study Session</button>
+                    </Link>
                    
                     <Link to="/notification">
                     <div className="headerBox">

@@ -1,0 +1,20 @@
+.generate-schedule-button {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover and click effects */
+  }
+  
+  .generate-schedule-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .generate-schedule-button:disabled {
+    background-color: #ccc; /* Light gray when disabled */
+    cursor: not-allowed; /* Show not-allowed cursor */
+  }
+  
