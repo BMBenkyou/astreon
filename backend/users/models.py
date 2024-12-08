@@ -133,6 +133,17 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+class FlashCards(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="flashcards")
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    file = models.FileField(upload_to="uploads/flashcards/", blank=True, null=True)
+    image = models.ImageField(upload_to="uploads/flashcards", blank=True, null=True)
+    questions = models.JSONField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 class Session(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link the session to a user
@@ -143,6 +154,7 @@ class Session(models.Model):
     ]
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, null=True)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True) 
+    flashcards = models.ForeignKey(FlashCards, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
