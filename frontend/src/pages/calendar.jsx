@@ -20,7 +20,12 @@ export function Calendar() {
 
     const fetchSchedule = async () => {
         try {
-            const username = "Hannes"; // Replace with dynamic username
+            const username = localStorage.getItem("username"); // Retrieve username from local storage
+            console.log(username)
+            if (!username) {
+                console.error("Username not found");
+                return;
+            }
             const response = await fetch(`http://localhost:8000/api/chat/schedule/${username}/`);
             if (response.ok) {
                 const data = await response.json();
@@ -31,7 +36,7 @@ export function Calendar() {
         } catch (error) {
             console.error("Error fetching schedule:", error);
         }
-    };
+    }; 
 
     const updateCalendar = () => {
         const year = currentDate.getFullYear();
