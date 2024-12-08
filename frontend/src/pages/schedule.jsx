@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import "./schedule.css";
 
 export function Schedule() {
   const [files, setFiles] = useState([]);
