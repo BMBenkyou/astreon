@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from .serializers import ChatMessageSerializer,SessionSerializer,QuizSerializer
 import google.generativeai as genai
-from users.models import Prompt, CustomUser,StudyPlan,Quiz,Session 
+from users.models import Prompt, CustomUser,StudyPlan,Quiz,Session,FlashCards
 import markdown2
 from datetime import datetime
 import os
@@ -37,9 +37,93 @@ class ChatWithGeminiView(generics.CreateAPIView):
         
         elif action == "generate_quiz":
             return self.generate_quiz(request)
+        
+        elif action == "generate_flashcards":
+            return self.generate_flashcards(request)
         else:
             return self.handle_chat(request)
 
+    
+    def generate_flashcards(self, request):
+        user = request.user
+        files = request.FILES.getlist("files")  # Get list of files
+        images = request.FILES.getlist("images")  # Get list of images
+        title = request.data.get("fname")  # Quiz title
+        user_prompt= request.data.get("lname")
+
+        if not title:
+            return Response({"error": "Title is required."}, status=400)
+        
+        user_prompt += (
+            "Provide the response in JSON format, structured as a list of questions, "
+            "where each question includes a 'question' field and an 'answer' field."
+        )
+
+
+        
+        flashcards = self.call_gemini_api(user_prompt, files + images, user)
+
+        # Return the generated flashcards
+        if flashcards.get("result") == "success":
+            try:
+                self.save_flashcards_to_db(
+                    user=user,
+                    flashcard_title=title,
+                    flashcard_prompt=user_prompt,
+                    response=flashcards.get("text"),
+                    files=files,
+                    images=images,
+                )
+                return Response(flashcards, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                logger.error(f"Error saving quiz: {e}")
+                return Response(
+                    {"result": "error", "error_message": "Failed to save flashcards."},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+
+        return Response(flashcards, status=status.HTTP_200_OK)
+
+
+    def save_flashcards_to_db (self, user, flashcard_title, flashcard_prompt, response, files, images):
+        soup = BeautifulSoup(response, "html.parser")
+        plain_text = soup.get_text()
+        flashcard_response_formatted= plain_text.strip("json").strip()
+        """Save flashcard  to the database."""
+        # Select the first file or image if available
+        file_to_save = files[0] if files else None
+        image_to_save = images[0] if images else None
+
+        # Clean response content before saving
+    
+
+        # Create and save flashcards
+        flashcard =FlashCards(
+            user=user,
+            title=flashcard_title,
+            body=flashcard_prompt,
+            file=file_to_save,
+            image=image_to_save,
+            questions=flashcard_response_formatted,
+        )
+        flashcard.save()
+
+        session = Session(
+                    user=user,
+                    category="flashcard",
+                    title=flashcard_title,
+                    flashcards=flashcard,
+                )
+        session.save()
+
+        return Response({
+        'flashcards_id': flashcard.id,
+        'session_id': session.id,
+        'session_title': session.title,
+        'session_category': session.category,
+    })
+        logger.debug(f"Session created for {quiz_title} under quiz category.")
+        logger.debug("Quiz saved successfully.")
     
     def generate_quiz(self, request):
         user = request.user
@@ -407,9 +491,22 @@ class UserSessionsView(APIView):
 class QuizListView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        # Fetch quizzes for the authenticated user
-        quizzes = Quiz.objects.filter(user=request.user)
-        serializer = QuizSerializer(quizzes, many=True)
-        lookup_field = 'id'
-        return Response(serializer.data)
+    def get(self, request, quiz_id):
+        try:
+            quiz = Quiz.objects.get(id=quiz_id)
+            serializer = QuizSerializer(quiz)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Quiz.DoesNotExist:
+            return Response({"error": "Quiz not found"}, status=status.HTTP_404_NOT_FOUND) 
+
+
+class FlashcardListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, flashcard_id):
+        try:
+            flashcard = FlashCards.objects.get(id=flashcard_id)
+            serializer = QuizSerializer(flashcard)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Quiz.DoesNotExist:
+            return Response({"error": "Flashcard content not found"}, status=status.HTTP_404_NOT_FOUND) 
