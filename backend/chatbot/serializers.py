@@ -30,10 +30,16 @@ class VerifyEmailSerializer(serializers.Serializer):
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = ['id', 'user', 'category', 'title', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'category', 'title', 'quiz', 'flashcards','created_at', 'updated_at']
 
 
 class QuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiz
+        fields = ['id', 'title', 'questions', 'created_at']
+
+
+class FlashcardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quiz
         fields = ['id', 'title', 'questions', 'created_at']
