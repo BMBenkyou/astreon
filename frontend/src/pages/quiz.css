@@ -244,8 +244,11 @@
 }
 
 .cancel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 12px;
-    background: #F5F0E5;
+    background: #ff4d4d;
     font-weight: bold;
     font-family: lexend;
 }

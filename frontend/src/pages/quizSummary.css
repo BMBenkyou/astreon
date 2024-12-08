@@ -1,0 +1,81 @@
+/* General styling for the summary page */
+.body {
+    font-family:  Lexend;
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .summary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .summary-container p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  /* Styling for each quiz summary item */
+  .summary-item {
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .summary-item h4 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .summary-item p {
+    margin: 5px 0;
+  }
+  
+  .summary-item p strong {
+    color: #222;
+  }
+  
+  
+  p.correct {
+    color: green;
+    font-weight: bold;
+  }
+  
+  p.incorrect {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  /* Highlighting for total score */
+  .summary-container p.total-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 600px) {
+    .summary-container {
+      padding: 15px;
+    }
+  
+    .summary-item {
+      padding: 10px;
+    }
+  }
+  

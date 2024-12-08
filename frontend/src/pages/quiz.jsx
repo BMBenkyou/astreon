@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import { Header } from "../components/headerLoggedin";
-import { Footer } from "../components/footer";
 import "./quiz.css";
 import "./sidebar.css";
 
@@ -216,7 +215,7 @@ export function Quiz() {
 
                             <div className="button-container">
                                 <button type="button" onClick={handleCancel} className="cancel-button">
-                                    Cancel
+                                    X
                                 </button>
                                 <button type="button" onClick={handleNext} className="next-button">
                                     Next
@@ -245,7 +244,6 @@ export function Quiz() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
