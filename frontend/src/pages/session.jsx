@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Header } from "../components/headerLoggedin";
 import { Footer } from "../components/footer";
 import "./session.css";
@@ -9,6 +9,7 @@ export function Session() {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSessions = async () => {
@@ -35,6 +36,14 @@ export function Session() {
 
         fetchSessions();
     }, []);
+
+    const handleCardClick = (category, id) => {
+        if (category === 'quiz') {
+            navigate(`/quiz-detail/${id}`); // Redirect to the quiz detail page with the session ID
+        } else if (category === 'flashcard') {
+            navigate(`/flashcard-detail/${id}`); // Redirect to the flashcard detail page with the session ID
+        }
+    };
 
     return (
         <div className="body">
@@ -109,43 +118,57 @@ export function Session() {
                             <p>Error: {error}</p>
                         ) : (
                             <div className="grid-session">
-                                {sessions.map((session) => (
-                                    <div key={session.id} className="session-border">
-                                        <div className="session-frame">
-                                            <div className="session-design">
-                                                <div className="session-bottom-frame"></div>
-                                                <button className="session-choice">
-                                                    <div className="depth-frame">
-                                                        <div className="huge-icons-bot">
-                                                            <div className="group"></div>
+                                {sessions.map((session) => {
+                                
+                                    let idToUse = session.quiz;
+                                
+                                    if (session.category === 'flashcard') {
+                                        idToUse = session.flashcards; // Use flashcard ID if the category is flashcard
+                                    } else {
+                                        idToUse = session.quiz; // Use quiz ID otherwise
+                                    }
+
+                                    return (
+                                        <div key={session.id} className="session-border">
+                                            <div className="session-frame">
+                                                <div className="session-design">
+                                                    <div className="session-bottom-frame"></div>
+                                                    <button
+                                                        className="session-choice"
+                                                        /* The quiz id that is declared at the top is for the quiz id stated in the session not the session id */
+                                                        onClick={() => handleCardClick(session.category, idToUse)} // Use quizId here
+                                                    >
+                                                        <div className="depth-frame">
+                                                            <div className="huge-icons-bot">
+                                                                <div className="group"></div>
+                                                            </div>
                                                         </div>
+                                                        <div className="depth-frame-1">
+                                                            <span className="ai-study">{session.category}</span>
+                                                        </div>
+                                                    </button>
+                                                    <span className="subject-session-title">{session.title}</span>
+                                                    <button className="session-percentage">
+                                                        <div className="depth-frame-2">
+                                                            <div className="depth-frame-3"></div>
+                                                        </div>
+                                                        <div className="depth-frame-4">
+                                                            <span className="percentage">{session.percentage}%</span>
+                                                        </div>
+                                                    </button>
+                                                    <div className="session-options">
+                                                        <div className="charm-menu-kebab"></div>
                                                     </div>
-                                                    <div className="depth-frame-1">
-                                                        <span className="ai-study">{session.title}</span>
-                                                    </div>
-                                                </button>
-                                                <span className="subject-session-title">{session.subject}</span>
-                                                <button className="session-percentage">
-                                                    <div className="depth-frame-2">
-                                                        <div className="depth-frame-3"></div>
-                                                    </div>
-                                                    <div className="depth-frame-4">
-                                                        <span className="percentage">{session.percentage}%</span>
-                                                    </div>
-                                                </button>
-                                                <div className="session-options">
-                                                    <div className="charm-menu-kebab"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
