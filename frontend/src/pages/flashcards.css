@@ -87,3 +87,15 @@
   align-items: center;
   font-size: 14px;
 }
+.flashcard-body-text {
+    width: 542px; 
+    height: 150px; 
+    padding: 15px; 
+    background: #ffffff;
+    border: 1px solid #e8ddce; 
+    border-radius: 12px; 
+    box-sizing: border-box; 
+    font-family: inherit; 
+    font-size: inherit; 
+    color: inherit;
+  }

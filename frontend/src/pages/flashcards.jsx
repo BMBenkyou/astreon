@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from "../components/headerLoggedin";
-import { Footer } from "../components/footer";
 import "./flashcards.css";
 import "./sidebar.css";
 
@@ -247,7 +246,6 @@ export function Flashcards() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
