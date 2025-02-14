@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import environ
-env=environ.Env()
-environ.Env.read_env()
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,11 +79,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD':env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'NAME': os.getenv("POSTGRES_DB", "db_test"),
+        'USER': os.getenv("POSTGRES_USER", "postgres"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD", "rootpasswordtemporary"),
+        'HOST': os.getenv("DB_HOST","db"),
+        'PORT': "5432",
 
     }
 }
