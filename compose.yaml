@@ -1,6 +1,6 @@
 services:
   db:
-    image: "postgres:13"  # Update version as needed; postgres:17 may not be valid
+    image: "postgres:13"
     ports:
       - "5173:5173"
     healthcheck:
@@ -29,6 +29,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - ./backend:/code/backend
   
   frontend:
     build:
@@ -38,6 +40,8 @@ services:
         - "3000:3000"
     depends_on:
         - backend
-
+    volumes:
+      - ./frontend:/code
+      - /code/node_modules
 volumes:
   postgres_data:
