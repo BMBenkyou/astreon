@@ -1,0 +1,17 @@
+<svg width="1440" height="1026" viewBox="0 0 1440 1026" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="2" width="1440" height="1024" fill="white" fill-opacity="0.5"/>
+<ellipse cx="80.5" cy="0.5" rx="321.5" ry="300.5" fill="#80F2E5"/>
+<ellipse cx="604" cy="335" rx="202" ry="179" fill="#C5F8F3"/>
+<ellipse cx="222.5" cy="655" rx="222.5" ry="195" fill="#ADDDD9"/>
+<ellipse cx="1028.5" cy="778" rx="222.5" ry="195" fill="#ADDDD9"/>
+<ellipse cx="771.5" cy="79" rx="222.5" ry="195" fill="#ADDDD9"/>
+<ellipse cx="1197" cy="92.5" rx="243" ry="208.5" fill="#4BEFDF"/>
+<ellipse cx="1439.5" cy="707" rx="308.5" ry="282" fill="#1C2E37"/>
+<ellipse cx="-0.5" cy="301" rx="308.5" ry="282" fill="#1C2E37"/>
+<foreignObject x="-350" y="-348" width="2140" height="1724"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(175px);clip-path:url(#bgblur_0_318_2633_clip_path);height:100%;width:100%"></div></foreignObject><rect data-figma-bg-blur-radius="350" y="2" width="1440" height="1024" fill="white" fill-opacity="0.5"/>
+<foreignObject x="-350" y="-350" width="2140" height="1724"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(175px);clip-path:url(#bgblur_1_318_2633_clip_path);height:100%;width:100%"></div></foreignObject><rect data-figma-bg-blur-radius="350" width="1440" height="1024" fill="white" fill-opacity="0.5"/>
+<defs>
+<clipPath id="bgblur_0_318_2633_clip_path"><rect transform="translate(350 348)" y="2" width="1440" height="1024"/>
+</clipPath><clipPath id="bgblur_1_318_2633_clip_path"><rect transform="translate(350 350)" width="1440" height="1024"/>
+</clipPath></defs>
+</svg>
