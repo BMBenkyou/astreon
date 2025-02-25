@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'chatbot',
     'rest_framework',
     'allauth',
     'allauth.account',
@@ -59,18 +60,6 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-        'google': {
-            'SCOPE': [
-                'profile',
-                'email',
-            ],
-            'AUTH_PARAMS': {
-                'access_type': 'offline',
-            },
-            'OAUTH_PCKE_ENABLED': True,
-            }
-}
 ROOT_URLCONF = 'astreon_backend.urls'
 
 TEMPLATES = [
@@ -106,7 +95,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED= True
 ACCOUNT_SESSION_REMEMBER = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #the message will be printed in the console
 
 WSGI_APPLICATION = 'astreon_backend.wsgi.application'
 
