@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Main preview container */
+.preview-container {
+  @apply flex flex-col items-center justify-center w-[430px] h-[600px] 
+  bg-transparent p-0 mx-[130px];
+}
+
+/* Title */
+.preview-title {
+  @apply font-sans text-[30px] font-bold text-[#1C170D] mb-[10px] text-left w-full;
+}
+
+/* Instructions */
+.preview-instructions {
+  @apply text-[14px] text-[#5A5A5A] text-center mb-[10px];
+}
+
+/* Preview Box */
+.preview-box {
+  @apply flex justify-center items-center bg-white rounded-[10px] p-[20px] 
+  transition-opacity duration-300 w-[416px] h-[284px] border-2 border-[#E6E6E6] 
+  shadow-md mb-[10px];
+}
+
+/* Hide preview box when needed */
+.preview-box.hidden {
+  @apply opacity-0 pointer-events-none;
+}
+
+/* Placeholder text */
+.preview-placeholder {
+  @apply text-[#767676] text-[20px] text-center;
+}
+
+/* Image */
+.preview-image {
+  @apply max-w-full max-h-full;
+}
+
+/* Button container */
+.button-box {
+  @apply flex justify-center items-center gap-[40px] w-full mt-[100px];
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  @apply fixed top-0 left-0 w-full h-full bg-black 
+  flex justify-center items-center z-[1000];
+}
+
+/* Modal Content */
+.modal-content {
+  @apply bg-white p-[20px] rounded-[10px] text-center;
+}
+
+/* Loading Text */
+.loading-text {
+  @apply text-[18px] font-bold mb-[10px];
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  @apply block mx-auto w-[40px] h-[40px] border-[4px] border-[#ddd] 
+  border-t-[#039c87] rounded-full animate-spin;
+}
+
+/* Schedule Wrapper */
+.schedule-wrapper {
+  @apply flex flex-col items-center justify-center w-full m-0 p-0;
+}
+
+/* Attach Button Container */
+.Oattach-button-container {
+  @apply flex justify-center items-center mt-4;
+}

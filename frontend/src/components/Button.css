@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.button {
+  @apply w-full h-[50px] rounded-md border-2 border-white text-white 
+         font-medium text-[15px] cursor-pointer transition-all 
+         duration-500 ease-out shadow-[inset_0_0_0_0_#1bcfb7] 
+         relative inline-block px-[30px] py-[15px] text-center 
+         tracking-wide bg-transparent mt-[30px];
+}
+
+.button:hover {
+  @apply bg-[#DCE6EB] text-white shadow-[inset_0_-100px_0_0_#028577];
+}
+
+.button:active {
+  @apply scale-90;
+}

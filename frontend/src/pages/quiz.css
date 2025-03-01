@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Apply background to entire page */
+body {
+  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+}
+
+.MainContaineR {
+  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .MainContaineR {
+    @apply flex-col items-center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Smartphones and below */
+  .MainContaineR {
+    @apply p-2;
+  }
+  .nav-body {
+    @apply flex-row;
+    flex: 1;
+  }
+}
+
+.nav-body {
+  @apply flex justify-start items-start gap-5 p-1;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .nav-body {
+    @apply flex-col;
+  }
+}
+
+.main-content {
+  @apply flex flex-row justify-start items-start gap-10;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .main-content {
+    @apply flex-col;
+  }
+}
+
+.schedule-title {
+  @apply text-[22px] font-bold text-[#1c170d] mb-4;
+}
+
+.calendar-section {
+  @apply flex flex-col items-center mt-10;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .calendar-section {
+    @apply mt-5 ml-auto mr-auto;
+  }
+}
+
+.main-content-wrapper {
+  gap: 10rem;
+}
+
+.main-content-wrapper {
+  @apply flex flex-col space-y-30; /* Adds vertical gap (10rem = 40 in Tailwind) */
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .content-wrapper {
+    @apply flex-col;
+  }
+}
