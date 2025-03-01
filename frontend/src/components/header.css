@@ -1,7 +1,57 @@
+header {
+    background: transparent;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hidden {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+}
+
 p {
     margin-right: 50px;
 }
-img {
-    background-color: transparent;
-    background: none;
+
+/* Mobile dropdown styling */
+@media (max-width: 768px) {
+    .dropdown {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 180px;
+        background-color: #22c55e; /* Green */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .dropdown p {
+        padding: 10px 0;
+        text-align: left;
+        font-size: 1rem;
+        color: black;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .dropdown p:hover {
+        color: #1e293b;
+    }
+}
+
+a {
+    color: inherit;  /* Inherits the text color from the parent element */
+    text-decoration: none;  /* Removes the underline */
+}
+a:hover{
+    color: inherit; 
 }
