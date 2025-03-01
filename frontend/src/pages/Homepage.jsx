@@ -42,9 +42,9 @@ const sections = [
     content: () => (
       <div className="grid gap-8 md:grid-cols-2 md:item-center md:text-left">
       <div className="margin-placer-3 justify-center items-center w-full">
-        <h1 className="text-[#1B1819] [font-family:Inter] text-4xl font-bold mb-4 ">
+        <p className="text-[#1B1819] [font-family:Inter] text-4xl font-bold mb-4 ">
         What you’re getting
-        </h1>
+        </p>
         <p className="w-[453px] text-black [font-family:Inter] text-lg font-normal leading-[140%]">
         Astreon is an AI-powered study buddy designed to enhance learning through intelligent assistance and personalized support. It helps students stay organized, generate quizzes and flashcards, and create study schedules tailored to their needs. With built-in spaced repetition, Astreon ensures efficient long-term retention by optimizing review sessions.
         </p>
@@ -74,9 +74,9 @@ const sections = [
       </div>
 
       <div className="margin-placer-3">
-        <h1 className="w-[464px] text-black [font-family:Inter] text-[40px] font-bold leading-[normal]">
+        <p className="w-[464px] text-black [font-family:Inter] text-[40px] font-bold leading-[normal]">
         We Measure in Graphs
-        </h1>
+        </p>
         <p className="w-[453px] text-black [font-family:Inter] text-lg font-normal leading-[140%]">
         Astreon provides insightful progress tracking through heatmaps and line graphs, allowing students to measure their learning effectively. Heatmaps highlight study consistency and engagement over time, while line graphs track performance trends, helping users identify strengths and areas for improvement.
         </p>
@@ -156,6 +156,7 @@ export function HomePage() {
       <Header />
       <main className="w-screen">
         <title>Welcome to Astreon</title>
+        <link rel="icon" href=" ../public/icon.png" type="image/x-icon" />
         <div className="flex flex-col w-full">
           {sections.map((section) => (
             <div
