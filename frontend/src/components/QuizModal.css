@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Modal Overlay */
+.quiz-modal-overlay {
+  @apply fixed inset-0 flex items-center justify-center bg-black bg-[rgba(0,0,0,0.75)] transition-opacity;
+}
+
+.quiz-modal-overlay.hidden {
+  @apply opacity-0 invisible;
+}
+
+.quiz-modal-overlay.visible {
+  @apply opacity-100 visible;
+}
+
+/* Modal Content */
+.quiz-modal-content {
+  @apply bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] w-[557px] h-[390px] 
+  p-10 rounded-[40px] shadow-lg transform transition-transform 
+  duration-300 ease-in-out translate-y-[-50px];
+}
+
+.quiz-modal-overlay.visible .quiz-modal-content {
+  @apply translate-y-0;
+}
+
+/* Modal Title */
+.modal-title {
+  @apply text-center text-2xl font-bold font-sans mb-10;
+}
+
+/* Modal Body */
+.modal-text {
+  @apply text-center font-bold underline;
+}
+
+.modal-body {
+  @apply text-center text-2xl font-sans text-gray-500 mt-10;
+}
+
+/* Button Wrapper */
+.btn-wrapper {
+  @apply flex justify-between items-center gap-5 mt-10;
+}
+/* Buttons */
+.close-btn,
+.StartQuiz-btn {
+  @apply w-full h-[50px] rounded-md border-2 border-white text-white 
+         font-medium text-[15px] cursor-pointer transition-all 
+         duration-500 ease-out shadow-[inset_0_0_0_0_#1bcfb7] 
+         relative inline-block px-[30px] py-[15px] text-center 
+         tracking-wide bg-transparent mt-[30px];
+}
+
+.close-btn {
+  @apply bg-red-500 hover:bg-[#DCE6EB] hover:text-white hover:shadow-[inset_0_-100px_0_0_#028577];
+}
+
+.StartQuiz-btn {
+  @apply bg-green-500 hover:bg-[#DCE6EB] hover:text-white hover:shadow-[inset_0_-100px_0_0_#028577];
+}
+
+.close-btn:active,
+.StartQuiz-btn:active {
+  @apply scale-90;
+}

@@ -1,14 +1,13 @@
-import React from "react";
-import { useLocation } from "react-router-dom"; 
+import React, { useState } from "react";
 import Header from "../components/NHeader";
 import Sidebar from "../components/NSidebar";
-import QuizBody from "../components/QuizBody"; 
+import QuizBody from "../components/QuizBody";
 import QuizFooter from "../components/QuizFooter";
+import QuizTest from "../components/QuizTest"; // New Quiz Test Component
 import "./quiz.css";
 
 const Quiz = () => {
-  const location = useLocation();
-  console.log("Current Path:", location.pathname); 
+  const [quizStarted, setQuizStarted] = useState(false);
 
   return (
     <div className="MainContaineR">
@@ -19,21 +18,22 @@ const Quiz = () => {
         {/* Sidebar */}
         <Sidebar />
 
-        {/* Main content */}
+        {/* Main Content */}
         <div className="main-content-wrapper">
-            <div className="main-content">
-                <QuizBody />  
-            </div>
+          <div className="main-content">
+            {quizStarted ? <QuizTest onExit={() => setQuizStarted(false)} /> : <QuizBody />}
+          </div>
 
-            {/* Footer content */}
+          {/* Footer (Hidden when quiz starts) */}
+          {!quizStarted && (
             <div className="footer-content">
-                <QuizFooter />
+              <QuizFooter onStartQuiz={() => setQuizStarted(true)} />
             </div>
+          )}
         </div>
-      </div>  
+      </div>
     </div>
   );
 };
 
 export default Quiz;
-

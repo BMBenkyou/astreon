@@ -4,7 +4,7 @@
   @apply flex flex-col gap-6 items-start;
 }
 
-.quiz-title {
+.Navquiz-title {
   @apply text-2xl font-bold text-black;
 }
 

@@ -8,7 +8,7 @@ const QuizBody = () => {
 
   return (
     <div className="quiz-container">
-      <h2 className="quiz-title">Create Quiz</h2>
+      <h2 className="Navquiz-title">Create Quiz</h2>
 
       <div className="quiz-input-wrapper">
         {/* Title Input with Icon */}
