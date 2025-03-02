@@ -1,0 +1,141 @@
+@import "tailwindcss";
+/* Apply background to entire page */
+body {
+  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+}
+
+/* Wrap both login container and illustration in a flex container */
+.Opage-container {
+  @apply flex flex-col md:flex-row justify-center items-center gap-12 w-full max-w-[900px] mx-auto;
+}
+
+/* Flex container for login form */
+.Ocontainer {
+  @apply w-full md:w-110 p-8 bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] 
+         relative top-5 max-w-[500px] mx-auto rounded-lg shadow-lg;
+}
+
+/* Left side - Login form */
+.Oleft-side {
+  @apply flex justify-center items-center;
+}
+
+/* Login container */
+.Ologin-container {
+  @apply w-full max-w-[800px] mx-auto;
+}
+
+/* Login title */
+.Ocontainerlogin-title {
+  @apply text-left font-semibold text-[32px];
+}
+
+.Oemail-label {
+  @apply text-sm text-left font-normal my-2;
+}
+
+.Ologin-title {
+  @apply font-bold text-[32px];
+}
+
+/* Input field styles */
+.Oinput-field {
+  @apply text-sm w-full;
+}
+
+/* Password label */
+.Opassword-label {
+  @apply text-sm text-left font-normal my-2;
+}
+
+/* Forgot password link */
+.Oforgot-password {
+  @apply text-right text-xs mt-0;
+}
+
+.Oforgot-password a {
+  @apply underline cursor-pointer;
+}
+
+/* Register link */
+.Oregister-link {
+  @apply text-center text-xs mt-0;
+  margin-top: 10px;
+}
+
+.Oregister-link a {
+  @apply underline cursor-pointer;
+}
+
+/* Password toggle button !IMPORTANT CONROLS ALL SHOW/HIDE BUTTON*/
+.show-hide-btn {
+  @apply bg-transparent border-none cursor-pointer flex items-center;
+}
+
+.show-hide-btn img {
+  @apply w-[14px] h-[14px] mr-2;
+}
+
+/* Illustration container */
+.Oillustration-container {
+  @apply w-full md:w-1/2 flex justify-center;
+}
+
+/* Illustration image */
+.Oillustration-container img {
+  @apply w-[100%] md:w-full max-w-[500px] md:max-w-[600px] h-auto;
+}
+
+/* -------------------------------- */
+/* RESPONSIVE DESIGN */
+/* -------------------------------- */
+
+@media (max-width: 600px) {
+  body {
+    @apply block h-auto p-5;
+  }
+
+  .Ocontainer {
+    @apply w-full max-w-[350px] p-6 static;
+  }
+
+  .Oleft-side {
+    @apply flex-col items-center;
+  }
+
+  .Ologin-container {
+    @apply max-w-full text-center;
+  }
+
+  .Oillustration-container {
+    @apply static w-full max-w-[350px] my-5 flex justify-center;
+  }
+
+  .Oillustration-container img {
+    @apply w-full h-auto;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .Ocontainer {
+    @apply w-11/12 max-w-[600px] left-0;
+  }
+
+  .Oillustration-container {
+    @apply right-[50px] w-[600px] h-auto;
+  }
+
+  .Oillustration-container img {
+    @apply w-full max-w-[600px];
+  }
+}
+
+@media (min-width: 1025px) {
+  .Ocontainer {
+    @apply max-w-[900px];
+  }
+
+  .Oillustration-container {
+    @apply w-[800px] h-[800px];
+  }
+}

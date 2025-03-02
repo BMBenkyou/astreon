@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+.quiz-footer {
+  @apply flex items-center justify-between bg-[rgba(140,140,140,0.24)] max-w-[1008px] mx-auto
+         rounded-full p-3 shadow-md border border-gray-300;
+}
+
+.quiz-footer-input {
+  @apply w-[1008px] bg-transparent outline-none text-[#424242] px-4 text-[26px];
+}
+
+/* Attachment Button */
+.attach-bton {
+  @apply bg-[#424242] text-white hover:text-white text-2xl rounded-full;
+}
+
+.attach-bton:hover {
+  @apply bg-[#454545] text-white hover:text-white text-2xl rounded-full scale-110;
+}
+
+.attach-bton:active {
+  transform: scale(0.95);
+}
+
+/* Send Button */
+.send-btn {
+  @apply flex items-center bg-[#23BA8E] text-white text-lg font-semibold 
+         px-4 py-2 rounded-full overflow-hidden transition-all duration-200 cursor-pointer 
+         border-none relative;
+}
+
+/* Button Text */
+.send-btn span {
+  @apply ml-2 transition-transform duration-300;
+}
+
+/* Send Icon */
+.send-icon {
+  @apply transition-transform duration-300;
+}
+
+/* Hover Effects */
+.send-btn:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.send-btn:hover .send-icon {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.send-btn:hover span {
+  transform: translateX(5em);
+}
+
+/* Click Effect */
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+/* Floating Animation */
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+  to {
+    transform: translateY(-0.1em);
+  }
+}

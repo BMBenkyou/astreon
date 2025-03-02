@@ -1,0 +1,9 @@
+@import "tailwindcss";
+/* Apply background to entire page */
+.body {
+  @apply bg-[#E3FEF9] font-['Sofia_Sans'] flex justify-center items-center h-screen;
+}
+
+.schedule-container {
+  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+}

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+.del-button {
+  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#e62222] border-none rounded-md shadow-md relative transition-all duration-200;
+}
+
+.del-button .text {
+  @apply text-white font-bold text-lg flex-grow text-center transition-all duration-200;
+}
+
+.del-button .icon {
+  @apply absolute right-0 border-l border-[#c41b1b] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200;
+}
+
+.del-button svg {
+  @apply w-[15px] fill-gray-200 transition-all duration-200;
+}
+
+.del-button:hover {
+  @apply bg-[#ff3636];
+}
+
+.del-button:hover .text {
+  @apply text-transparent;
+}
+
+.del-button:hover .icon {
+  @apply w-[150px] border-l-0 transform translate-x-0;
+}
+
+.del-button:focus {
+  @apply outline-none;
+}
+
+.del-button:active .icon svg {
+  @apply scale-90;
+}
