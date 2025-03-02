@@ -1,0 +1,30 @@
+@import "tailwindcss";
+.preferences-container {
+  @apply flex flex-col gap-5 w-[600px] font-['Inter'];
+}
+
+.preferences-title {
+  @apply text-2xl font-bold text-[#767676] font-['Inter'];
+}
+
+.Sinput-group {
+  @apply flex flex-col gap-2 font-['Inter'];
+}
+
+.Sinput-group label {
+  @apply text-xl font-medium text-[#767676] font-['Inter'];
+}
+
+.Sinput-group input,
+.Sinput-group textarea {
+  @apply text-lg p-4 border-2 border-[#A8A8A8] rounded-lg bg-transparent text-[#767676] outline-none w-[900px] resize-none font-['Inter'];
+}
+
+.Sinput-group input::placeholder,
+.Sinput-group textarea::placeholder {
+  @apply text-[#767676] text-lg font-['Inter'];
+}
+
+.Sinput-group textarea {
+  @apply min-h-[80px] font-['Inter'];
+}

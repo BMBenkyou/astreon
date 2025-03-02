@@ -1,0 +1,34 @@
+@import "tailwindcss";
+/* Apply background to entire page */
+body {
+  @apply bg-[#E3FEF9] m-0 flex justify-center items-center h-screen font-[Sofia_Sans];
+}
+
+.schedule-container {
+  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .schedule-container {
+    @apply flex-col items-center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Smartphones and below */
+  .schedule-container {
+    @apply p-2.5;
+  }
+}
+
+.nav-body {
+  @apply flex justify-start items-start gap-5 p-1.5;
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .nav-body {
+    @apply flex-col;
+  }
+}

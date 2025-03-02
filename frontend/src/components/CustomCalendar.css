@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+.calendar-container {
+  @apply bg-transparent p-5 rounded-[30px] shadow-md w-[396px] h-auto text-center font-sans text-lg border border-[#96B6B6] ml-12;
+}
+
+.react-calendar {
+  @apply w-full border-none bg-transparent;
+}
+
+.react-calendar__navigation__label {
+  @apply text-2xl text-[#0C0B0B];
+}
+
+.react-calendar__navigation__arrow {
+  @apply text-3xl;
+}
+
+.react-calendar__navigation__prev-button {
+  @apply text-[#0C0B0B];
+}
+
+.react-calendar__tile {
+  @apply rounded-md hover:bg-[#C7F6F0];
+}
+
+.react-calendar__tile--now {
+  background-color: #2f6b63 !important; /* Keep current date color */
+  color: inherit !important;
+}
+
+.react-calendar__tile--now:hover {
+  background-color: #c7f6f0 !important; /* Set hover color */
+}
+
+.react-calendar__tile--active {
+  @apply bg-transparent text-[#0C0B0B] rounded-md;
+}
+
+.highlight {
+  @apply bg-[#C7F6F0] text-[#0C0B0B] rounded-md;
+}
+
+.calendar-footer {
+  @apply flex justify-center gap-5 mt-2;
+}
+
+.calendar-clear,
+.calendar-done {
+  @apply inline-block rounded-md border-none text-center text-base py-2 px-3 w-[200px] transition-all duration-500 cursor-pointer m-1;
+}
+
+.calendar-clear {
+  @apply bg-[#082729] text-[#899696];
+}
+
+.calendar-done {
+  @apply bg-[#277B7B] text-white;
+}
+
+.calendar-clear:hover,
+.calendar-done:hover {
+  @apply bg-[#0C0B0B];
+}
+
+.calendar-clear span,
+.calendar-done span {
+  @apply cursor-pointer inline-block relative transition-all duration-500;
+}
+
+.calendar-clear span:after,
+.calendar-done span:after {
+  content: "»";
+  @apply absolute opacity-0 top-0 right-[-15px] transition-all duration-500;
+}
+
+.calendar-clear:hover span,
+.calendar-done:hover span {
+  @apply pr-4;
+}
+
+.calendar-clear:hover span:after,
+.calendar-done:hover span:after {
+  @apply opacity-100 right-0;
+}
+
+.calendar-clear:active,
+.calendar-done:active {
+  @apply scale-90;
+}
+
+.status-container {
+  @apply bg-[#193939] border border-[#96B6B6] rounded-md p-2 mt-2 text-base text-white text-center;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .calendar-container {
+    @apply w-[300px];
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    @apply w-[250px];
+  }
+  .calendar-footer {
+    @apply flex-col gap-2;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-container {
+    @apply w-[200px] mx-auto;
+  }
+  .calendar-footer {
+    @apply flex-col gap-2;
+  }
+}

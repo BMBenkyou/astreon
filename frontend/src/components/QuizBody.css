@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+.quiz-container {
+  @apply flex flex-col gap-6 items-start;
+}
+
+.Navquiz-title {
+  @apply text-2xl font-bold text-black;
+}
+
+.quiz-label {
+  @apply block font-semibold text-black mb-1;
+}
+
+.quiz-input-wrapper {
+  @apply flex flex-col gap-20;
+}
+
+.quiz-input-group {
+  @apply relative w-[300px];
+}
+
+.quiz-input {
+  @apply w-[448px] p-4 border border-gray-300 bg-white rounded-xl 
+         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400;
+  padding-right: 0; /* Remove extra space for the icon */
+}
+
+.quiz-icon {
+  @apply absolute right-[-130px] top-1/2 transform -translate-y-1/2 text-2xl text-[#000000];
+}
+
+.quiz-textarea {
+  @apply w-[675px] p-4 border border-gray-300 bg-white rounded-xl 
+         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 h-32 resize-none;
+}
+
+/* Default placeholder bold */
+.quiz-input::placeholder,
+.quiz-textarea::placeholder {
+  @apply font-bold;
+}
+
+/* Make placeholder normal when typing */
+.quiz-input:focus::placeholder,
+.quiz-textarea:focus::placeholder {
+  @apply font-normal;
+}
