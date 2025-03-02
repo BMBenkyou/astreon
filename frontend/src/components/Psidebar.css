@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+.Psidebar {
+  @apply w-[225px] h-[490px] bg-gradient-to-b from-[rgba(200,186,186,0.7)] to-[rgba(3,156,135,0.7)] shadow-md flex flex-col p-5 border border-[rgba(136,86,86,0.5)] rounded-xl mr-[190px] ml-[50px] transition-all duration-300;
+}
+
+.Psidebar-nav {
+  @apply flex flex-col gap-5 h-full justify-center;
+}
+
+.Psidebar-item {
+  @apply flex items-center justify-start p-2.5 text-[26px] font-medium rounded-xl text-[#333] no-underline transition-all duration-300;
+}
+
+.Psidebar-item:hover {
+  @apply bg-[#039C87] text-white;
+}
+
+.Psidebar-item:active {
+  @apply scale-90 text-white;
+}
+
+.Psidebar-item.active {
+  @apply bg-[#039C87] text-white;
+}
+
+.Psidebar-item svg {
+  @apply w-8 h-8 fill-current mr-2 transition-all duration-300;
+}
+
+.Psidebar-item:hover svg,
+.Psidebar-item.active svg {
+  @apply fill-gray-200 scale-125;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .Psidebar {
+    @apply w-[220px];
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .Psidebar {
+    @apply w-full h-auto mr-0 ml-0;
+  }
+  .Psidebar-nav {
+    @apply flex-col;
+  }
+  .Psidebar-item {
+    @apply text-[20px] p-2.5;
+  }
+  .Psidebar-item svg {
+    @apply mr-0;
+  }
+}
+
+/* Smaller Mobile */
+@media (max-width: 480px) {
+  .Psidebar {
+    @apply w-[50px];
+  }
+  .Psidebar-item {
+    @apply text-transparent;
+  }
+  .Psidebar-item svg {
+    @apply w-[24px] h-[24px];
+  }
+}
