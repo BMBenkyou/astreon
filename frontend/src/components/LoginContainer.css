@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.login-container {
+  @apply p-4;
+}

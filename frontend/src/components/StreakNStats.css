@@ -1,0 +1,112 @@
+@import "tailwindcss";
+/* ----- Streak Container (GitHub Heatmap Style) ----- */
+.streak-container {
+  @apply bg-white p-5 rounded-xl shadow-md w-[90%] max-w-[900px] text-center mx-auto mb-8;
+}
+
+.streak-title {
+  @apply text-xl text-[#1C170D] mb-4;
+}
+
+.heatmap {
+  @apply grid gap-1.5 justify-center p-2;
+  grid-template-columns: repeat(53, 14px);
+  grid-template-rows: repeat(7, 14px);
+}
+
+.heatmap-cell {
+  @apply w-[14px] h-[14px] rounded-sm transition-transform duration-200;
+}
+
+.heatmap-cell.empty {
+  @apply bg-[#ebedf0];
+}
+
+.heatmap-cell.low {
+  @apply bg-[#9be9a8];
+}
+
+.heatmap-cell.medium {
+  @apply bg-[#40c463];
+}
+
+.heatmap-cell.high {
+  @apply bg-[#216e39];
+}
+
+.heatmap-cell:hover {
+  @apply scale-110;
+}
+
+/* ----- Legend for Streak Heatmap ----- */
+.legend {
+  @apply flex items-center justify-center mt-2 gap-1;
+}
+
+.legend-box {
+  @apply w-[14px] h-[14px] rounded-sm;
+}
+
+.legend-box.empty {
+  @apply bg-[#ebedf0];
+}
+
+.legend-box.low {
+  @apply bg-[#9be9a8];
+}
+
+.legend-box.medium {
+  @apply bg-[#40c463];
+}
+
+.legend-box.high {
+  @apply bg-[#216e39];
+}
+
+/* ----- Performance Chart (More Space + Visibility) ----- */
+.statistics-container {
+  @apply mt-5 text-center w-[90%] max-w-[700px] mx-auto;
+}
+
+.statistics-title {
+  @apply text-lg font-bold mb-2;
+}
+
+.dashboard {
+  @apply flex flex-col ml-12;
+}
+
+.dashboard-item {
+  @apply flex-1 mx-2;
+}
+
+.dashboard-item h3 {
+  @apply text-base mb-1;
+}
+
+.dashboard-item p {
+  @apply text-sm;
+}
+
+/* ----- Responsive Design ----- */
+@media (max-width: 768px) {
+  .streak-container {
+    @apply p-2;
+  }
+
+  .heatmap {
+    @apply gap-0.5;
+  }
+
+  .heatmap-cell {
+    @apply w-[12px] h-[12px];
+  }
+
+  .legend {
+    @apply gap-0.5;
+  }
+
+  .legend-box {
+    @apply w-[12px] h-[12px];
+  }
+}
