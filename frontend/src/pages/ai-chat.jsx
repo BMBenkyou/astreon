@@ -1,5 +1,5 @@
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/NSidebar";
 
 import "./homepage.css"
 
