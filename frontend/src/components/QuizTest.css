@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* Quiz Test Container */
+.quiz-test-container {
+  @apply bg-teal-100 rounded-lg shadow-md w-[664px] h-[590px] text-center fixed top-[58%] left-[56%] transform -translate-x-1/2 -translate-y-[55%];
+}
+
+/* Quiz Header */
+.quiz-header {
+  @apply bg-black text-white p-5 rounded-t-lg w-full h-[160px];
+}
+
+/* Title */
+.quiz-title {
+  @apply text-2xl font-bold mt-2 text-center;
+}
+
+/* Options */
+.options-container {
+  @apply flex flex-col gap-2.5 mt-14 items-center;
+}
+
+.option {
+  @apply bg-white p-4 rounded-lg shadow-sm w-3/4 flex items-center cursor-pointer border-2 border-gray-400 transition duration-300;
+}
+
+.option:hover {
+  @apply bg-gray-100;
+}
+
+.option.selected {
+  @apply border-teal-700 bg-teal-700 font-bold text-white;
+}
+
+/* Progress Bar */
+.progress-container {
+  @apply w-full bg-gray-400 rounded-full overflow-hidden flex items-center h-6 relative;
+}
+
+.progress-fill {
+  @apply h-full bg-teal-600 transition-all rounded-full;
+}
+
+.progress-number {
+  @apply absolute left-1 top-1/2 transform -translate-y-1/2 font-bold text-base bg-teal-700 px-4 py-1 rounded-full text-white;
+}
+
+/* Buttons */
+.quiz-buttons {
+  @apply flex justify-between mt-14 px-5;
+}
+
+.prev-btn,
+.next-btn,
+.finish-btn {
+  @apply px-5 py-2 rounded-md font-bold cursor-pointer transition duration-300;
+}
+
+.prev-btn {
+  @apply bg-[#cdd5da] text-white;
+}
+
+.prev-btn:hover {
+  @apply bg-[#b0b4b6];
+}
+
+.prev-btn:active {
+  @apply scale-95;
+}
+
+.next-btn {
+  @apply bg-[#039c87] text-white;
+}
+
+.next-btn:hover {
+  @apply bg-[#028976];
+}
+
+.next-btn:active {
+  @apply scale-95;
+}
+
+.next-btn:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
+
+.finish-btn {
+  @apply bg-green-500 text-white;
+}
+
+.finish-btn:hover {
+  @apply bg-green-600;
+}
+
+.finish-btn:active {
+  @apply scale-95;
+}
+
+/* Exit Button */
+.exit-btn {
+  @apply bg-red-500 text-white px-5 py-2 rounded-md font-bold cursor-pointer transition duration-300 mt-5;
+}
+
+.exit-btn:hover {
+  @apply bg-red-600;
+}
+
+/* Quiz Summary */
+.quiz-summary {
+  @apply text-center p-7 flex flex-col items-center justify-center;
+}
+
+.ResultQuiz-title {
+  @apply text-2xl font-bold mt-2 text-center;
+}
+
+.result-box {
+  @apply bg-teal-200 px-7 py-4 rounded-lg shadow-md text-xl font-bold mt-7 mb-5;
+}

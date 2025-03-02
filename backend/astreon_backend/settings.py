@@ -103,9 +103,10 @@ WSGI_APPLICATION = 'astreon_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASE_URL = os.getenv('DB_URL')
 DATABASES = {
         #for allauth
-    'default': dj_database_url.parse(os.getenv("DB_URL")) 
+    'default': dj_database_url.config(),
 }
 
 

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+.save-button {
+  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#039C87] border-none rounded-md shadow-md relative transition-all duration-200;
+}
+
+.save-button .text {
+  @apply text-white font-bold text-xl flex-grow text-center transition-all duration-200;
+}
+
+.save-button .icon {
+  @apply absolute right-0 border-l border-[#1abba6] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200;
+}
+
+.save-button svg {
+  @apply w-5 fill-gray-100;
+}
+
+.save-button:hover {
+  @apply bg-[#028976];
+}
+
+.save-button:hover .text {
+  @apply text-transparent;
+}
+
+.save-button:hover .icon {
+  @apply w-[150px] border-l-0 transform-none;
+}
+
+.save-button:focus {
+  @apply outline-none;
+}
+
+.save-button:active .icon svg {
+  @apply scale-90;
+}
