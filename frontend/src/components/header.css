@@ -55,3 +55,7 @@ a {
 a:hover{
     color: inherit; 
 }
+
+.spacing-right{
+    margin-right: 30px;
+}
