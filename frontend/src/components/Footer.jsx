@@ -26,7 +26,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col items-center md:items-start">
-                    <p className="text-sm font-semibold uppercase mb-2">Contact</p>
+                    <p className="text-sm font-semibold uppercase mb-2">Contact</p  >
                     <p className="text-sm">scaves2024@gmail.com</p>
                     
                
