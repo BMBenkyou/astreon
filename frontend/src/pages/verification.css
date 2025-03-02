@@ -1,88 +1,45 @@
 @import "tailwindcss";
+
 /* Apply background to entire page */
 body {
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+  /* Set background color and font-family */
+  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen font-normal font-['Poppins',_sans-serif];
 }
 
-/* Wrap both login container and illustration in a flex container */
+/* Wrap both Verfication container and illustration in a flex container */
 .Opage-container {
+  /* Set container layout */
   @apply flex flex-col md:flex-row justify-center items-center gap-12 w-full max-w-[900px] mx-auto;
 }
 
-/* Flex container for login form */
+/* Flex container for Verfication form */
 .Ocontainer {
+  /* Set container layout and styles */
   @apply w-full md:w-110 p-8 bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] 
          relative top-5 max-w-[500px] mx-auto rounded-lg shadow-lg;
 }
 
-/* Left side - Login form */
+/* Left side - Verfication form */
 .Oleft-side {
+  /* Set container layout */
   @apply flex justify-center items-center;
 }
 
-/* Login container */
-.Ologin-container {
+/* Verfication container */
+.OVerfication-container {
+  /* Set container layout and styles */
   @apply w-full max-w-[800px] mx-auto;
-}
-
-/* Login title */
-.Ocontainerlogin-title {
-  @apply text-left font-semibold text-[32px];
-}
-
-.Oemail-label {
-  @apply text-sm text-left font-normal font-['Poppins',_sans-serif] my-2;
-}
-
-.Ologin-title {
-  @apply font-bold text-[32px] font-['Poppins',_sans-serif];
-}
-
-/* Input field styles */
-.Oinput-field {
-  @apply text-sm w-full;
-}
-
-/* Password label */
-.Opassword-label {
-  @apply text-sm text-left font-normal my-2;
-}
-
-/* Forgot password link */
-.Oforgot-password {
-  @apply text-right text-xs mt-0;
-}
-
-.Oforgot-password a {
-  @apply underline cursor-pointer;
-}
-
-/* Register link */
-.Oregister-link {
-  @apply text-center text-xs mt-0;
-  margin-top: 10px;
-}
-
-.Oregister-link a {
-  @apply underline cursor-pointer;
-}
-
-/* Password toggle button !IMPORTANT CONROLS ALL SHOW/HIDE BUTTON*/
-.show-hide-btn {
-  @apply bg-transparent border-none cursor-pointer flex items-center;
-}
-
-.show-hide-btn img {
-  @apply w-[14px] h-[14px] mr-2;
 }
 
 /* Illustration container */
 .Oillustration-container {
+  /* Set container layout */
   @apply w-full md:w-1/2 flex justify-center;
 }
 
 /* Illustration image */
 .Oillustration-container img {
+  /* Set image styles */
   @apply w-[100%] md:w-full max-w-[500px] md:max-w-[600px] h-auto;
 }
 
@@ -93,34 +50,42 @@ body {
 /* Mobile View */
 @media (max-width: 600px) {
   body {
+    /* Set layout and styles for mobile view */
     @apply flex flex-col items-center justify-center min-h-screen w-full p-5;
   }
 
   .Opage-container {
+    /* Set container layout and styles for mobile view */
     @apply flex flex-col items-center w-full max-w-[400px] mx-auto;
   }
 
   .Ocontainer {
+    /* Set container layout and styles for mobile view */
     @apply w-full max-w-[350px] p-6 static shadow-lg rounded-lg;
   }
 
   .Oleft-side {
+    /* Set container layout for mobile view */
     @apply flex flex-col items-center w-full;
   }
 
-  .Ologin-container {
+  .OVerfication-container {
+    /* Set container layout and styles for mobile view */
     @apply w-full text-center;
   }
 
   .Oinput-field {
+    /* Set input field styles for mobile view */
     @apply w-full text-sm p-2;
   }
 
   .Oillustration-container {
+    /* Set container layout and styles for mobile view */
     @apply w-full max-w-[350px] my-5 flex justify-center;
   }
 
   .Oillustration-container img {
+    /* Set image styles for mobile view */
     @apply w-full h-auto;
   }
 }
@@ -128,18 +93,22 @@ body {
 /* Tablet View */
 @media (min-width: 601px) and (max-width: 1024px) {
   .Opage-container {
+    /* Set container layout and styles for tablet view */
     @apply flex flex-col md:flex-row items-center w-full max-w-[750px] mx-auto;
   }
 
   .Ocontainer {
+    /* Set container layout and styles for tablet view */
     @apply w-11/12 max-w-[600px] left-0 p-8 shadow-xl rounded-xl;
   }
 
   .Oillustration-container {
+    /* Set container layout and styles for tablet view */
     @apply w-[500px] flex justify-center;
   }
 
   .Oillustration-container img {
+    /* Set image styles for tablet view */
     @apply w-full max-w-[500px];
   }
 }
@@ -147,18 +116,22 @@ body {
 /* Desktop View */
 @media (min-width: 1025px) {
   .Opage-container {
+    /* Set container layout and styles for desktop view */
     @apply flex flex-row justify-between w-full max-w-[1100px] mx-auto;
   }
 
   .Ocontainer {
+    /* Set container layout and styles for desktop view */
     @apply max-w-[450px] p-10 shadow-2xl rounded-xl;
   }
 
   .Oillustration-container {
+    /* Set container layout and styles for desktop view */
     @apply flex justify-center items-center w-[600px];
   }
 
   .Oillustration-container img {
+    /* Set image styles for desktop view */
     @apply w-full max-w-[600px];
   }
 }

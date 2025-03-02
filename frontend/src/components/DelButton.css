@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 .del-button {
-  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#e62222] border-none rounded-md shadow-md relative transition-all duration-200;
+  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#e62222] border-none rounded-md shadow-md relative transition-all duration-200 font-['Poppins',_sans-serif];
 }
 
 .del-button .text {
-  @apply text-white font-bold text-lg flex-grow text-center transition-all duration-200;
+  @apply text-white font-bold text-lg flex-grow text-center transition-all duration-200 font-['Poppins',_sans-serif];
 }
 
 .del-button .icon {
-  @apply absolute right-0 border-l border-[#c41b1b] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200;
+  @apply absolute right-0 border-l border-[#c41b1b] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200 font-['Poppins',_sans-serif];
 }
 
 .del-button svg {
@@ -34,4 +34,16 @@
 
 .del-button:active .icon svg {
   @apply scale-90;
+}
+
+@media (max-width: 768px) {
+  .del-button {
+    @apply w-[90%] text-sm h-[45px];
+  }
+}
+
+@media (max-width: 480px) {
+  .del-button {
+    @apply w-full h-[40px] text-xs;
+  }
 }

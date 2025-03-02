@@ -66,3 +66,14 @@
     transform: translateY(-0.1em);
   }
 }
+
+/* === Responsive Fixes (Only for Small Screens) === */
+@media (max-width: 1024px) {
+  .quiz-footer {
+    @apply max-w-md px-4;
+  }
+
+  .quiz-footer-input {
+    @apply w-full text-[20px];
+  }
+}

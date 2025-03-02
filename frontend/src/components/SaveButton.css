@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 .save-button {
-  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#039C87] border-none rounded-md shadow-md relative transition-all duration-200;
+  @apply font-['Poppins',_sans-serif] w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#039C87] border-none rounded-md shadow-md relative transition-all duration-200;
 }
 
 .save-button .text {
-  @apply text-white font-bold text-xl flex-grow text-center transition-all duration-200;
+  @apply font-['Poppins',_sans-serif] text-white font-bold text-xl flex-grow text-center transition-all duration-200;
 }
 
 .save-button .icon {
@@ -34,4 +34,16 @@
 
 .save-button:active .icon svg {
   @apply scale-90;
+}
+
+@media (max-width: 768px) {
+  .save-button {
+    @apply w-[90%] text-sm h-[45px];
+  }
+}
+
+@media (max-width: 480px) {
+  .save-button {
+    @apply w-full h-[40px] text-xs;
+  }
 }

@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+/* ─── Default Sidebar (Desktop) ─── */
 .Psidebar {
-  @apply w-[225px] h-[490px] bg-gradient-to-b from-[rgba(200,186,186,0.7)] to-[rgba(3,156,135,0.7)] shadow-md flex flex-col p-5 border border-[rgba(136,86,86,0.5)] rounded-xl mr-[190px] ml-[50px] transition-all duration-300;
+  @apply w-[225px] h-[490px] bg-gradient-to-b from-[rgba(200,186,186,0.7)] to-[rgba(3,156,135,0.7)]
+  shadow-md flex flex-col p-5 border border-[rgba(136,86,86,0.5)] rounded-xl
+  transition-all duration-300 mr-40 font-['Poppins',_sans-serif];
 }
 
 .Psidebar-nav {
@@ -9,7 +12,8 @@
 }
 
 .Psidebar-item {
-  @apply flex items-center justify-start p-2.5 text-[26px] font-medium rounded-xl text-[#333] no-underline transition-all duration-300;
+  @apply flex items-center justify-start p-2.5 text-[26px] font-medium rounded-xl text-[#333] 
+  no-underline transition-all duration-300;
 }
 
 .Psidebar-item:hover {
@@ -33,38 +37,41 @@
   @apply fill-gray-200 scale-125;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
+/* ─── Tablet View (Horizontal Navbar) ─── */
+@media (max-width: 1023px) {
   .Psidebar {
-    @apply w-[220px];
+    @apply w-full h-[60px] flex flex-row items-center justify-around fixed top-0 left-0 right-0 z-50;
   }
-}
 
-/* Mobile */
-@media (max-width: 768px) {
-  .Psidebar {
-    @apply w-full h-auto mr-0 ml-0;
-  }
   .Psidebar-nav {
-    @apply flex-col;
+    @apply flex-row justify-around w-full;
   }
+
   .Psidebar-item {
-    @apply text-[20px] p-2.5;
+    @apply flex flex-col items-center justify-center text-[20px] px-2 py-2;
   }
+
   .Psidebar-item svg {
-    @apply mr-0;
+    @apply w-6 h-6;
   }
 }
 
-/* Smaller Mobile */
-@media (max-width: 480px) {
+/* ─── Mobile View (Bottom Navbar) ─── */
+@media (max-width: 767px) {
   .Psidebar {
-    @apply w-[50px];
+    @apply fixed bottom-0 left-0 right-0 w-full h-[60px] flex flex-row items-center justify-around z-50;
   }
+
+  .Psidebar-nav {
+    @apply flex-row justify-around w-full;
+  }
+
   .Psidebar-item {
-    @apply text-transparent;
+    @apply flex flex-col items-center justify-center text-[16px] px-2 py-2;
   }
-  .Psidebar-item svg {
-    @apply w-[24px] h-[24px];
+
+  /* Hide text labels on mobile */
+  .Psidebar-item span {
+    @apply hidden;
   }
 }

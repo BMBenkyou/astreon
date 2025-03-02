@@ -1,48 +1,59 @@
 @import "tailwindcss";
 
 .quiz-container {
-  @apply flex flex-col gap-6 items-start;
+  @apply flex flex-col gap-6 items-start font-['Poppins',_sans-serif] w-full;
 }
 
 .Navquiz-title {
-  @apply text-2xl font-bold text-black;
-}
-
-.quiz-label {
-  @apply block font-semibold text-black mb-1;
+  @apply text-2xl font-bold text-center w-full md:text-left;
 }
 
 .quiz-input-wrapper {
-  @apply flex flex-col gap-20;
+  @apply flex flex-col gap-8 w-full;
 }
 
 .quiz-input-group {
-  @apply relative w-[300px];
+  @apply relative w-full max-w-lg;
 }
 
 .quiz-input {
-  @apply w-[448px] p-4 border border-gray-300 bg-white rounded-xl 
-         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400;
-  padding-right: 0; /* Remove extra space for the icon */
+  @apply w-full p-4 border border-gray-300 bg-white rounded-xl 
+         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 
+         sm:w-[300px] md:w-[400px] lg:w-[448px];
 }
 
 .quiz-icon {
-  @apply absolute right-[-130px] top-1/2 transform -translate-y-1/2 text-2xl text-[#000000];
+  @apply absolute right-4 top-1/2 transform -translate-y-1/2 text-2xl text-gray-500;
 }
 
 .quiz-textarea {
-  @apply w-[675px] p-4 border border-gray-300 bg-white rounded-xl 
-         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 h-32 resize-none;
+  @apply w-full p-4 border border-gray-300 bg-white rounded-xl 
+         shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 
+         h-32 resize-none sm:w-[300px] md:w-[500px] lg:w-[675px];
 }
 
-/* Default placeholder bold */
+/* Placeholder Styles */
 .quiz-input::placeholder,
 .quiz-textarea::placeholder {
   @apply font-bold;
 }
 
-/* Make placeholder normal when typing */
 .quiz-input:focus::placeholder,
 .quiz-textarea:focus::placeholder {
   @apply font-normal;
+}
+
+/* === Responsive Fixes (Only for Small Screens) === */
+@media (max-width: 1024px) {
+  .quiz-container {
+    @apply items-center mx-auto px-4;
+  }
+
+  .quiz-input {
+    @apply sm:w-[280px] md:w-[350px];
+  }
+
+  .quiz-textarea {
+    @apply sm:w-[280px] md:w-[350px];
+  }
 }

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 /* Apply background to entire page */
 body {
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen font-['Poppins',_sans-serif];
 }
 
 /* Wrap both login container and illustration in a flex container */
@@ -27,15 +27,15 @@ body {
 
 /* Login title */
 .Fnewpass-title {
-  @apply text-left font-semibold text-[32px];
+  @apply text-left font-semibold text-[32px] font-['Poppins',_sans-serif];
 }
 
 .Fnew-password-label {
-  @apply text-sm text-left font-normal my-2;
+  @apply text-sm text-left font-normal my-2 font-['Poppins',_sans-serif];
 }
 
 .Fnew-confirm-password-label {
-  @apply text-sm text-left font-normal my-2;
+  @apply text-sm text-left font-normal my-2 font-['Poppins',_sans-serif];
 }
 
 /* Input field styles */

@@ -10,6 +10,7 @@ import Streak from "./pages/streak";
 import PSettings from "./pages/psettings";
 import Home from "./pages/home";
 import Quiz from "./pages/quiz";
+import Verification from "./pages/verification";
 
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/passwordreset" element={<Passwordreset />} />
+      <Route path="/verification" element={<Verification />} />
       <Route path="/newpass" element={<Newpassword />} />
       <Route path="/genschedule" element={<GenerateSchedule />} />
       <Route path="/quiz" element={<Quiz />} />

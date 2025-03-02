@@ -1,9 +1,61 @@
 @import "tailwindcss";
-/* Apply background to entire page */
+
 .body {
-  @apply bg-[#E3FEF9] font-['Sofia_Sans'] flex justify-center items-center h-screen;
+  @apply bg-[#E3FEF9] font-['Poppins',_sans-serif] flex justify-center items-center h-screen;
 }
 
 .schedule-container {
-  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+  @apply flex flex-col h-screen w-screen max-w-[85vw] p-6 box-border;
+}
+
+.PPnav-body {
+  @apply flex gap-10 w-full h-[full];
+}
+
+.sidebar {
+  @apply w-[250px] min-w-[220px] h-full flex-shrink-0;
+}
+
+.PPmain-content {
+  @apply flex-1 flex flex-col justify-center items-start p-6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  /* Laptop & Tablet */
+  .schedule-container {
+    @apply max-w-[95vw] p-4;
+  }
+  .nav-body {
+    @apply flex-col items-center;
+  }
+  .main-content {
+    @apply items-center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets */
+  .schedule-container {
+    @apply max-w-full p-3;
+  }
+  .nav-body {
+    @apply flex-col w-full items-center;
+  }
+  .main-content {
+    @apply w-full;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile */
+  .schedule-container {
+    @apply h-auto p-2;
+  }
+  .nav-body {
+    @apply flex-col items-center;
+  }
+  .main-content {
+    @apply w-full p-2;
+  }
 }

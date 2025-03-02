@@ -2,7 +2,7 @@
 
 .proceed-button {
   @apply px-8 py-4 text-[14px] uppercase tracking-widest font-medium text-black bg-white
-  border-none rounded-full shadow-md transition-all duration-300 cursor-pointer outline-none;
+  border-none rounded-full shadow-md transition-all duration-300 cursor-pointer outline-none font-['Poppins',_sans-serif];
 }
 
 /* Hover effect */

@@ -3,7 +3,7 @@
 /* Main preview container */
 .preview-container {
   @apply flex flex-col items-center justify-center w-[430px] h-[600px] 
-  bg-transparent p-0 mx-[130px];
+  bg-transparent p-0 mx-[130px] font-normal font-['Poppins',_sans-serif];
 }
 
 /* Title */

@@ -1,26 +1,26 @@
 @import "tailwindcss";
 .Ninput-group {
-  @apply m-[1px] w-[900px] flex flex-col;
+  @apply m-[1px] w-[900px] flex flex-col font-['Poppins',_sans-serif];
 }
 
 .Ninput-group label {
-  @apply block font-bold mb-[5px];
+  @apply block font-bold mb-[5px] font-['Poppins',_sans-serif];
 }
 
 .Ninput-field-wrapper {
-  @apply relative flex items-center w-[900px] border border-gray-300 rounded-md bg-transparent mb-[10px];
+  @apply relative flex items-center w-[900px] border border-gray-300 rounded-md bg-transparent mb-[10px] font-['Poppins',_sans-serif];
 }
 
 .Ninput-group input {
-  @apply flex-1 p-[8px] border-none text-[32px] h-[36px] font-['Sofia_Sans',_sans-serif] bg-transparent outline-none;
+  @apply flex-1 p-[8px] border-none text-[32px] h-[36px] font-['Poppins',_sans-serif] bg-transparent outline-none;
 }
 
 .Ninput-group input::placeholder {
-  @apply text-[#9c9292];
+  @apply text-[#9c9292] font-['Poppins',_sans-serif];
 }
 
 .show-hide-btn {
-  @apply p-[8px] px-[12px] bg-none border-none cursor-pointer text-[12px] text-black outline-none transition-all duration-300 ease-in-out border-l border-gray-300;
+  @apply p-[8px] px-[12px] bg-none border-none cursor-pointer text-[12px] text-black outline-none transition-all duration-300 ease-in-out border-l border-gray-300 font-['Poppins',_sans-serif];
 }
 
 .show-hide-btn:hover {
@@ -29,4 +29,22 @@
 
 .show-hide-btn:active {
   @apply scale-90;
+}
+
+@media (max-width: 768px) {
+  .Ninput-group {
+    @apply w-[90%];
+  }
+  .Ninput-group input {
+    @apply text-base h-9;
+  }
+}
+
+@media (max-width: 480px) {
+  .Ninput-group {
+    @apply w-full;
+  }
+  .Ninput-group input {
+    @apply text-sm h-8;
+  }
 }

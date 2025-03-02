@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Header from "../components/NHeader";
-import Sidebar from "../components/NSidebar";
-import QuizBody from "../components/QuizBody";
-import QuizFooter from "../components/QuizFooter";
+import Header from "../components/NHeader"; // Header component
+import Sidebar from "../components/NSidebar"; // Sidebar component
+import QuizBody from "../components/QuizBody"; // Quiz body component
+import QuizFooter from "../components/QuizFooter"; // Quiz footer component
 import QuizTest from "../components/QuizTest"; // New Quiz Test Component
-import "./quiz.css";
+import "./quiz.css"; // Importing CSS for styling
 
 const Quiz = () => {
-  const [quizStarted, setQuizStarted] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false); // State to track if quiz has started
 
   return (
     <div className="MainContaineR">
@@ -37,3 +37,4 @@ const Quiz = () => {
 };
 
 export default Quiz;
+

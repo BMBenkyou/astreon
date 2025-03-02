@@ -15,7 +15,9 @@ const QuizBody = () => {
         <div className="quiz-input-group relative">
           <input
             type="text"
-            className={`quiz-input pr-10 ${titleFocused ? "placeholder:font-normal" : "placeholder:font-bold"}`}
+            className={`quiz-input pr-10 ${
+              titleFocused ? "placeholder:font-normal" : "placeholder:font-bold"
+            }`}
             placeholder="Title"
             onFocus={() => setTitleFocused(true)}
             onBlur={(e) => setTitleFocused(e.target.value.length > 0)}
@@ -26,7 +28,9 @@ const QuizBody = () => {
         {/* Description Textarea */}
         <div className="quiz-textarea-group">
           <textarea
-            className={`quiz-textarea ${descriptionFocused ? "placeholder:font-normal" : "placeholder:font-bold"}`}
+            className={`quiz-textarea ${
+              descriptionFocused ? "placeholder:font-normal" : "placeholder:font-bold"
+            }`}
             placeholder="Description"
             onFocus={() => setDescriptionFocused(true)}
             onBlur={(e) => setDescriptionFocused(e.target.value.length > 0)}

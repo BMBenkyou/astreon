@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/NHeader";
 import Psidebar from "../components/Psidebar";
-import SettingsPreferences from "../components/SettingsPreferences"; // Import Preferences Component
+import SettingsPreferences from "../components/SettingsPreferences";
 import "./psettings.css";
 
 const Settings = () => {
@@ -10,13 +10,13 @@ const Settings = () => {
       {/* Header */}
       <Header />
 
-      <div className="nav-body">
+      <div className="PPnav-body">
         {/* Sidebar */}
         <Psidebar />
 
         {/* Main content */}
-        <div className="main-content">
-          <SettingsPreferences /> {/* Add Preferences Form */}
+        <div className="PPmain-content">
+          <SettingsPreferences />
         </div>
       </div>
     </div>
@@ -24,4 +24,3 @@ const Settings = () => {
 };
 
 export default Settings;
-

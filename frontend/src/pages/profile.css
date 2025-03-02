@@ -1,11 +1,11 @@
 @import "tailwindcss";
 /* Apply background to entire page */
 body {
-  @apply bg-[#E3FEF9] m-0 font-['Sofia_Sans',_sans-serif] flex justify-center items-center h-screen;
+  @apply bg-[#E3FEF9] m-0 font-['Poppins',_sans-serif] flex justify-center items-center h-screen;
 }
 
 .nav-body {
-  @apply flex justify-start items-start gap-5 p-1;
+  @apply flex justify-start items-start gap-5 p-1 font-['Poppins',_sans-serif];
 }
 
 /* Style the input field itself */
@@ -14,7 +14,7 @@ body {
 }
 
 .Ninput-wrapper input {
-  @apply w-full p-2.5 text-lg border-none outline-none bg-transparent;
+  @apply w-full p-2.5 text-lg border-none outline-none bg-transparent font-['Poppins',_sans-serif];
 }
 
 .Ninput-wrapper input::placeholder {
@@ -37,44 +37,43 @@ body {
 }
 
 .danger-zone p {
-  @apply text-red-500 text-xl font-bold text-center m-0;
+  @apply text-red-500 text-xl font-bold font-['Poppins',_sans-serif] text-center m-0;
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  /* Tablets */
+@media (max-width: 1024px) {
+  /* Laptops and tablets */
   .Ninput-group-wrapper {
-    @apply max-w-[90%];
+    @apply max-w-[80%];
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .schedule-container {
+    @apply flex-col items-center w-full p-3;
+  }
+  .nav-body {
+    @apply flex-col w-full items-center;
+  }
+  .Ninput-group-wrapper {
+    @apply w-full px-4;
+  }
+  .button-group {
+    @apply flex-col gap-5 w-full items-center;
   }
 }
 
 @media (max-width: 480px) {
   /* Smartphones */
   .Ninput-group-wrapper {
-    @apply max-w-full;
+    @apply w-full;
   }
   .Ninput-field {
-    @apply text-2xl;
+    @apply text-lg;
   }
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .schedule-container {
-    @apply flex-col items-center;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Smartphones */
-  .schedule-container {
-    @apply p-2.5;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .nav-body {
-    @apply flex-col;
+  .save-button,
+  .del-button {
+    @apply w-full text-base;
   }
 }

@@ -26,7 +26,7 @@
 
 /* Modal Title */
 .modal-title {
-  @apply text-center text-2xl font-bold font-sans mb-10;
+  @apply text-center text-2xl font-bold font-['Poppins',_sans-serif] mb-10;
 }
 
 /* Modal Body */
@@ -35,7 +35,7 @@
 }
 
 .modal-body {
-  @apply text-center text-2xl font-sans text-gray-500 mt-10;
+  @apply text-center text-2xl font-['Poppins',_sans-serif] text-gray-500 mt-10;
 }
 
 /* Button Wrapper */

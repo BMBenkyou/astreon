@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 .header {
+  @apply flex justify-between items-center w-full p-5 mb-[90px] flex-wrap font-['Poppins',_sans-serif];
   @apply flex justify-between items-center w-full p-5 mb-[90px] flex-wrap;
 }
 
 .right-section {
+  @apply flex items-center gap-8 md:gap-2 font-['Poppins',_sans-serif];
   @apply flex items-center gap-8 md:gap-2;
 }
 
 .logo {
+  @apply w-[73px] h-[73px] flex items-center justify-center overflow-hidden font-['Poppins',_sans-serif];
   @apply w-[73px] h-[73px] flex items-center justify-center overflow-hidden;
 }
 
 .logo img {
+  @apply w-full h-auto font-['Poppins',_sans-serif];
   @apply w-full h-auto;
 }
 
 .calendar {
+  @apply w-10 h-10 text-gray-800 bg-white rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:text-black font-['Poppins',_sans-serif];
   @apply w-10 h-10 text-gray-800 bg-white rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:text-black;
 }
 
 .profile-icon {
+  @apply w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-gray-300 cursor-pointer hover:bg-white font-['Poppins',_sans-serif];
   @apply w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-gray-300 cursor-pointer hover:bg-white;
 }

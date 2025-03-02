@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-/* Default Sidebar (Desktop) */
+/* ─── Default Sidebar (Desktop) ─── */
 .MSidebar {
-  @apply w-[300px] h-[600px] bg-gradient-to-b from-[rgba(200,186,186,0.7)] to-[rgba(3,156,135,0.7)] 
-  shadow-md flex flex-col p-5 border border-[rgba(136,86,86,0.5)] rounded-lg mr-[90px] ml-[50px] transition-all duration-300;
+  @apply min-w-[300px] max-w-[300px] flex-shrink-0 h-[600px] bg-gradient-to-b from-[rgba(200,186,186,0.7)] to-[rgba(3,156,135,0.7)] 
+  shadow-md flex flex-col p-5 border border-[rgba(136,86,86,0.5)] rounded-lg transition-all duration-300;
 }
 
 .MSidebar-nav {
@@ -11,16 +11,12 @@
 }
 
 .MSidebar-item {
-  @apply flex items-center text-[24px] px-4 py-3 rounded-lg font-medium text-gray-800 
-  transition-all duration-300 ease-in-out;
+  @apply min-h-[60px] min-w-[60px] flex items-center text-[20px] px-4 py-3 rounded-lg font-['Poppins',_sans-serif] font-medium text-gray-800 
+  transition-transform duration-300 ease-in-out;
 }
 
 .MSidebar-item:hover {
   @apply bg-[#039C87] text-white;
-}
-
-.MSidebar-item:active {
-  @apply scale-90 text-white;
 }
 
 .MSidebar-item.active {
@@ -31,28 +27,10 @@
   @apply w-7 h-7 mr-2 transition-all duration-300 ease-in-out;
 }
 
-.MSidebar-item:hover svg {
-  @apply scale-125 fill-gray-100;
-}
-
-.MSidebar-item:active svg {
-  @apply scale-90;
-}
-
-/* Tablet (Smaller Sidebar) */
-@media (max-width: 768px) {
+/* ─── Tablet View (Horizontal Navbar) ─── */
+@media (max-width: 1023px) {
   .MSidebar {
-    @apply w-[200px] h-auto p-3 mr-0 ml-0;
-  }
-  .MSidebar-item {
-    @apply text-[18px] px-[8px] py-2;
-  }
-}
-
-/* Mobile (Horizontal Navbar) */
-@media (max-width: 480px) {
-  .MSidebar {
-    @apply w-full h-[60px] flex-row items-center justify-around fixed bottom-0 left-0 right-0 z-50;
+    @apply min-w-[300px] max-w-[1000px] flex-shrink-0 h-[100px] flex flex-row items-center justify-around fixed top-0 left-0 right-0 z-50;
   }
 
   .MSidebar-nav {
@@ -60,14 +38,31 @@
   }
 
   .MSidebar-item {
-    @apply flex flex-col items-center justify-center text-[14px] px-2 py-2;
+    @apply flex flex-col items-center justify-center text-center text-[16px] px-2 py-2;
   }
 
   .MSidebar-item svg {
     @apply w-6 h-6;
   }
+}
 
+/* ─── Mobile View (Bottom Navbar) ─── */
+@media (max-width: 767px) {
+  .MSidebar {
+    @apply fixed bottom-0 left-0 right-0 w-full h-[85px] flex flex-row items-center 
+    justify-around bg-white shadow-md px-4 z-50;
+  }
+
+  .MSidebar-nav {
+    @apply flex-row justify-around w-full flex-nowrap;
+  }
+
+  .MSidebar-item {
+    @apply flex flex-col items-center justify-center text-[14px] text-center px-2 py-2 min-w-[60px];
+  }
+
+  /* Hide text labels on mobile */
   .MSidebar-item span {
-    @apply text-[12px] hidden sm:block;
+    @apply hidden;
   }
 }

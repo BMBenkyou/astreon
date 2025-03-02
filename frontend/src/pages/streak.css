@@ -1,34 +1,51 @@
 @import "tailwindcss";
-/* Apply background to entire page */
-body {
-  @apply bg-[#E3FEF9] m-0 flex justify-center items-center h-screen font-[Sofia_Sans];
+/* Streak Container */
+.streak-container {
+  @apply bg-white p-5 rounded-xl shadow-md w-[90%] max-w-[900px] text-center mx-auto mb-8 font-['Poppins',_sans-serif];
 }
 
-.schedule-container {
-  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  /* Laptop & Tablet */
+  .streak-container {
+    @apply max-w-[700px] p-4;
+  }
 }
 
 @media (max-width: 768px) {
-  /* Tablets and below */
-  .schedule-container {
-    @apply flex-col items-center;
+  /* Tablets */
+  .streak-container {
+    @apply p-3 w-[95%] text-sm;
+  }
+
+  .heatmap {
+    /* Adjust heatmap size to fit smaller screens */
+    grid-template-columns: repeat(53, 12px);
+    grid-template-rows: repeat(7, 12px);
+    @apply gap-1;
+  }
+
+  .heatmap-cell {
+    /* Adjust heatmap cell size to fit smaller screens */
+    @apply w-[12px] h-[12px];
   }
 }
 
 @media (max-width: 480px) {
-  /* Smartphones and below */
-  .schedule-container {
-    @apply p-2.5;
+  /* Mobile */
+  .streak-container {
+    @apply text-xs p-2 w-[98%];
   }
-}
 
-.nav-body {
-  @apply flex justify-start items-start gap-5 p-1.5;
-}
+  .heatmap {
+    /* Adjust heatmap size to fit smaller screens */
+    grid-template-columns: repeat(53, 10px);
+    grid-template-rows: repeat(7, 10px);
+    @apply gap-0.5;
+  }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .nav-body {
-    @apply flex-col;
+  .heatmap-cell {
+    /* Adjust heatmap cell size to fit smaller screens */
+    @apply w-[10px] h-[10px];
   }
 }

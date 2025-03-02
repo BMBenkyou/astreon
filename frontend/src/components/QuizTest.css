@@ -2,7 +2,9 @@
 
 /* Quiz Test Container */
 .quiz-test-container {
-  @apply bg-teal-100 rounded-lg shadow-md w-[664px] h-[590px] text-center fixed top-[58%] left-[56%] transform -translate-x-1/2 -translate-y-[55%];
+  @apply bg-teal-100 rounded-lg shadow-md w-[664px] h-[590px] text-center fixed 
+         top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+         font-['Poppins',_sans-serif];
 }
 
 /* Quiz Header */
@@ -116,4 +118,44 @@
 
 .result-box {
   @apply bg-teal-200 px-7 py-4 rounded-lg shadow-md text-xl font-bold mt-7 mb-5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .quiz-test-container {
+    width: 80vw;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz-test-container {
+    width: 90vw;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-test-container {
+    width: 95vw;
+    height: auto;
+    padding: 15px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz-buttons {
+    @apply flex-col items-center gap-4;
+  }
+}
+
+@media (max-width: 480px) {
+  .prev-btn,
+  .next-btn,
+  .finish-btn {
+    @apply text-sm px-4 py-2;
+  }
 }

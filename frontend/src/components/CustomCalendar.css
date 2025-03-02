@@ -1,29 +1,35 @@
 @import "tailwindcss";
 
 .calendar-container {
-  @apply bg-transparent p-5 rounded-[30px] shadow-md w-[396px] h-auto text-center font-sans text-lg border border-[#96B6B6] ml-12;
+  @apply bg-transparent p-5 rounded-[30px] shadow-md w-[396px] h-auto text-center 
+         font-['Poppins',_sans-serif] text-lg border border-[#96B6B6] ml-12;
 }
 
 .react-calendar {
   @apply w-full border-none bg-transparent;
 }
 
+/* Navigation Label (Month & Year) */
 .react-calendar__navigation__label {
-  @apply text-2xl text-[#0C0B0B];
+  @apply text-2xl;
 }
 
+/* Navigation Arrows */
 .react-calendar__navigation__arrow {
   @apply text-3xl;
 }
 
+/* Previous Button Styling */
 .react-calendar__navigation__prev-button {
   @apply text-[#0C0B0B];
 }
 
+/* Date Tiles */
 .react-calendar__tile {
   @apply rounded-md hover:bg-[#C7F6F0];
 }
 
+/* Current Day Styling */
 .react-calendar__tile--now {
   background-color: #2f6b63 !important; /* Keep current date color */
   color: inherit !important;
@@ -33,36 +39,45 @@
   background-color: #c7f6f0 !important; /* Set hover color */
 }
 
+/* Selected Day */
 .react-calendar__tile--active {
   @apply bg-transparent text-[#0C0B0B] rounded-md;
 }
 
+/* Highlighted Days */
 .highlight {
   @apply bg-[#C7F6F0] text-[#0C0B0B] rounded-md;
 }
 
+/* Footer Buttons Container */
 .calendar-footer {
   @apply flex justify-center gap-5 mt-2;
 }
 
+/* Buttons */
 .calendar-clear,
 .calendar-done {
-  @apply inline-block rounded-md border-none text-center text-base py-2 px-3 w-[200px] transition-all duration-500 cursor-pointer m-1;
+  @apply inline-block rounded-md border-none text-center text-base py-2 px-3 w-[200px]
+         transition-all duration-500 cursor-pointer m-1 font-['Poppins',_sans-serif];
 }
 
+/* Clear Button */
 .calendar-clear {
   @apply bg-[#082729] text-[#899696];
 }
 
+/* Done Button */
 .calendar-done {
   @apply bg-[#277B7B] text-white;
 }
 
+/* Hover Effects */
 .calendar-clear:hover,
 .calendar-done:hover {
   @apply bg-[#0C0B0B];
 }
 
+/* Hover Animation */
 .calendar-clear span,
 .calendar-done span {
   @apply cursor-pointer inline-block relative transition-all duration-500;
@@ -84,36 +99,55 @@
   @apply opacity-100 right-0;
 }
 
+/* Click (Active) Effect */
 .calendar-clear:active,
 .calendar-done:active {
   @apply scale-90;
 }
 
+/* Status Message Box */
 .status-container {
-  @apply bg-[#193939] border border-[#96B6B6] rounded-md p-2 mt-2 text-base text-white text-center;
+  @apply bg-[#193939] border border-[#96B6B6] rounded-md p-2 mt-2 text-base text-white 
+         text-center font-['Poppins',_sans-serif];
 }
 
-/* Responsive Styles */
+/* ───────── Responsive Design ───────── */
+
+/* For Tablets (1024px and below) */
 @media (max-width: 1024px) {
   .calendar-container {
     @apply w-[300px];
   }
 }
 
+/* For Small Tablets & Large Phones (768px and below) */
 @media (max-width: 768px) {
   .calendar-container {
-    @apply w-[250px];
+    @apply w-[250px] p-4;
   }
+
+  /* Footer buttons stack vertically */
   .calendar-footer {
     @apply flex-col gap-2;
   }
 }
 
+/* For Small Phones (480px and below) */
 @media (max-width: 480px) {
   .calendar-container {
-    @apply w-[200px] mx-auto;
+    @apply w-[220px] mx-auto p-3;
   }
+
   .calendar-footer {
     @apply flex-col gap-2;
+  }
+
+  /* Adjust font size for smaller screens */
+  .react-calendar__navigation__label {
+    @apply text-xl;
+  }
+
+  .react-calendar__tile {
+    @apply text-sm;
   }
 }

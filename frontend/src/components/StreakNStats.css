@@ -1,11 +1,12 @@
 @import "tailwindcss";
+
 /* ----- Streak Container (GitHub Heatmap Style) ----- */
 .streak-container {
-  @apply bg-white p-5 rounded-xl shadow-md w-[90%] max-w-[900px] text-center mx-auto mb-8;
+  @apply bg-white p-5 rounded-xl shadow-md w-full max-w-[900px] text-center mx-auto mb-8 font-['Poppins',_sans-serif];
 }
 
 .streak-title {
-  @apply text-xl text-[#1C170D] mb-4;
+  @apply text-xl text-[#1C170D] mb-4 font-['Poppins',_sans-serif];
 }
 
 .heatmap {
@@ -14,6 +15,7 @@
   grid-template-rows: repeat(7, 14px);
 }
 
+/* Heatmap cell sizes adapt to screen size */
 .heatmap-cell {
   @apply w-[14px] h-[14px] rounded-sm transition-transform duration-200;
 }
@@ -65,48 +67,60 @@
 
 /* ----- Performance Chart (More Space + Visibility) ----- */
 .statistics-container {
-  @apply mt-5 text-center w-[90%] max-w-[700px] mx-auto;
+  @apply mt-5 text-center w-full max-w-[700px] mx-auto font-['Poppins',_sans-serif];
 }
 
 .statistics-title {
-  @apply text-lg font-bold mb-2;
+  @apply text-lg font-bold mb-2 font-['Poppins',_sans-serif];
 }
 
+/* Responsive Layout */
 .dashboard {
-  @apply flex flex-col ml-12;
+  @apply flex flex-col items-center;
 }
 
-.dashboard-item {
-  @apply flex-1 mx-2;
-}
-
-.dashboard-item h3 {
-  @apply text-base mb-1;
-}
-
-.dashboard-item p {
-  @apply text-sm;
-}
-
-/* ----- Responsive Design ----- */
-@media (max-width: 768px) {
+/* ----- RESPONSIVE BREAKPOINTS ----- */
+@media (max-width: 1024px) {
   .streak-container {
-    @apply p-2;
+    @apply w-[90%] p-4;
   }
 
   .heatmap {
-    @apply gap-0.5;
+    grid-template-columns: repeat(53, minmax(6px, 12px));
+    grid-template-rows: repeat(7, minmax(6px, 12px));
   }
 
-  .heatmap-cell {
-    @apply w-[12px] h-[12px];
+  .statistics-container {
+    @apply max-w-[600px];
+  }
+}
+
+@media (max-width: 768px) {
+  .streak-container {
+    @apply w-[95%] p-3;
   }
 
-  .legend {
-    @apply gap-0.5;
+  .heatmap {
+    grid-template-columns: repeat(53, minmax(5px, 10px));
+    grid-template-rows: repeat(7, minmax(5px, 10px));
   }
 
-  .legend-box {
-    @apply w-[12px] h-[12px];
+  .statistics-container {
+    @apply max-w-[500px];
+  }
+}
+
+@media (max-width: 480px) {
+  .streak-container {
+    @apply w-[95%] p-2;
+  }
+
+  .heatmap {
+    grid-template-columns: repeat(53, minmax(4px, 8px));
+    grid-template-rows: repeat(7, minmax(4px, 8px));
+  }
+
+  .statistics-container {
+    @apply max-w-[400px];
   }
 }

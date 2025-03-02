@@ -5,72 +5,102 @@ body {
   @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
 }
 
+/* Main container styling */
 .MainContainer {
-  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+  @apply flex flex-col h-screen w-full max-w-[90vw] p-5 box-border;
+}
+
+/* Responsive MainContainer adjustments */
+@media (max-width: 1024px) {
+  .MainContainer {
+    @apply max-w-full p-4;
+  }
 }
 
 @media (max-width: 768px) {
   /* Tablets and below */
   .MainContainer {
-    @apply flex-col items-center;
+    @apply flex-col items-center p-3;
   }
 }
 
 @media (max-width: 480px) {
-  /* Smartphones and below */
+  /* Smartphones */
   .MainContainer {
     @apply p-2;
   }
-  .nav-body {
-    @apply flex-row;
-    flex: 1;
-  }
 }
 
+/* Navigation body styling */
 .nav-body {
-  @apply flex justify-start items-start gap-5 p-1;
+  @apply flex flex-row items-stretch font-[Poppins,_sans-serif];
+}
+
+/* Responsive Sidebar adjustments */
+@media (max-width: 1024px) {
+  .nav-body {
+    @apply gap-3;
+  }
 }
 
 @media (max-width: 768px) {
-  /* Tablets and below */
+  /* Tablets */
   .nav-body {
     @apply flex-col;
   }
 }
 
-.main-content {
-  @apply flex flex-row justify-center items-start gap-10;
+/* Main content styling */
+.Amain-content {
+  @apply flex flex-row justify-center items-start gap-10 w-full;
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .main-content {
-    @apply flex-col;
+/* Responsive main content adjustments */
+@media (max-width: 1024px) {
+  .Amain-content {
+    @apply flex-col gap-5 items-center;
   }
 }
 
+/* Schedule title styling */
 .schedule-title {
-  @apply text-[22px] font-bold text-[#1c170d] mb-4;
+  @apply text-[22px] font-bold text-[#1c170d] mb-4 font-[Poppins,_sans-serif];
 }
 
+/* Calendar section styling */
 .calendar-section {
-  @apply flex flex-col items-center mt-10;
+  @apply flex flex-col items-center mt-10 w-full;
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
+/* Responsive Calendar adjustments */
+@media (max-width: 1024px) {
   .calendar-section {
-    @apply mt-5 ml-auto mr-auto;
+    @apply mt-5;
   }
 }
 
-.content-wrapper {
-  @apply flex flex-row justify-center items-start gap-7 p-1;
+@media (max-width: 768px) {
+  /* Tablets */
+  .calendar-section {
+    @apply w-[90%] mx-auto;
+  }
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
+@media (max-width: 480px) {
+  /* Mobile */
+  .calendar-section {
+    @apply w-full px-2;
+  }
+}
+
+/* Content wrapper styling */
+.content-wrapper {
+  @apply flex flex-row justify-center items-start gap-7 p-1 w-full ml-10;
+}
+
+/* Responsive content layout adjustments */
+@media (max-width: 1024px) {
   .content-wrapper {
-    @apply flex-col;
+    @apply flex-col gap-5 items-center;
   }
 }

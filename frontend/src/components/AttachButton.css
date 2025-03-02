@@ -4,17 +4,17 @@
   @apply relative w-[250px] h-[55px] cursor-pointer flex items-center justify-center gap-3
   border-2 border-gray-800 shadow-[4px_4px_0px_#323232] bg-transparent rounded-lg overflow-hidden 
   transition-transform duration-300 hover:scale-110 active:translate-x-[3px] active:translate-y-[3px] 
-  active:shadow-none;
+  active:shadow-none font-['Poppins',_sans-serif];
 }
 
 /* Text - Centered and disappears on hover */
 .button-text {
-  @apply text-gray-800 font-semibold text-[20px] transition-all duration-300;
+  @apply text-gray-800 font-semibold text-[20px] transition-all duration-300 font-['Poppins',_sans-serif];
 }
 
 /* Icon - Properly positioned inside the button */
 .attach-icon {
-  @apply w-7 h-7 transition-all duration-500 absolute left-5 fill-gray-800;
+  @apply w-7 h-7 transition-all duration-500 absolute left-5 fill-gray-800 font-['Poppins',_sans-serif];
 }
 
 /* Hover Effects */
