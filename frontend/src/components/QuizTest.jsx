@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import "./QuizTest.css";
 
-const questions = [
-  { id: 1, question: "What is 2 + 2?", options: ["3", "4", "5"], answer: "4" },
-  { id: 2, question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris"], answer: "Paris" },
-  { id: 3, question: "What is unique about honey compared to other foods?", options: ["It spoils quickly when exposed to air", "It can never spoil", "It lasts for exactly one year"], answer: "It can never spoil" },
-];
-
-const QuizTest = ({ onExit }) => {
+const QuizTest = ({ onExit, quizData }) => {
+  const questions = quizData?.questions || [];
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));
@@ -34,10 +29,25 @@ const QuizTest = ({ onExit }) => {
   };
 
   const handleFinishQuiz = () => {
-    const finalScore = answers.filter((answer, index) => answer === questions[index].answer).length;
+    const finalScore = answers.filter(
+      (answer, index) => answer === questions[index].correct_answer
+    ).length;
     setScore(finalScore);
     setQuizCompleted(true);
   };
+
+  if (!questions.length) {
+    return (
+      <div className="quiz-test-container">
+        <div className="quiz-error">
+          <h2>No questions available</h2>
+          <button onClick={onExit} className="exit-btn">
+            Exit
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="quiz-test-container">
