@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { supabase } from "../supabaseClient"; // Make sure to import Supabase client
+import { useNavigate } from "react-router-dom";
 import LoginContainer from "../components/LoginContainer";
 import InputGroup from "../components/InputGroup";
 import Button from "../components/Button";
@@ -8,27 +10,55 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Logging in with", username, password);
+    setErrorMessage(""); // Clear previous errors
+
+    if (!username || !password) {
+      setErrorMessage("Both fields are required!");
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username, // Supabase uses email for login
+        password,
+      });
+
+      if (error) {
+        console.error("Login Error:", error.message);
+        setErrorMessage(error.message || "Login failed! Please try again.");
+        return;
+      }
+
+      console.log("Login Success:", data);
+      // Redirect to quiz page after successful login
+      navigate("/quiz");
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("Something went wrong. Please try again.");
+    }
   };
 
   return (
     <div className="Opage-container">
-      {/* Login Form */}
       <div className="Ocontainer">
         <div className="Oleft-side">
           <LoginContainer className="Ologin-container">
             <h2 className="Ologin-title">Login</h2>
+            {errorMessage && <p className="Oerror-message">{errorMessage}</p>}
             <form onSubmit={handleLogin}>
               <InputGroup
-                label={<h5 className="Oemail-label">Email</h5>}
+                label={<h5 className="Oemail-label">Username</h5>}
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter Your Email"
+                placeholder="Enter Your Username"
                 className="Oinput-field"
+                required
               />
               <InputGroup
                 label={<h5 className="Opassword-label">Password</h5>}
@@ -37,6 +67,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter Your Password"
                 className="Oinput-field"
+                required
               >
                 <button
                   type="button"
@@ -63,7 +94,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Illustration */}
       <div className="Oillustration-container">
         <img src="/space-ship.svg" alt="Rocket Illustration" />
       </div>
@@ -72,4 +102,3 @@ const Login = () => {
 };
 
 export default Login;
-
