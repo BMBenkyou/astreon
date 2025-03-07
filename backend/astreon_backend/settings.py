@@ -42,15 +42,59 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'learning',
+    'rest_framework.authtoken',
+    'dj_rest_auth.registration',
     'corsheaders',
+    'django.contrib.sites',
+    'allauth',
+    'dj_rest_auth',
     'rest_framework_simplejwt',
     'user',
     'chatbot',
     'rest_framework',
-    'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        "APPS": [
+            {
+                "settings": {
+                    # You can fine tune these settings per app:
+                    "scope": [
+                        "profile",
+                        "email",
+                    ],
+                    "auth_params": {
+                        "access_type": "online",
+                    },
+                },
+            },
+        ],
+        # The following provider-specific settings will be used for all apps:
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "offline",
+        },
+    }
+}
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "offline"},
+        "OAUTH_PKCE_ENABLED": True,  # If True gives issues, try False
+    }
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -69,7 +113,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -106,12 +150,11 @@ AUTHENTICATION_BACKENDS = [
 
 ]
 
+
 #allauth
 ACCOUNT_AUTHENTICATION_METHODS= "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED= True
-ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 ACCOUNT_SESSION_REMEMBER = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -154,27 +197,13 @@ AUTH_PASSWORD_VALIDATORS = [
 #     "http://localhost:3000",  
 # ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True  
+
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SECURE = False
-CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Your frontend URL
     "http://127.0.0.1:5173",
 ]
 
-CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-CORS_ALLOW_HEADERS = ["*"]
-CORS_ALLOW_HEADERS = [
-    "content-type",
-    "authorization",
-    "x-csrftoken",  
-]
-# Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
