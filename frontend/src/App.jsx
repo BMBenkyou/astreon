@@ -11,6 +11,7 @@ import Streak from "./pages/streak";
 import PSettings from "./pages/psettings";
 import Quiz from "./pages/quiz";
 import Aichat from "./pages/ai-chat";
+import Flashcards from "./pages/flashcards";
 
 
 const App = () => (
@@ -28,6 +29,7 @@ const App = () => (
       <Route path="/streak" element={<Streak />} />
       <Route path="/psettings" element={<PSettings />} />
       <Route path="/ai-chat" element={<Aichat />} />
+      <Route path="/flash-cards" element={<Flashcards />} />
     </Routes>
   </div>
 );
