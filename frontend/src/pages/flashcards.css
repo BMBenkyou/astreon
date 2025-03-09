@@ -1,0 +1,102 @@
+.flashcards-maincontainer {
+    height: 100vh;
+    width: 90%;
+  
+}
+.chatbot-maincontainer {
+
+    padding: 20px;
+    height: 76vh;
+    width: 100%;
+    overflow: hidden;
+}
+.type-textarea{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 62px;
+    border-radius: 39px;
+    border: 1px solid #ccc;
+    background-color: rgba(211, 211, 211, 0.379);
+    margin-top:20%;
+}
+.title{
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    margin-bottom:40px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+.title-flashcards {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 62px;
+    border-radius: 15px;
+    border: 1px solid #E8DECF;
+    background-color: #FFFFFF;
+    margin-bottom:5%;
+}
+
+.title-flashcards-textbox {
+    margin-top:5%;
+    margin-bottom:21%;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 20%;
+    border-radius: 15px;
+    border: 1px solid #E8DECF;
+    background-color: #FFFFFF;
+    margin-bottom:5%;
+}
+.send-icon {
+    width: 20px;
+    height:20px;
+   
+}
+
+
+.send-icon-1 {
+    width: 20px;
+    height:20px;
+   margin-right:10px;
+   cursor: pointer;
+}
+.send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #00A676;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.chat-input-textbox {
+    width: 100%;
+    min-height: 120px; /* Adjust to your preferred height */
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: none;
+    padding: 10px;
+    resize: none;
+    line-height: 1.5; /* Adjust for better readability */
+    vertical-align: top;
+
+
+}
+
+.chat-input-textbox::placeholder {
+    position: absolute;
+    top: 0;
+    text-align: left;
+}
