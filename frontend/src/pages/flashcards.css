@@ -100,3 +100,24 @@
     top: 0;
     text-align: left;
 }
+
+.file-message {
+    background: transparent;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for visibility */
+    border-radius: 5px;
+    max-width: 100%;
+    word-wrap: break-word;
+    font-size: 16px;
+    color: black; /* Adjust text color for contrast */
+}
+
+.file-message a {
+    color: #00A676; /* Accent color for file link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.file-message a:hover {
+    text-decoration: underline;
+}
