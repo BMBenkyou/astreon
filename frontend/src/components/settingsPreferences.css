@@ -1,62 +1,91 @@
 @import "tailwindcss";
+
 .preferences-container {
-  @apply flex flex-col gap-5 w-full font-['Poppins',_sans-serif];
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
 }
 
 .preferences-title {
-  @apply text-2xl font-bold text-[#767676] font-['Poppins',_sans-serif];
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #767676;
+  font-family: "Poppins", sans-serif;
 }
 
 .Sinput-group {
-  @apply flex flex-col gap-2 font-['Poppins',_sans-serif];
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
 .Sinput-group label {
-  @apply text-xl font-medium text-[#767676] font-['Poppins',_sans-serif];
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #767676;
+  font-family: "Poppins", sans-serif;
 }
 
 .Sinput-group input,
 .Sinput-group textarea {
-  @apply text-lg p-4 border-2 border-[#A8A8A8] rounded-lg bg-transparent text-[#767676] outline-none w-full resize-none font-['Poppins',_sans-serif];
+  font-size: 1.125rem;
+  padding: 1rem;
+  border: 2px solid #a8a8a8;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: #767676;
+  outline: none;
+  width: 100%;
+  resize: none;
+  font-family: "Poppins", sans-serif;
 }
 
 .Sinput-group input::placeholder,
 .Sinput-group textarea::placeholder {
-  @apply text-[#767676] text-lg font-['Poppins',_sans-serif];
+  color: #767676;
+  font-size: 1.125rem;
+  font-family: "Poppins", sans-serif;
 }
 
 .Sinput-group textarea {
-  @apply min-h-[80px] font-['Poppins',_sans-serif];
+  min-height: 80px;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
   /* Laptop & Tablet */
   .preferences-container {
-    @apply max-w-[500px];
+    max-width: 500px;
   }
 }
 
 @media (max-width: 768px) {
   /* Tablets */
   .preferences-container {
-    @apply max-w-[90%] p-4;
+    max-width: 90%;
+    padding: 1rem;
   }
   .preferences-title {
-    @apply text-xl;
+    font-size: 1.25rem;
   }
 }
 
 @media (max-width: 480px) {
   /* Mobile */
   .preferences-container {
-    @apply max-w-[95%] p-3;
+    max-width: 95%;
+    padding: 0.75rem;
   }
   .preferences-title {
-    @apply text-lg;
+    font-size: 1rem;
   }
   .Sinput-group input,
   .Sinput-group textarea {
-    @apply text-sm p-2;
+    font-size: 0.875rem;
+    padding: 0.5rem;
   }
 }

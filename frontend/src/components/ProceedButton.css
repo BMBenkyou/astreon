@@ -1,16 +1,29 @@
-@import "tailwindcss";
-
 .proceed-button {
-  @apply px-8 py-4 text-[14px] uppercase tracking-widest font-medium text-black bg-white
-  border-none rounded-full shadow-md transition-all duration-300 cursor-pointer outline-none font-['Poppins',_sans-serif];
+  padding: 16px 32px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  outline: none;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Hover effect */
 .proceed-button:hover {
-  @apply bg-[#23c483] text-white shadow-lg -translate-y-2;
+  background-color: #23c483;
+  color: white;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px);
 }
 
 /* Active effect */
 .proceed-button:active {
-  @apply translate-y-0.5;
+  transform: translateY(2px);
 }

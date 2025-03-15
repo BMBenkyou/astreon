@@ -1,46 +1,67 @@
-@import "tailwindcss";
-
 /* Apply background to entire page */
 body {
-  /* Set background color and font-family */
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen font-normal font-['Poppins',_sans-serif];
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
 }
 
-/* Wrap both Verfication container and illustration in a flex container */
+/* Wrap both Verification container and illustration in a flex container */
 .Opage-container {
-  /* Set container layout */
-  @apply flex flex-col md:flex-row justify-center items-center gap-12 w-full max-w-[900px] mx-auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* Flex container for Verfication form */
+/* Flex container for Verification form */
 .Ocontainer {
-  /* Set container layout and styles */
-  @apply w-full md:w-110 p-8 bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] 
-         relative top-5 max-w-[500px] mx-auto rounded-lg shadow-lg;
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  position: relative;
+  top: 5px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Left side - Verfication form */
+/* Left side - Verification form */
 .Oleft-side {
-  /* Set container layout */
-  @apply flex justify-center items-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Verfication container */
+/* Verification container */
 .OVerfication-container {
-  /* Set container layout and styles */
-  @apply w-full max-w-[800px] mx-auto;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Illustration container */
 .Oillustration-container {
-  /* Set container layout */
-  @apply w-full md:w-1/2 flex justify-center;
+  width: 100%;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 /* Illustration image */
 .Oillustration-container img {
-  /* Set image styles */
-  @apply w-[100%] md:w-full max-w-[500px] md:max-w-[600px] h-auto;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }
 
 /* -------------------------------- */
@@ -50,88 +71,119 @@ body {
 /* Mobile View */
 @media (max-width: 600px) {
   body {
-    /* Set layout and styles for mobile view */
-    @apply flex flex-col items-center justify-center min-h-screen w-full p-5;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 5px;
   }
 
   .Opage-container {
-    /* Set container layout and styles for mobile view */
-    @apply flex flex-col items-center w-full max-w-[400px] mx-auto;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
   .Ocontainer {
-    /* Set container layout and styles for mobile view */
-    @apply w-full max-w-[350px] p-6 static shadow-lg rounded-lg;
+    width: 100%;
+    max-width: 350px;
+    padding: 6px;
+    position: static;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
   }
 
   .Oleft-side {
-    /* Set container layout for mobile view */
-    @apply flex flex-col items-center w-full;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .OVerfication-container {
-    /* Set container layout and styles for mobile view */
-    @apply w-full text-center;
+    width: 100%;
+    text-align: center;
   }
 
   .Oinput-field {
-    /* Set input field styles for mobile view */
-    @apply w-full text-sm p-2;
+    width: 100%;
+    font-size: 14px;
+    padding: 8px;
   }
 
   .Oillustration-container {
-    /* Set container layout and styles for mobile view */
-    @apply w-full max-w-[350px] my-5 flex justify-center;
+    width: 100%;
+    max-width: 350px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: center;
   }
 
   .Oillustration-container img {
-    /* Set image styles for mobile view */
-    @apply w-full h-auto;
+    width: 100%;
+    height: auto;
   }
 }
 
 /* Tablet View */
 @media (min-width: 601px) and (max-width: 1024px) {
   .Opage-container {
-    /* Set container layout and styles for tablet view */
-    @apply flex flex-col md:flex-row items-center w-full max-w-[750px] mx-auto;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
   }
 
   .Ocontainer {
-    /* Set container layout and styles for tablet view */
-    @apply w-11/12 max-w-[600px] left-0 p-8 shadow-xl rounded-xl;
+    width: 92%;
+    max-width: 600px;
+    left: 0;
+    padding: 8px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
   }
 
   .Oillustration-container {
-    /* Set container layout and styles for tablet view */
-    @apply w-[500px] flex justify-center;
+    width: 500px;
+    display: flex;
+    justify-content: center;
   }
 
   .Oillustration-container img {
-    /* Set image styles for tablet view */
-    @apply w-full max-w-[500px];
+    width: 100%;
+    max-width: 500px;
   }
 }
 
 /* Desktop View */
 @media (min-width: 1025px) {
   .Opage-container {
-    /* Set container layout and styles for desktop view */
-    @apply flex flex-row justify-between w-full max-w-[1100px] mx-auto;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   .Ocontainer {
-    /* Set container layout and styles for desktop view */
-    @apply max-w-[450px] p-10 shadow-2xl rounded-xl;
+    max-width: 450px;
+    padding: 10px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
   }
 
   .Oillustration-container {
-    /* Set container layout and styles for desktop view */
-    @apply flex justify-center items-center w-[600px];
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
   }
 
   .Oillustration-container img {
-    /* Set image styles for desktop view */
-    @apply w-full max-w-[600px];
+    width: 100%;
+    max-width: 600px;
   }
 }

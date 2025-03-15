@@ -1,66 +1,116 @@
-@import "tailwindcss";
-
 /* Modal Overlay */
 .quiz-modal-overlay {
-  @apply fixed inset-0 flex items-center justify-center bg-black bg-[rgba(0,0,0,0.75)] transition-opacity;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  transition: opacity 0.3s ease-in-out;
 }
 
 .quiz-modal-overlay.hidden {
-  @apply opacity-0 invisible;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .quiz-modal-overlay.visible {
-  @apply opacity-100 visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Modal Content */
 .quiz-modal-content {
-  @apply bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] w-[557px] h-[390px] 
-  p-10 rounded-[40px] shadow-lg transform transition-transform 
-  duration-300 ease-in-out translate-y-[-50px];
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  width: 557px;
+  height: 390px;
+  padding: 40px;
+  border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50px);
+  transition: transform 0.3s ease-in-out;
 }
 
 .quiz-modal-overlay.visible .quiz-modal-content {
-  @apply translate-y-0;
+  transform: translateY(0);
 }
 
 /* Modal Title */
 .modal-title {
-  @apply text-center text-2xl font-bold font-['Poppins',_sans-serif] mb-10;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 40px;
 }
 
 /* Modal Body */
 .modal-text {
-  @apply text-center font-bold underline;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .modal-body {
-  @apply text-center text-2xl font-['Poppins',_sans-serif] text-gray-500 mt-10;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  color: #6b7280;
+  margin-top: 40px;
 }
 
 /* Button Wrapper */
 .btn-wrapper {
-  @apply flex justify-between items-center gap-5 mt-10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
 }
+
 /* Buttons */
 .close-btn,
 .StartQuiz-btn {
-  @apply w-full h-[50px] rounded-md border-2 border-white text-white 
-         font-medium text-[15px] cursor-pointer transition-all 
-         duration-500 ease-out shadow-[inset_0_0_0_0_#1bcfb7] 
-         relative inline-block px-[30px] py-[15px] text-center 
-         tracking-wide bg-transparent mt-[30px];
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  border: 2px solid white;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  box-shadow: inset 0 0 0 0 #1bcfb7;
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  background: transparent;
+  margin-top: 30px;
 }
 
 .close-btn {
-  @apply bg-red-500 hover:bg-[#DCE6EB] hover:text-white hover:shadow-[inset_0_-100px_0_0_#028577];
+  background-color: #ef4444;
+}
+
+.close-btn:hover {
+  background-color: #dce6eb;
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #028577;
 }
 
 .StartQuiz-btn {
-  @apply bg-green-500 hover:bg-[#DCE6EB] hover:text-white hover:shadow-[inset_0_-100px_0_0_#028577];
+  background-color: #22c55e;
+}
+
+.StartQuiz-btn:hover {
+  background-color: #dce6eb;
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #028577;
 }
 
 .close-btn:active,
 .StartQuiz-btn:active {
-  @apply scale-90;
+  transform: scale(0.9);
 }

@@ -1,61 +1,91 @@
-@import "tailwindcss";
-
+/* General Styles */
 .body {
-  @apply bg-[#E3FEF9] font-['Poppins',_sans-serif] flex justify-center items-center h-screen;
+  background-color: #e3fef9;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Schedule Container */
 .schedule-container {
-  @apply flex flex-col h-screen w-screen max-w-[85vw] p-6 box-border;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  max-width: 85vw;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
+/* Navigation Body */
 .PPnav-body {
-  @apply flex gap-10 w-full h-[full];
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
 }
 
+/* Sidebar */
 .sidebar {
-  @apply w-[250px] min-w-[220px] h-full flex-shrink-0;
+  width: 250px;
+  min-width: 220px;
+  height: 100%;
+  flex-shrink: 0;
 }
 
+/* Main Content */
 .PPmain-content {
-  @apply flex-1 flex flex-col justify-center items-start p-6;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
   /* Laptop & Tablet */
   .schedule-container {
-    @apply max-w-[95vw] p-4;
+    max-width: 95vw;
+    padding: 16px;
   }
-  .nav-body {
-    @apply flex-col items-center;
+  .PPnav-body {
+    flex-direction: column;
+    align-items: center;
   }
-  .main-content {
-    @apply items-center;
+  .PPmain-content {
+    align-items: center;
   }
 }
 
 @media (max-width: 768px) {
   /* Tablets */
   .schedule-container {
-    @apply max-w-full p-3;
+    max-width: 100%;
+    padding: 12px;
   }
-  .nav-body {
-    @apply flex-col w-full items-center;
+  .PPnav-body {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
-  .main-content {
-    @apply w-full;
+  .PPmain-content {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   /* Mobile */
   .schedule-container {
-    @apply h-auto p-2;
+    height: auto;
+    padding: 8px;
   }
-  .nav-body {
-    @apply flex-col items-center;
+  .PPnav-body {
+    flex-direction: column;
+    align-items: center;
   }
-  .main-content {
-    @apply w-full p-2;
+  .PPmain-content {
+    width: 100%;
+    padding: 8px;
   }
 }

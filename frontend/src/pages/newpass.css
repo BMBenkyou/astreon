@@ -1,56 +1,114 @@
-@import "tailwindcss";
 /* Apply background to entire page */
 body {
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen font-['Poppins',_sans-serif];
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Wrap both login container and illustration in a flex container */
 .Fpage-container {
-  @apply flex flex-col md:flex-row justify-center items-center gap-12 w-full max-w-[900px] mx-auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .Fpage-container {
+    flex-direction: row;
+  }
 }
 
 /* Flex container for login form */
 .Fcontainer {
-  @apply w-full md:w-110 p-8 bg-gradient-to-b from-[#dce6eb] to-[#c3faf1] 
-         relative top-5 max-w-[500px] mx-auto rounded-lg shadow-lg;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  position: relative;
+  top: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .Fcontainer {
+    width: 27.5rem; /* Equivalent to md:w-110 */
+  }
 }
 
 /* Left side - Login form */
 .Fleft-side {
-  @apply flex justify-center items-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Login container */
 .Fnewpass-container {
-  @apply w-full max-w-[800px] mx-auto;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Login title */
 .Fnewpass-title {
-  @apply text-left font-semibold text-[32px] font-['Poppins',_sans-serif];
+  text-align: left;
+  font-weight: 600;
+  font-size: 32px;
+  font-family: "Poppins", sans-serif;
 }
 
-.Fnew-password-label {
-  @apply text-sm text-left font-normal my-2 font-['Poppins',_sans-serif];
-}
-
+/* Labels */
+.Fnew-password-label,
 .Fnew-confirm-password-label {
-  @apply text-sm text-left font-normal my-2 font-['Poppins',_sans-serif];
+  font-size: 0.875rem;
+  text-align: left;
+  font-weight: 400;
+  margin: 0.5rem 0;
+  font-family: "Poppins", sans-serif;
+  width: 315px;
 }
 
 /* Input field styles */
 .Finput-field {
-  @apply text-sm w-full;
+  font-size: 0.875rem;
+  width: 100%;
 }
 
 /* Illustration container */
 .Fillustration-container {
-  @apply w-full md:w-1/2 flex justify-center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .Fillustration-container {
+    width: 50%;
+  }
 }
 
 /* Illustration image */
 .Fillustration-container img {
-  @apply w-[100%] md:w-full max-w-[500px] md:max-w-[600px] h-auto;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .Fillustration-container img {
+    max-width: 700px;
+  }
 }
 
 /* -------------------------------- */
@@ -59,50 +117,69 @@ body {
 
 @media (max-width: 600px) {
   body {
-    @apply block h-auto p-5;
+    display: block;
+    height: auto;
+    padding: 1.25rem;
   }
 
   .Fcontainer {
-    @apply w-full max-w-[350px] p-6 static;
+    width: 100%;
+    max-width: 350px;
+    padding: 1.5rem;
+    position: static;
   }
 
   .Fleft-side {
-    @apply flex-col items-center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .Flogin-container {
-    @apply max-w-full text-center;
+    max-width: 100%;
+    text-align: center;
   }
 
   .Fillustration-container {
-    @apply static w-full max-w-[350px] my-5 flex justify-center;
+    position: static;
+    width: 100%;
+    max-width: 350px;
+    margin: 1.25rem 0;
+    display: flex;
+    justify-content: center;
   }
 
   .Fillustration-container img {
-    @apply w-full h-auto;
+    width: 100%;
+    height: auto;
   }
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {
   .Fcontainer {
-    @apply w-11/12 max-w-[600px] left-0;
+    width: 91.666667%;
+    max-width: 600px;
+    left: 0;
   }
 
   .Fillustration-container {
-    @apply right-[50px] w-[600px] h-auto;
+    right: 50px;
+    width: 600px;
+    height: auto;
   }
 
   .Fillustration-container img {
-    @apply w-full max-w-[600px];
+    width: 100%;
+    max-width: 600px;
   }
 }
 
 @media (min-width: 1025px) {
   .Fcontainer {
-    @apply max-w-[900px];
+    max-width: 900px;
   }
 
   .Fillustration-container {
-    @apply w-[800px] h-[800px];
+    width: 800px;
+    height: 800px;
   }
 }

@@ -1,36 +1,65 @@
-@import "tailwindcss";
+/* General styles for input group */
 .input-group {
-  @apply my-4 w-full max-w-[370px] font-['Poppins',_sans-serif];
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 370px;
+  font-family: "Poppins", sans-serif;
 }
 
 .input-group label {
-  @apply block font-bold font-['Poppins',_sans-serif];
+  display: block;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Input wrapper styling */
 .input-wrapper {
-  @apply w-full flex items-center border border-gray-300 rounded-md 
-         bg-transparent overflow-hidden transition-all duration-300 ease-in-out 
-         font-['Poppins',_sans-serif];
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  background-color: transparent;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Input field styles */
 .input-group input {
-  @apply flex-1 p-3 border-none text-sm bg-transparent outline-none;
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  font-size: 0.875rem;
+  background-color: transparent;
+  outline: none;
 }
 
 .input-group input::placeholder {
-  @apply text-gray-400 font-['Poppins',_sans-serif];
+  color: #9ca3af; /* gray-400 */
+  font-family: "Poppins", sans-serif;
 }
 
 /* Show/Hide Button */
 .show-hide-btn {
-  @apply p-3 h-[42px] bg-none border-none cursor-pointer text-sm text-black 
-         outline-none transition-all duration-300 ease-in-out border-l border-gray-300 font-['Poppins',_sans-serif];
+  padding: 0.75rem;
+  height: 42px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: black;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  border-left: 1px solid #d1d5db; /* gray-300 */
+  font-family: "Poppins", sans-serif;
 }
 
 .show-hide-btn:hover {
-  @apply bg-[#028577] scale-110;
+  background-color: #028577;
+  transform: scale(1.1);
 }
 
 .show-hide-btn:active {
-  @apply scale-90;
+  transform: scale(0.9);
 }

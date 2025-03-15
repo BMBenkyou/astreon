@@ -1,31 +1,204 @@
-@import "tailwindcss";
-
+/* Header */
 .header {
-  @apply flex justify-between items-center w-full p-5 mb-[90px] flex-wrap font-['Poppins',_sans-serif];
-  @apply flex justify-between items-center w-full p-5 mb-[90px] flex-wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 70px;
+  flex-wrap: wrap;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Right Section */
 .right-section {
-  @apply flex items-center gap-8 md:gap-2 font-['Poppins',_sans-serif];
-  @apply flex items-center gap-8 md:gap-2;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .header {
+    padding: 15px;
+    margin-bottom: 60px;
+  }
+  .right-section {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px;
+    margin-bottom: 30px;
+  }
+  .logo {
+    width: 55px;
+    height: 55px;
+  }
+  .right-section {
+    gap: 12px;
+  }
+  .calendar {
+    width: 32px;
+    height: 32px;
+  }
+  .profile-icon {
+    width: 45px;
+    height: 45px;
+  }
+  .dropdown-icon {
+    font-size: 18px;
+  }
+}
+
+/* Logo */
 .logo {
-  @apply w-[73px] h-[73px] flex items-center justify-center overflow-hidden font-['Poppins',_sans-serif];
-  @apply w-[73px] h-[73px] flex items-center justify-center overflow-hidden;
+  width: 73px;
+  height: 73px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
 }
 
 .logo img {
-  @apply w-full h-auto font-['Poppins',_sans-serif];
-  @apply w-full h-auto;
+  width: 100%;
+  height: auto;
 }
 
+/* Calendar Icon */
 .calendar {
-  @apply w-10 h-10 text-gray-800 bg-white rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:text-black font-['Poppins',_sans-serif];
-  @apply w-10 h-10 text-gray-800 bg-white rounded-full cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:text-black;
+  width: 40px;
+  height: 40px;
+  color: #4a4a4a;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
+.calendar:hover {
+  transform: scale(1.25);
+  color: black;
+}
+
+/* Profile Icon */
 .profile-icon {
-  @apply w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-gray-300 cursor-pointer hover:bg-white font-['Poppins',_sans-serif];
-  @apply w-[55px] h-[55px] rounded-full bg-white flex items-center justify-center overflow-hidden border border-gray-300 cursor-pointer hover:bg-white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+}
+
+.profile-icon:hover {
+  background-color: white;
+}
+
+/* Profile Container */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Dropdown Icon */
+.dropdown-icon {
+  font-size: 24px;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dropdown-icon:hover {
+  transform: scale(1.2);
+  color: black;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 170px;
+  background-color: rgba(36, 40, 50, 1);
+  background-image: linear-gradient(
+    139deg,
+    rgba(36, 40, 50, 1) 0%,
+    rgba(37, 28, 40, 1) 100%
+  );
+  border-radius: 10px;
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile Dropdown Adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    right: -10px;
+    width: 180px;
+  }
+}
+
+.dropdown-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(220, 230, 235, 1);
+  background-image: linear-gradient(
+    139deg,
+    rgba(220, 230, 235, 1) 0%,
+    rgba(195, 250, 241, 1) 100%
+  );
+  backdrop-filter: blur(80%);
+}
+
+/* Dropdown Separator */
+.separator {
+  border-top: 1.5px solid #42434a;
+}
+
+/* Dropdown List */
+.list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px 10px;
+}
+
+/* Dropdown List Elements */
+.list .element {
+  display: flex;
+  align-items: center;
+  color: #000000;
+  gap: 10px;
+  transition: all 0.3s ease-out;
+  padding: 4px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.list .element:hover {
+  background-color: #039c87;
+  color: #ffffff;
+  transform: translate(1px, -1px);
 }

@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
 .login-container {
-  @apply p-4 font-['Poppins',_sans-serif];
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
 }

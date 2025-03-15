@@ -1,56 +1,103 @@
-@import "tailwindcss";
+/* General Form Styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  width: 256px;
+  height: 256px;
+  padding: 16px;
+  align-items: center;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
 
-/* Components Layer */
-@layer components {
-  /* Form Container */
-  .form {
-    @apply flex flex-col gap-3 bg-white/10 rounded-xl backdrop-blur-md w-64 h-64 p-4 items-center mx-auto font-normal font-['Poppins',_sans-serif];
-  }
+/* Content Area */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  gap: 40px;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
 
-  /* Content Area */
-  .content {
-    @apply flex flex-col justify-center items-center text-2xl gap-10 font-normal font-['Poppins',_sans-serif];
-  }
+/* Input Wrapper */
+.inp {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
 
-  /* Input Wrapper */
-  .inp {
-    @apply flex justify-center gap-3 font-normal font-['Poppins',_sans-serif];
-  }
+/* Individual Input Field */
+.input {
+  color: black;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  text-align: center;
+  background: transparent;
+  outline: none;
+  border: 1px solid #4fd1c5;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
 
-  /* Individual Input Field */
-  .input {
-    @apply text-black h-10 w-10 text-xl text-center bg-transparent outline-none border border-teal-300 rounded-lg transition-all duration-300 ease-in-out font-normal font-['Poppins',_sans-serif];
-  }
+/* Input Focus State */
+.input:focus {
+  border-color: #319795;
+  transform: scale(1.1);
+}
 
-  /* Input Focus State */
-  .input:focus {
-    @apply border-teal-600 scale-110;
-  }
+/* Form Button */
+.form button {
+  background: transparent;
+  color: black;
+  width: 128px;
+  height: 40px;
+  border: 2px solid #319795;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+}
 
-  /* Form Button */
-  .form button {
-    @apply bg-transparent text-black w-32 h-10 border-2 border-teal-600 rounded-xl transition-all duration-300 ease-in-out cursor-pointer font-normal font-['Poppins',_sans-serif];
-  }
+/* Button Hover State */
+.form button:hover {
+  background-color: #319795;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 6px rgba(100, 149, 237, 0.5);
+}
 
-  /* Button Hover State */
-  .form button:hover {
-    @apply bg-teal-600 scale-105 shadow-md shadow-blue-400/50;
-  }
+/* Disabled Button State */
+.form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 
-  /* Disabled Button State */
-  .form button:disabled {
-    @apply cursor-not-allowed opacity-50;
-  }
+/* SVG Styling */
+.svg {
+  filter: blur(10px);
+  position: absolute;
+  top: 48px;
+  opacity: 0.5;
+  z-index: -10;
+  animation: float 4s infinite;
+}
 
-  /* SVG Styling */
-  .svg {
-    @apply blur-lg -z-10 absolute top-12 opacity-50 animate-bounce;
-  }
-
-  /* Path Styling */
-  .path {
-    @apply fill-teal-600;
-  }
+/* Path Styling */
+.path {
+  fill: #319795;
 }
 
 /* Keyframe Animations */
@@ -67,21 +114,12 @@
 
 @keyframes float {
   0% {
-    transform: translateY(-70px);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-19px);
+    transform: translateY(-60px);
   }
   100% {
-    transform: translateY(-70px);
+    transform: translateY(0);
   }
-}
-
-/* Animation Classes */
-.animate-float {
-  animation: float 3s infinite;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out;
 }

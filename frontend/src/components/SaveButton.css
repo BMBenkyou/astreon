@@ -1,49 +1,88 @@
-@import "tailwindcss";
-
+/* Save Button */
 .save-button {
-  @apply font-['Poppins',_sans-serif] w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#039C87] border-none rounded-md shadow-md relative transition-all duration-200;
+  font-family: "Poppins", sans-serif;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: #039c87;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.2s ease-in-out;
 }
 
+/* Button Text */
 .save-button .text {
-  @apply font-['Poppins',_sans-serif] text-white font-bold text-xl flex-grow text-center transition-all duration-200;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  flex-grow: 1;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
 }
 
+/* Button Icon */
 .save-button .icon {
-  @apply absolute right-0 border-l border-[#1abba6] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200;
+  position: absolute;
+  right: 0;
+  border-left: 1px solid #1abba6;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
 }
 
+/* SVG Icon */
 .save-button svg {
-  @apply w-5 fill-gray-100;
+  width: 20px;
+  fill: #f3f4f6; /* Tailwind's gray-100 */
 }
 
+/* Hover Effects */
 .save-button:hover {
-  @apply bg-[#028976];
+  background-color: #028976;
 }
 
 .save-button:hover .text {
-  @apply text-transparent;
+  color: transparent;
 }
 
 .save-button:hover .icon {
-  @apply w-[150px] border-l-0 transform-none;
+  width: 150px;
+  border-left: 0;
 }
 
+/* Focus Effect */
 .save-button:focus {
-  @apply outline-none;
+  outline: none;
 }
 
+/* Active Effect */
 .save-button:active .icon svg {
-  @apply scale-90;
+  transform: scale(0.9);
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
   .save-button {
-    @apply w-[90%] text-sm h-[45px];
+    width: 90%;
+    font-size: 14px;
+    height: 45px;
   }
 }
 
 @media (max-width: 480px) {
   .save-button {
-    @apply w-full h-[40px] text-xs;
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
   }
 }

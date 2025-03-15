@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
+import ResetButton from "../components/ResetButton";
 import "./StreakNStats.css";
 
 const generateMockStreakData = () => {
   const startDate = new Date(new Date().getFullYear(), 0, 1);
-  return Array.from({ length: 365 }, (_, i) => {
+  return Array.from({ length: 273 }, (_, i) => {
     const date = new Date(startDate);
     date.setDate(startDate.getDate() + i);
     return {
@@ -31,11 +32,18 @@ const StreakTracker = () => {
     localStorage.setItem("streakData", JSON.stringify(streakData));
   }, [streakData]);
 
+  const resetStreakData = () => {
+    const newData = generateMockStreakData();
+    setStreakData(newData);
+  };
+
+  const displayedStreakData = streakData.slice(-273);
+
   return (
     <div className="streak-container">
       <h2 className="streak-title">Daily Streak</h2>
       <div className="heatmap">
-        {streakData.map((day, index) => (
+        {displayedStreakData.map((day, index) => (
           <div
             key={index}
             className={`heatmap-cell ${
@@ -53,9 +61,27 @@ const StreakTracker = () => {
         <div className="legend-box high"></div>
         <span>More</span>
       </div>
+
+      {/* Using ResetButton Component */}
+      <ResetButton onClick={resetStreakData} />
     </div>
   );
 };
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const heatmap = document.querySelector(".heatmap");
+  if (!heatmap) {
+    console.error("Heatmap container not found!");
+    return;
+  }
+  for (let i = 0; i < 365; i++) {
+    let cell = document.createElement("div");
+    cell.classList.add("heatmap-cell", "empty"); // Default state
+    heatmap.appendChild(cell);
+  }
+});
 
 const PerformanceStatistics = () => {
   const [chartData, setChartData] = useState(() => {

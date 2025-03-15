@@ -1,21 +1,40 @@
-@import "tailwindcss";
-
+/* Quiz Footer */
 .quiz-footer {
-  @apply flex items-center justify-between bg-[rgba(140,140,140,0.24)] max-w-[1008px] mx-auto
-         rounded-full p-3 shadow-md border border-gray-300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(140, 140, 140, 0.24);
+  max-width: 1008px;
+  margin: 0 auto;
+  border-radius: 9999px;
+  padding: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1d5db;
 }
 
+/* Quiz Footer Input */
 .quiz-footer-input {
-  @apply w-[1008px] bg-transparent outline-none text-[#424242] px-4 text-[26px];
+  width: 1008px;
+  background: transparent;
+  outline: none;
+  color: #424242;
+  padding-left: 16px;
+  font-size: 26px;
 }
 
 /* Attachment Button */
 .attach-bton {
-  @apply bg-[#424242] text-white hover:text-white text-2xl rounded-full;
+  background-color: #424242;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out, background-color 0.3s;
 }
 
 .attach-bton:hover {
-  @apply bg-[#454545] text-white hover:text-white text-2xl rounded-full scale-110;
+  background-color: #454545;
+  color: white;
+  transform: scale(1.1);
 }
 
 .attach-bton:active {
@@ -24,19 +43,30 @@
 
 /* Send Button */
 .send-btn {
-  @apply flex items-center bg-[#23BA8E] text-white text-lg font-semibold 
-         px-4 py-2 rounded-full overflow-hidden transition-all duration-200 cursor-pointer 
-         border-none relative;
+  display: flex;
+  align-items: center;
+  background-color: #23ba8e;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+  position: relative;
 }
 
 /* Button Text */
 .send-btn span {
-  @apply ml-2 transition-transform duration-300;
+  margin-left: 8px;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Send Icon */
 .send-icon {
-  @apply transition-transform duration-300;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Hover Effects */
@@ -70,10 +100,13 @@
 /* === Responsive Fixes (Only for Small Screens) === */
 @media (max-width: 1024px) {
   .quiz-footer {
-    @apply max-w-md px-4;
+    max-width: 28rem;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .quiz-footer-input {
-    @apply w-full text-[20px];
+    width: 100%;
+    font-size: 20px;
   }
 }
