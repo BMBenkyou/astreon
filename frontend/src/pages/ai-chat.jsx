@@ -50,7 +50,7 @@ export default function Aichat() {
 
       <main>
         <div className="grid-container-aichat">
-          <div className="sidebar">
+          <div className="sidebar-aichat">
             <Sidebar />
           </div>
 

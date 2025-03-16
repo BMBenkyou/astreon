@@ -57,7 +57,7 @@ export default function Sessions() {
 
       <main>
         <div className="grid-container-sidebar">
-          <div className="sidebar">
+          <div className="sidebar-sessions">
             <Sidebar />
           </div>
           <div className="main-sessions-grid">
