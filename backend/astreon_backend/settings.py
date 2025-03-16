@@ -16,6 +16,7 @@ import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,23 +43,55 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework.authtoken',
+    'dj_rest_auth.registration',
+    'corsheaders',
+    'django.contrib.sites',
+    'allauth', 'dj_rest_auth',
+    'rest_framework_simplejwt',
     'user',
     'chatbot',
     'rest_framework',
-    'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "offline"},
+        "OAUTH_PKCE_ENABLED": True,  # If True gives issues, try False
+    }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+from datetime import timedelta
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",), 
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.common.CommonMiddleware",
     'allauth.account.middleware.AccountMiddleware',
 ]
+
 
 ROOT_URLCONF = 'astreon_backend.urls'
 
@@ -88,25 +121,29 @@ AUTHENTICATION_BACKENDS = [
 
 ]
 
+
 #allauth
 ACCOUNT_AUTHENTICATION_METHODS= "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED= True
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 ACCOUNT_SESSION_REMEMBER = True
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #the message will be printed in the console
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SITE_ID = 1
 WSGI_APPLICATION = 'astreon_backend.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASE_URL = os.getenv('DB_URL')
+DATABASE_URL = os.getenv('DATABASE_URL')
 DATABASES = {
-        #for allauth
-    'default': dj_database_url.config(),
+    'default': dj_database_url.config(default=DATABASE_URL),
 }
 
 
@@ -129,7 +166,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  
+# ]
+
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"] 
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
