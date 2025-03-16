@@ -6,24 +6,42 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.grid-container {
+.grid-container-aichat {
+    margin-top:200px;
     display: grid;
-    grid-template-columns: 1fr 4fr; /* Sidebar (1) | Chatbot (4) */
+    grid-template-areas: 
+        "chat"
+        "sidebar";
+    grid-template-rows: auto 80px;
     height: 100vh;
     width: 100%;
-    margin-top: 180px;
 }
 
+
+
+/* Chat container on top */
 .chatbot-maincontainer {
+    grid-area: chat;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Align chat and input field */
+    justify-content: space-between;
     padding: 20px;
-    height: 76vh;
-    width: 90%;
     overflow: hidden;
-    order: 1; /* Chatbox remains at the top */
 }
+.sidebar {
+    padding: 10px;
+    width: 100%;
+}
+
+/* Desktop Layout */
+@media (min-width: 768px) {
+    .grid-container-aichat {
+        grid-template-areas: "sidebar chat";
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: 100vh;
+    }
+}
+
 .chat-cont {
     flex-grow: 1;
     display: flex;

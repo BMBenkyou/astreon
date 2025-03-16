@@ -59,8 +59,8 @@ export default function Flashcards() {
       </header>
 
       <main>
-        <div className="grid-container">
-          <div className="sidebar">
+        <div className="grid-container-flashcards">
+          <div className="sidebar-flashcards">
             <Sidebar />
           </div>
 

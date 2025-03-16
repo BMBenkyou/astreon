@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./header.css";
-
 
 const HeaderLoggedIn = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -15,15 +24,34 @@ const HeaderLoggedIn = () => {
                 <img src="../public/Astreon_Logo.svg" alt="Logo" className="h-10" />
             </div>
 
-            <div className="spacing-right md:flex space-x-1 items-center">
-                <p className="text-black cursor-pointer hover:text-gray-800 mt-4">Calendar</p>
-                <img
-                    src="../public/user-profile-default.png"
-                    alt="User Profile"
-                    className="h-15 w-15 rounded-full mr-[30px] cursor-pointer"
-                />
+            {/* Desktop: Show Calendar & Profile */}
+            {!isMobile ? (
+                <div className="md:flex space-x-4 items-center">
+                    <p className="text-black cursor-pointer hover:text-gray-800">Calendar</p>
+                    <img
+                        src="../public/user-profile-default.png"
+                        alt="User Profile"
+                        className="h-12 w-12 rounded-full cursor-pointer"
+                    />
+                </div>
+            ) : (
+                /* Mobile: Show Hamburger Menu */
+                <div className="relative">
+                    <img
+                        src="../public/Menu.svg"
+                        alt="Menu"
+                        className="h-8 w-8 cursor-pointer"
+                        onClick={toggleDropdown}
+                    />
 
-            </div>
+                    {isOpen && (
+                        <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-md p-2">
+                            <p className="text-black cursor-pointer hover:text-gray-800 p-2">Calendar</p>
+                            <p className="text-black cursor-pointer hover:text-gray-800 p-2">Profile</p>
+                        </div>
+                    )}
+                </div>
+            )}
         </header>
     );
 };

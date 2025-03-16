@@ -12,6 +12,7 @@ import PSettings from "./pages/psettings";
 import Quiz from "./pages/quiz";
 import Aichat from "./pages/ai-chat";
 import Flashcards from "./pages/flashcards";
+import Sessions from "./pages/sessions";
 
 
 const App = () => (
@@ -30,6 +31,7 @@ const App = () => (
       <Route path="/psettings" element={<PSettings />} />
       <Route path="/ai-chat" element={<Aichat />} />
       <Route path="/flash-cards" element={<Flashcards />} />
+      <Route path="/sessions" element={<Sessions />} />
     </Routes>
   </div>
 );
