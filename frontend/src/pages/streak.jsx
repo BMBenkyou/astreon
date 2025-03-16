@@ -6,6 +6,7 @@ import StreakNtatistics from "../components/StreakNStats";
 
 import "./streak.css";
 
+// Define the Profile component
 const Profile = () => {
   // Separate state for each password field
   const [username, setUsername] = useState("");
@@ -22,6 +23,7 @@ const Profile = () => {
       {/* Header */}
       <Header />
 
+      {/* Nav Body: persistent sidebar and body content */}
       <div className="nav-body">
         {/* Sidebar remains persistent */}
         <Psidebar />

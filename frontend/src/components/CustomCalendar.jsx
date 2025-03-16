@@ -7,33 +7,21 @@ const CustomCalendar = () => {
   const [selectedDates, setSelectedDates] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [clicking, setClicking] = useState(false);
 
   const handleDateChange = (date) => {
-    if (clicking) {
-      if (startDate && endDate) {
-        setSelectedDates([]);
-        setStartDate(null);
-        setEndDate(null);
-      } else if (startDate) {
-        setEndDate(date);
-        setSelectedDates(getSelectedDatesInRange(startDate, date));
-      } else {
-        setStartDate(date);
-      }
-      setClicking(false);
+    if (startDate && endDate) {
+      setStartDate(date);
+      setEndDate(null);
+      setSelectedDates([date.toDateString()]);
+    } else if (startDate) {
+      setEndDate(date);
+      setSelectedDates(getSelectedDatesInRange(startDate, date));
     } else {
-      const dateString = date.toDateString();
-      if (selectedDates.includes(dateString)) {
-        setSelectedDates(selectedDates.filter((d) => d !== dateString));
-      } else {
-        setSelectedDates([...selectedDates, dateString]);
-      }
+      setStartDate(date);
+      setSelectedDates([date.toDateString()]);
     }
   };
 
-  const handleMouseDown = () => setClicking(true);
-  const handleMouseUp = () => setClicking(false);
   const handleClear = () => {
     setSelectedDates([]);
     setStartDate(null);
@@ -55,38 +43,32 @@ const CustomCalendar = () => {
   };
 
   const formatSelectedDateRange = () => {
-    if (!startDate && !endDate) return "No dates selected.";
+    if (!startDate) return "No dates selected.";
     const formatDate = (date) =>
       `${date.toDateString()} (${date.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
+        second: "2-digit",
         hour12: true,
       })})`;
-    return startDate && !endDate
-      ? `Selected Date: ${formatDate(startDate)}`
-      : `Selected Range: ${formatDate(startDate)} - ${formatDate(endDate)}`;
+
+    return endDate
+      ? `Selected Range: ${formatDate(startDate)} - ${formatDate(endDate)}`
+      : `Selected Date: ${formatDate(startDate)}`;
   };
 
   return (
     <div className="calendar-container">
       <Calendar
         onClickDay={handleDateChange}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
         tileClassName={({ date }) => (isDateSelected(date) ? "highlight" : null)}
       />
-
       <div className="status-container">
         <p>{formatSelectedDateRange()}</p>
       </div>
-
       <div className="calendar-footer">
-        <button className="calendar-clear">
-          <span onClick={handleClear}>Clear</span>
-        </button>
-        <button className="calendar-done">
-          <span>Done</span>
-        </button>
+        <button className="calendar-clear" onClick={handleClear}>Clear</button>
+        <button className="calendar-done">Done</button>
       </div>
     </div>
   );

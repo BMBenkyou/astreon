@@ -11,7 +11,7 @@ const GenerateSchedule = () => {
   console.log("Current Path:", location.pathname); // Debugging, shows "/generate-schedule"
 
   return (
-    <div className="MainContainer">
+    <div className="MainContaineR">
       {/* Header */}
       <Header />
 
@@ -19,8 +19,8 @@ const GenerateSchedule = () => {
         {/* Sidebar remains persistent */}
         <Sidebar />
 
-        <div className="main-content">
-          <div className="content-wrapper">
+        <div className="Amain-content">
+          <div className="GScontent-wrapper">
             <FilePreview />
             <div className="calendar-section">
               <CustomCalendar />

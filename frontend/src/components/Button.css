@@ -1,17 +1,45 @@
-@import "tailwindcss";
-
+/* Button styling */
 .button {
-  @apply w-full h-[50px] rounded-md border-2 border-white text-white 
-         font-medium text-[15px] cursor-pointer transition-all 
-         duration-500 ease-out shadow-[inset_0_0_0_0_#1bcfb7] 
-         relative inline-block px-[30px] py-[15px] text-center 
-         tracking-wide bg-transparent mt-[30px];
+  width: 100%;
+  height: 45px;
+  max-height: 55px;
+  border-radius: 0.375rem; /* rounded-md */
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  padding: 12px 25px;
+  background-color: transparent;
+  margin-top: 20px;
 }
 
+@media (min-width: 640px) {
+  /* sm breakpoint */
+  .button {
+    height: 50px;
+    font-size: 15px;
+    padding: 12px 30px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md breakpoint */
+  .button {
+    height: 55px;
+    font-size: 16px;
+    margin-top: 30px;
+  }
+}
+
+/* Hover effect */
 .button:hover {
-  @apply bg-[#DCE6EB] text-white shadow-[inset_0_-100px_0_0_#028577];
+  background-color: #dce6eb;
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #028577;
 }
 
+/* Active state */
 .button:active {
-  @apply scale-90;
+  transform: scale(0.9);
 }

@@ -1,32 +1,59 @@
-@import "tailwindcss";
-
+/* Attach Button */
 .attach-button {
-  @apply relative w-[250px] h-[55px] cursor-pointer flex items-center justify-center gap-3
-  border-2 border-gray-800 shadow-[4px_4px_0px_#323232] bg-transparent rounded-lg overflow-hidden 
-  transition-transform duration-300 hover:scale-110 active:translate-x-[3px] active:translate-y-[3px] 
-  active:shadow-none;
+  position: relative;
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px solid #323232;
+  box-shadow: 4px 4px 0 #323232;
+  background: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Text - Centered and disappears on hover */
+.attach-button:hover {
+  transform: scale(1.1);
+}
+
+.attach-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* Button Text */
 .button-text {
-  @apply text-gray-800 font-semibold text-[20px] transition-all duration-300;
+  color: #323232;
+  font-weight: 600;
+  font-size: 20px;
+  transition: opacity 0.3s;
 }
 
-/* Icon - Properly positioned inside the button */
-.attach-icon {
-  @apply w-7 h-7 transition-all duration-500 absolute left-5 fill-gray-800;
-}
-
-/* Hover Effects */
 .attach-button:hover .button-text {
-  @apply opacity-0;
+  opacity: 0;
+}
+
+/* Icon */
+.attach-icon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 20px;
+  fill: #323232;
+  transition: all 0.5s;
 }
 
 .attach-button:hover .attach-icon {
-  @apply left-1/2 transform -translate-x-1/2 scale-125;
+  left: 50%;
+  transform: translateX(-50%) scale(1.25);
 }
 
 /* Hidden input */
 .hidden-input {
-  @apply hidden;
+  display: none;
 }

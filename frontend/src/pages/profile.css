@@ -1,80 +1,139 @@
 @import "tailwindcss";
+
 /* Apply background to entire page */
 body {
-  @apply bg-[#E3FEF9] m-0 font-['Sofia_Sans',_sans-serif] flex justify-center items-center h-screen;
+  background-color: #e3fef9;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Navigation body */
 .nav-body {
-  @apply flex justify-start items-start gap-5 p-1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 4px;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Style the input field itself */
+/* Style the input field wrapper */
 .Ninput-wrapper {
-  @apply w-full flex items-center p-2.5 transition-all duration-300 ease-in-out;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Style the input field */
 .Ninput-wrapper input {
-  @apply w-full p-2.5 text-lg border-none outline-none bg-transparent;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.125rem; /* text-lg */
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Placeholder styling */
 .Ninput-wrapper input::placeholder {
-  @apply text-[#9c9292];
+  color: #9c9292;
 }
 
 /* Schedule container */
 .schedule-container {
-  @apply flex flex-col h-screen w-screen p-5 box-border;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Button group */
 .button-group {
-  @apply flex justify-between items-center gap-10 w-full mt-12;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  margin-top: 48px;
 }
 
 /* Danger Zone Styling */
 .danger-zone {
-  @apply flex flex-col items-center justify-center gap-2.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .danger-zone p {
-  @apply text-red-500 text-xl font-bold text-center m-0;
+  color: #ef4444; /* Red-500 */
+  font-size: 1.25rem; /* text-xl */
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  margin: 0;
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  /* Tablets */
+@media (max-width: 1024px) {
+  /* Laptops and tablets */
   .Ninput-group-wrapper {
-    @apply max-w-[90%];
-  }
-}
-
-@media (max-width: 480px) {
-  /* Smartphones */
-  .Ninput-group-wrapper {
-    @apply max-w-full;
-  }
-  .Ninput-field {
-    @apply text-2xl;
+    max-width: 80%;
   }
 }
 
 @media (max-width: 768px) {
   /* Tablets and below */
   .schedule-container {
-    @apply flex-col items-center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
   }
-}
 
-@media (max-width: 480px) {
-  /* Smartphones */
-  .schedule-container {
-    @apply p-2.5;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
   .nav-body {
-    @apply flex-col;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .Ninput-group-wrapper {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Smartphones */
+  .Ninput-group-wrapper {
+    width: 100%;
+  }
+
+  .Ninput-field {
+    font-size: 1.125rem; /* text-lg */
+  }
+
+  .save-button,
+  .del-button {
+    width: 100%;
+    font-size: 1rem; /* text-base */
   }
 }

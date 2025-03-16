@@ -1,0 +1,62 @@
+/* Reset Button */
+.reset-button {
+  position: relative;
+  width: 250px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px solid #323232;
+  box-shadow: 4px 4px 0px #323232;
+  background-color: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
+}
+
+.reset-button:hover {
+  transform: scale(1.1);
+}
+
+.reset-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* Button Text - Centered and disappears on hover */
+.button-text2 {
+  color: #323232;
+  font-weight: 600;
+  font-size: 20px;
+  transition: opacity 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Icon - Properly positioned inside the button */
+.reset-icon {
+  width: 22px;
+  height: 22px;
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  left: 20px;
+  fill: #323232;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Hover Effects */
+.reset-button:hover .button-text2 {
+  opacity: 0;
+}
+
+.reset-button:hover .reset-icon {
+  left: 50%;
+  transform: translateX(-50%) scale(1.25);
+}
+
+/* Hidden input */
+.hidden-input {
+  display: none;
+}

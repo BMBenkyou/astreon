@@ -1,37 +1,91 @@
-@import "tailwindcss";
-
+/* Delete Button */
 .del-button {
-  @apply w-[150px] h-[50px] cursor-pointer flex items-center justify-between px-4 bg-[#e62222] border-none rounded-md shadow-md relative transition-all duration-200;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: #e62222;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Button Text */
 .del-button .text {
-  @apply text-white font-bold text-lg flex-grow text-center transition-all duration-200;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  flex-grow: 1;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  font-family: "Poppins", sans-serif;
 }
 
-.del-button .icon {
-  @apply absolute right-0 border-l border-[#c41b1b] h-[40px] w-[40px] flex items-center justify-center transition-all duration-200;
+/* Button Icon */
+.del-button .icon2 {
+  position: absolute;
+  right: 0;
+  border-left: 1px solid #c41b1b;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  font-family: "Poppins", sans-serif;
 }
 
+/* SVG Icon */
 .del-button svg {
-  @apply w-[15px] fill-gray-200 transition-all duration-200;
+  width: 15px;
+  fill: #d1d5db; /* Tailwind's gray-200 */
+  transition: all 0.2s ease-in-out;
 }
 
+/* Hover Effects */
 .del-button:hover {
-  @apply bg-[#ff3636];
+  background-color: #ff3636;
 }
 
 .del-button:hover .text {
-  @apply text-transparent;
+  color: transparent;
 }
 
-.del-button:hover .icon {
-  @apply w-[150px] border-l-0 transform translate-x-0;
+.del-button:hover .icon2 {
+  width: 150px;
+  border-left: 0;
+  transform: translateX(0);
 }
 
+/* Focus Effect */
 .del-button:focus {
-  @apply outline-none;
+  outline: none;
 }
 
-.del-button:active .icon svg {
-  @apply scale-90;
+/* Active Effect */
+.del-button:active .icon2 svg {
+  transform: scale(0.9);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .del-button {
+    width: 90%;
+    font-size: 14px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .del-button {
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
+  }
 }

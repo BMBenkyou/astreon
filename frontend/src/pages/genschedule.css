@@ -2,75 +2,150 @@
 
 /* Apply background to entire page */
 body {
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.MainContainer {
-  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+/* Main container styling */
+.MainContaineR {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 90vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Responsive MainContainer adjustments */
+@media (max-width: 1024px) {
+  .MainContaineR {
+    max-width: 100%;
+    padding: 16px;
+  }
 }
 
 @media (max-width: 768px) {
   /* Tablets and below */
-  .MainContainer {
-    @apply flex-col items-center;
+  .MainContaineR {
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
   }
 }
 
 @media (max-width: 480px) {
-  /* Smartphones and below */
-  .MainContainer {
-    @apply p-2;
-  }
-  .nav-body {
-    @apply flex-row;
-    flex: 1;
+  /* Smartphones */
+  .MainContaineR {
+    padding: 8px;
   }
 }
 
+/* Navigation body styling */
 .nav-body {
-  @apply flex justify-start items-start gap-5 p-1;
+  display: end;
+  flex-direction: row;
+  align-items: stretch;
+  font-family: "Poppins", sans-serif;
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
+/* Responsive Sidebar adjustments */
+@media (max-width: 1024px) {
   .nav-body {
-    @apply flex-col;
+    gap: 12px;
   }
-}
-
-.main-content {
-  @apply flex flex-row justify-center items-start gap-10;
 }
 
 @media (max-width: 768px) {
-  /* Tablets and below */
-  .main-content {
-    @apply flex-col;
+  /* Tablets */
+  .nav-body {
+    flex-direction: column;
   }
 }
 
+/* Main content styling */
+.Amain-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+/* Responsive main content adjustments */
+@media (max-width: 1024px) {
+  .Amain-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+/* Schedule title styling */
 .schedule-title {
-  @apply text-[22px] font-bold text-[#1c170d] mb-4;
+  font-size: 22px;
+  font-weight: bold;
+  color: #1c170d;
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Calendar section styling */
 .calendar-section {
-  @apply flex flex-col items-center mt-10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
+/* Responsive Calendar adjustments */
+@media (max-width: 1024px) {
   .calendar-section {
-    @apply mt-5 ml-auto mr-auto;
+    margin-top: 20px;
   }
 }
 
-.content-wrapper {
-  @apply flex flex-row justify-center items-start gap-7 p-1;
+@media (max-width: 768px) {
+  /* Tablets */
+  .calendar-section {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .content-wrapper {
-    @apply flex-col;
+@media (max-width: 480px) {
+  /* Mobile */
+  .calendar-section {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Content wrapper styling */
+.GScontent-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  padding: 4px;
+  width: 100%;
+  margin-left: 40px;
+}
+
+/* Responsive content layout adjustments */
+@media (max-width: 1024px) {
+  .GScontent-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
   }
 }

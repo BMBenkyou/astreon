@@ -2,79 +2,108 @@
 
 /* Apply background to entire page */
 body {
-  @apply bg-[#e3fef9] m-0 flex justify-center items-center h-screen;
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Main Content Container */
 .MainContaineR {
-  @apply flex flex-col h-screen w-screen max-w-[90vw] p-5 box-border;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  max-width: 90vw;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  .MainContaineR {
+    max-width: 100%;
+    padding: 16px;
+  }
 }
 
 @media (max-width: 768px) {
   /* Tablets and below */
   .MainContaineR {
-    @apply flex-col items-center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .nav-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .main-content-wrapperQZ {
+    margin-left: 0;
+    width: 100%;
+    gap: 12px;
   }
 }
 
 @media (max-width: 480px) {
   /* Smartphones and below */
   .MainContaineR {
-    @apply p-2;
+    padding: 8px;
+    width: 100%;
   }
+
   .nav-body {
-    @apply flex-row;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .main-contentQZ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
   }
 }
 
-.nav-body {
-  @apply flex justify-start items-start gap-5 p-1;
+/* Add gap between main content and bottom of the page */
+.main-contentQZ {
+  margin-bottom: 290px;
 }
 
+/* Sidebar Adjustments */
 @media (max-width: 768px) {
-  /* Tablets and below */
   .nav-body {
-    @apply flex-col;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
-.main-content {
-  @apply flex flex-row justify-start items-start gap-10;
+/* Content Wrapper */
+.main-content-wrapperQZ {
+  margin-left: auto;
+  margin-right: auto;
+  gap: 8px;
 }
 
 @media (max-width: 768px) {
-  /* Tablets and below */
-  .main-content {
-    @apply flex-col;
-  }
-}
-
-.schedule-title {
-  @apply text-[22px] font-bold text-[#1c170d] mb-4;
-}
-
-.calendar-section {
-  @apply flex flex-col items-center mt-10;
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .calendar-section {
-    @apply mt-5 ml-auto mr-auto;
-  }
-}
-
-.main-content-wrapper {
-  gap: 10rem;
-}
-
-.main-content-wrapper {
-  @apply flex flex-col space-y-30; /* Adds vertical gap (10rem = 40 in Tailwind) */
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .content-wrapper {
-    @apply flex-col;
+  .main-content-wrapperQZ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-left: 0;
   }
 }

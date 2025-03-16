@@ -17,9 +17,21 @@ const QuizFooter = ({ onStartQuiz }) => {
     <>
       <div className="quiz-footer">
         {/* Attachment Button */}
-        <button className="footer-btn attach-bton">
+        <button className="footer-btn attach-bton" onClick={() => document.getElementById('attach-file').click()}>
           <AiOutlinePaperClip className="footer-icon" />
         </button>
+        <input
+          type="file"
+          id="attach-file"
+          style={{ display: 'none' }}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              // Handle the file upload logic here
+              console.log("File attached:", file.name);
+            }
+          }}
+        />
 
         {/* Input Field */}
         <input

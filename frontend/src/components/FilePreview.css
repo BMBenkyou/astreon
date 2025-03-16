@@ -1,76 +1,148 @@
-@import "tailwindcss";
-
 /* Main preview container */
 .preview-container {
-  @apply flex flex-col items-center justify-center w-[430px] h-[600px] 
-  bg-transparent p-0 mx-[130px];
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 430px;
+  height: 600px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0 130px;
+  font-weight: normal;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Title */
 .preview-title {
-  @apply font-sans text-[30px] font-bold text-[#1C170D] mb-[10px] text-left w-full;
+  font-family: sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #1c170d;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
 }
 
 /* Instructions */
 .preview-instructions {
-  @apply text-[14px] text-[#5A5A5A] text-center mb-[10px];
+  font-size: 14px;
+  color: #5a5a5a;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /* Preview Box */
 .preview-box {
-  @apply flex justify-center items-center bg-white rounded-[10px] p-[20px] 
-  transition-opacity duration-300 w-[416px] h-[284px] border-2 border-[#E6E6E6] 
-  shadow-md mb-[10px];
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  transition: opacity 0.3s ease-in-out;
+  width: 416px;
+  height: 284px;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
 /* Hide preview box when needed */
 .preview-box.hidden {
-  @apply opacity-0 pointer-events-none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Placeholder text */
 .preview-placeholder {
-  @apply text-[#767676] text-[20px] text-center;
+  color: #767676;
+  font-size: 20px;
+  text-align: center;
 }
 
 /* Image */
 .preview-image {
-  @apply max-w-full max-h-full;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* Button container */
 .button-box {
-  @apply flex justify-center items-center gap-[40px] w-full mt-[100px];
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  margin-top: 100px;
 }
 
 /* Modal Overlay */
 .modal-overlay {
-  @apply fixed top-0 left-0 w-full h-full bg-black 
-  flex justify-center items-center z-[1000];
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 /* Modal Content */
 .modal-content {
-  @apply bg-white p-[20px] rounded-[10px] text-center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 /* Loading Text */
 .loading-text {
-  @apply text-[18px] font-bold mb-[10px];
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* Loading Spinner */
 .loading-spinner {
-  @apply block mx-auto w-[40px] h-[40px] border-[4px] border-[#ddd] 
-  border-t-[#039c87] rounded-full animate-spin;
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top-color: #039c87;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Loading Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Schedule Wrapper */
 .schedule-wrapper {
-  @apply flex flex-col items-center justify-center w-full m-0 p-0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Attach Button Container */
 .Oattach-button-container {
-  @apply flex justify-center items-center mt-4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
 }
