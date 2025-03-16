@@ -1,0 +1,116 @@
+/* Modal Overlay */
+.flash-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.flash-modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.flash-modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Content */
+.flash-modal-content {
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  width: 557px;
+  height: 390px;
+  padding: 40px;
+  border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.flash-modal-overlay.visible .flash-modal-content {
+  transform: translateY(0);
+}
+
+/* Modal Title */
+.modal-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 40px;
+}
+
+/* Modal Body */
+.modal-text {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.modal-body {
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  color: #6b7280;
+  margin-top: 40px;
+}
+
+/* Button Wrapper */
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+/* Buttons */
+.close-btn,
+.StartFlash-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  border: 2px solid white;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  box-shadow: inset 0 0 0 0 #1bcfb7;
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  background: transparent;
+  margin-top: 30px;
+}
+
+.close-btn {
+  background-color: #ef4444;
+}
+
+.close-btn:hover {
+  background-color: #dce6eb;
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #028577;
+}
+
+.StartFlash-btn {
+  background-color: #22c55e;
+}
+
+.StartFlash-btn:hover {
+  background-color: #dce6eb;
+  color: white;
+  box-shadow: inset 0 -100px 0 0 #028577;
+}
+
+.close-btn:active,
+.StartFlash-btn:active {
+  transform: scale(0.9);
+}

@@ -1,0 +1,92 @@
+/* Body container */
+.session-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: Flex-start; /* Align content to the center */
+  gap: 20px; /* Add gap between items */
+  background: transparent;
+  text-align: Flex-start; /* Align text to the center */
+  font-family: "Inter", sans-serif;
+  margin-left: 8rem; /* Add margin left for spacing */
+}
+
+/* Title Section */
+.category-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #666666; /* Updated font color */
+  margin-left: 2rem; /* Push category titles slightly right for spacing */
+}
+
+/* Card Grid */
+.card-row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start; /* Align cards to the left */
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-left: 2rem; /* Add padding to match title alignment */
+}
+
+/* Card Styling */
+.session-card {
+  width: 220px;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.03);
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #1c170d;
+}
+
+.session-card h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #666666; /* Updated font color */
+  transition: color 0.3s;
+}
+
+.session-card p {
+  color: #666666; /* Updated font color */
+  font-size: 0.86rem;
+  margin-top: 0.5rem;
+}
+
+/* Arrow icon */
+.session-card .card__arrow {
+  position: absolute;
+  background: #23ba8e;
+  padding: 0.4rem;
+  border-top-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  bottom: 0;
+  right: 0;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.session-card .arrow-icon {
+  width: 15px;
+  height: 15px;
+  fill: white;
+  transition: transform 0.3s;
+}
+
+/* Hover Effects */
+.session-card:hover h3 {
+  color: #23ba8e;
+  text-decoration: underline;
+}
+
+.session-card:hover .card__arrow {
+  background: #111;
+}
+
+.session-card:hover .arrow-icon {
+  transform: translateX(3px);
+}

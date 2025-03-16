@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
-import QuizModal from "./QuizModal";
-import "./QuizFooter.css";
+import FlashModal from "./FlashcardModel";
+import "./FlashFooter.css";
 
-const QuizFooter = ({ onStartQuiz }) => {
+const FlashFooter = ({ onStartFlash }) => {
   const [prompt, setPrompt] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSend = () => {
     if (prompt.trim() !== "") {
       setIsModalOpen(true);
+      setPrompt(""); // Clear input field
     }
   };
 
   return (
     <>
-      <div className="quiz-footer">
+      <div className="flash-footer">
         {/* Attachment Button */}
-        <button className="footer-btn attach-bton" onClick={() => document.getElementById('attach-file').click()}>
+        <button className="footer-btn attach-boton" onClick={() => document.getElementById('attach-file').click()}>
           <AiOutlinePaperClip className="footer-icon" />
         </button>
         <input
@@ -36,8 +37,8 @@ const QuizFooter = ({ onStartQuiz }) => {
         {/* Input Field */}
         <input
           type="text"
-          className="quiz-footer-input"
-          placeholder="Generate a quiz based on this file"
+          className="flash-footer-input"
+          placeholder="Generate a flashcard based on this file"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
@@ -52,17 +53,18 @@ const QuizFooter = ({ onStartQuiz }) => {
       </div>
 
       {/* Modal Component */}
-      <QuizModal
+      <FlashModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         promptText={prompt}
-        onStartQuiz={() => {
+        onStartFlash={() => {
           setIsModalOpen(false); // Close modal
-          onStartQuiz(); // Trigger quiz start
+          onStartFlash(); // Trigger Flash start
         }}
       />
     </>
   );
 };
 
-export default QuizFooter;
+export default FlashFooter;
+

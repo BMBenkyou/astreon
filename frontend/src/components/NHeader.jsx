@@ -4,6 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdCalendar } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -15,9 +16,11 @@ const Header = () => {
   return (
     <header className="header">
       {/* Left side: Logo */}
-      <div className="logo">
-        <img src="../src/assets/logo.svg" alt="Astreon Logo" />
-      </div>
+      <Link to="/">
+        <div className="logo">
+          <img src="../src/assets/logo.svg" alt="Astreon Logo" />
+        </div>
+      </Link>
 
       {/* Right side: Calendar and Profile */}
       <div className="right-section">
@@ -35,12 +38,12 @@ const Header = () => {
             <ul className="list">
               <li className="element">
                 <CgProfile />
-                <a href="/profile">Profile</a>
+                <Link to="/profile">Profile</Link>
               </li>
               <hr className="separator" />
               <li className="element">
                 <IoLogOutOutline />
-                <a href="/login">Logout</a>
+                <Link to="/login">Logout</Link>
               </li>
             </ul>
           </div>
@@ -51,3 +54,4 @@ const Header = () => {
 };
 
 export default Header;
+

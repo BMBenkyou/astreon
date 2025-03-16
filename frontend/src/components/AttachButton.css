@@ -9,11 +9,11 @@
   justify-content: center;
   gap: 12px;
   border: 2px solid #323232;
-  box-shadow: 4px 4px 0px #323232;
-  background-color: transparent;
+  box-shadow: 4px 4px 0 #323232;
+  background: transparent;
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s;
   font-family: "Poppins", sans-serif;
 }
 
@@ -26,29 +26,26 @@
   box-shadow: none;
 }
 
-/* Button Text - Centered and disappears on hover */
+/* Button Text */
 .button-text {
   color: #323232;
   font-weight: 600;
   font-size: 20px;
-  transition: opacity 0.3s ease-in-out;
-  font-family: "Poppins", sans-serif;
+  transition: opacity 0.3s;
 }
 
-/* Icon - Properly positioned inside the button */
+.attach-button:hover .button-text {
+  opacity: 0;
+}
+
+/* Icon */
 .attach-icon {
   width: 28px;
   height: 28px;
-  transition: all 0.5s ease-in-out;
   position: absolute;
   left: 20px;
   fill: #323232;
-  font-family: "Poppins", sans-serif;
-}
-
-/* Hover Effects */
-.attach-button:hover .button-text {
-  opacity: 0;
+  transition: all 0.5s;
 }
 
 .attach-button:hover .attach-icon {
