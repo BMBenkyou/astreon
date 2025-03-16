@@ -1,3 +1,4 @@
+@import "tailwindcss";
 /* Apply background to entire page */
 body {
   background-color: #e3fef9;

@@ -19,8 +19,8 @@ const Quiz = () => {
         <Sidebar />
 
         {/* Main Content */}
-        <div className="main-content-wrapper">
-          <div className="main-content">
+        <div className="main-content-wrapperQZ">
+          <div className="main-contentQZ">
             {quizStarted ? <QuizTest onExit={() => setQuizStarted(false)} /> : <QuizBody />}
           </div>
 

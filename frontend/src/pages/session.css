@@ -11,7 +11,7 @@ body {
 }
 
 /* Main container styling */
-.MainContaineR {
+.MainContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -23,7 +23,7 @@ body {
 
 /* Responsive MainContainer adjustments */
 @media (max-width: 1024px) {
-  .MainContaineR {
+  .MainContainer {
     max-width: 100%;
     padding: 16px;
   }
@@ -31,7 +31,7 @@ body {
 
 @media (max-width: 768px) {
   /* Tablets and below */
-  .MainContaineR {
+  .MainContainer {
     flex-direction: column;
     align-items: center;
     padding: 12px;
@@ -40,14 +40,14 @@ body {
 
 @media (max-width: 480px) {
   /* Smartphones */
-  .MainContaineR {
+  .MainContainer {
     padding: 8px;
   }
 }
 
 /* Navigation body styling */
 .nav-body {
-  display: end;
+  display: flex;
   flex-direction: row;
   align-items: stretch;
   font-family: "Poppins", sans-serif;
@@ -68,18 +68,19 @@ body {
 }
 
 /* Main content styling */
-.Amain-content {
+.Bmain-content {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 40px;
   width: 100%;
+  margin: 0 auto;
 }
 
 /* Responsive main content adjustments */
 @media (max-width: 1024px) {
-  .Amain-content {
+  .Bmain-content {
     flex-direction: column;
     gap: 20px;
     align-items: center;
@@ -130,11 +131,11 @@ body {
 }
 
 /* Content wrapper styling */
-.GScontent-wrapper {
+.content-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 28px;
   padding: 4px;
   width: 100%;
@@ -143,7 +144,7 @@ body {
 
 /* Responsive content layout adjustments */
 @media (max-width: 1024px) {
-  .GScontent-wrapper {
+  .content-wrapper {
     flex-direction: column;
     gap: 20px;
     align-items: center;

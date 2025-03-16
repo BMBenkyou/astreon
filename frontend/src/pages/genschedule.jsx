@@ -20,7 +20,7 @@ const GenerateSchedule = () => {
         <Sidebar />
 
         <div className="Amain-content">
-          <div className="content-wrapper">
+          <div className="GScontent-wrapper">
             <FilePreview />
             <div className="calendar-section">
               <CustomCalendar />
