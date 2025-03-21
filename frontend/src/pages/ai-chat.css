@@ -6,23 +6,42 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.grid-container {
+.grid-container-aichat {
+    margin-top:200px;
     display: grid;
-    grid-template-columns: 1fr 4fr; /* Sidebar (1) | Chatbot (4) */
+    grid-template-areas: 
+        "chat"
+        "sidebar";
+    grid-template-rows: auto 80px;
     height: 100vh;
     width: 100%;
-    margin-top: 180px;
 }
 
+
+
+/* Chat container on top */
 .chatbot-maincontainer {
+    grid-area: chat;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Align chat and input field */
+    justify-content: space-between;
     padding: 20px;
-    height: 76vh;
-    width: 100%;
     overflow: hidden;
 }
+.sidebar-aichat {
+    padding: 10px;
+    width: 100%;
+}
+
+/* Desktop Layout */
+@media (min-width: 768px) {
+    .grid-container-aichat {
+        grid-template-areas: "sidebar chat";
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: 100vh;
+    }
+}
+
 .chat-cont {
     flex-grow: 1;
     display: flex;
@@ -115,4 +134,71 @@ body {
     width: 20px;
     height:20px;
    
+}
+
+/* General message bubble */
+.message {
+    max-width: 75%;
+    word-wrap: break-word;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 16px;
+    line-height: 1.4;
+    position: relative;
+    display: inline-block;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* User message styling */
+.message.user {
+    background-color: #00A676;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+/* Bot message styling */
+.message.bot {
+    background-color: #EAEAEA;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+/* Add a small arrow effect for user messages */
+.message.user::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid #00A676;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+/* Add a small arrow effect for bot messages */
+.message.bot::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border-right: 8px solid #EAEAEA;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.message a {
+    display: block;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message a:hover {
+    text-decoration: underline;
 }

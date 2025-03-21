@@ -3,6 +3,39 @@
     width: 90%;
   
 }
+
+.grid-container-flashcards {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Default: Sidebar on the left */
+    height: calc(100vh - 180px);
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* When the screen width is smaller than 768px (tablet & mobile view) */
+@media (max-width: 768px) {
+    .grid-container-flashcards {
+        grid-template-columns: 1fr; /* Make it a single column */
+        grid-template-rows: auto auto; /* Sidebar below main content */
+    }
+
+    .sidebar-flashcards {
+        order: 2; /* Move sidebar below */
+    }
+
+    .flashcards-maincontainer {
+        order: 1; /* Keep main container on top */
+    }
+}
+
+.sidebar {
+    width: 250px;
+    min-width: 200px;
+    height: 100%;
+}
+
+
 .chatbot-maincontainer {
 
     padding: 20px;
@@ -99,4 +132,25 @@
     position: absolute;
     top: 0;
     text-align: left;
+}
+
+.file-message {
+    background: transparent;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for visibility */
+    border-radius: 5px;
+    max-width: 100%;
+    word-wrap: break-word;
+    font-size: 16px;
+    color: black; /* Adjust text color for contrast */
+}
+
+.file-message a {
+    color: #00A676; /* Accent color for file link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.file-message a:hover {
+    text-decoration: underline;
 }
