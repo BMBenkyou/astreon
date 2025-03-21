@@ -1,0 +1,110 @@
+.grid-container-sidebar {
+    margin-top: 170px;
+    display: grid;
+    grid-template-areas: "sidebar main"; /* Sidebar and main in one row */
+    grid-template-columns: 1fr 4fr; /* Sidebar takes less space */
+    height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    grid-area: sidebar;
+    height: 100vh;
+}
+
+/* Main content */
+.main-sessions-grid {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .grid-container-sidebar {
+        grid-template-areas:
+            "main"
+            "sidebar"; /* Sidebar moves below the main content */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .sidebar {
+        height: auto;
+    }
+}
+
+
+/* Scrollable session containers */
+.sessions-container-quizzes,
+.sessions-container-flashcards,
+.sessions-container-aichat {
+    display: flex;
+    flex-direction: row; /* Keep horizontal scrolling */
+    align-items: center;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    gap: 15px;
+    padding: 10px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+.sessions-container-quizzes::-webkit-scrollbar,
+.sessions-container-flashcards::-webkit-scrollbar,
+.sessions-container-aichat::-webkit-scrollbar {
+    display: none;
+}
+/* Session card */
+.sessions-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 250px;
+    height: 150px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 10px 0;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.session-header {
+    display: flex;
+    justify-content: space-between; /* Pushes title left and icon right */
+    align-items: center;
+    width: 100%;
+}
+
+/* Title */
+.session-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* Session icon */
+.session-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Truncate text with ellipsis */
+.session-description {
+    font-size: 14px;
+    color: #5A5A5A;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+}

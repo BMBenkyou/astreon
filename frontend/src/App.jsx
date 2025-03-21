@@ -9,7 +9,6 @@ import GenerateSchedule from "./pages/genschedule";
 import Profile from "./pages/profile";
 import Streak from "./pages/streak";
 import PSettings from "./pages/psettings";
-import Home from "./pages/home";
 import Quiz from "./pages/quiz";
 import Aichat from "./pages/ai-chat";
 import Flashcards from "./pages/flashcards";
