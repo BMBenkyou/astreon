@@ -62,12 +62,16 @@ const AiBody = ({ messages }) => {
             key={index}
             className={`chat-message ${msg.sender === "user" ? "user-message" : "ai-message"}`}
           >
-            {msg.text}
+            {msg.sender === "user" ? (
+              msg.text
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: msg.text }} /> // ✅ Renders AI messages as HTML
+            )}
           </div>
         ))}
       </div>
     </div>
   );
 };
-export default AiBody;
 
+export default AiBody;

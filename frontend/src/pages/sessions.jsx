@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import Header from "../components/HeaderLoggedIn";
 import Sidebar from "../components/NSidebar";
 import "./sessions.css";
@@ -16,38 +17,18 @@ const SessionCard = ({ title, description }) => (
 );
 
 export default function Sessions() {
-  const [quizzes, setQuizzes] = useState([
-    { title: "RVA", description: "Didn't find anything? Create your own system suitable for your needs" }
-  ]);
-  const [flashcards, setFlashcards] = useState([
-    { title: "Title", description: "Description of this flashcard is truncated if too long." }
-  ]);
-  const [aiSessions, setAiSessions] = useState([
-    { title: "AI Chat", description: "This session is AI-powered. Interact and get instant feedback!" }
-  ]);
+  const [quizzes, setQuizzes] = useState([]);
 
-  const quizRef = useRef(null);
-  const flashcardRef = useRef(null);
-  const aiRef = useRef(null);
-
-  // Function to add a new session card dynamically
-  const addSession = (type) => {
-    const newCard = { 
-      title: "New Session", 
-      description: "This is a dynamically added session. It will truncate if too long." 
-    };
-
-    if (type === "quiz") {
-      setQuizzes(prev => [...prev, newCard]);
-      setTimeout(() => quizRef.current.scrollLeft = quizRef.current.scrollWidth, 200);
-    } else if (type === "flashcard") {
-      setFlashcards(prev => [...prev, newCard]);
-      setTimeout(() => flashcardRef.current.scrollLeft = flashcardRef.current.scrollWidth, 200);
-    } else if (type === "ai") {
-      setAiSessions(prev => [...prev, newCard]);
-      setTimeout(() => aiRef.current.scrollLeft = aiRef.current.scrollWidth, 200);
-    }
-  };
+  useEffect(() => {
+    // Fetch quizzes from the session
+    axios.get("http://127.0.0.1:8000//api/get-saved-quizzes/")
+      .then(response => {
+        if (response.data.success) {
+          setQuizzes(response.data.quizzes);
+        }
+      })
+      .catch(error => console.error("Error fetching quizzes:", error));
+  }, []);
 
   return (
     <>
@@ -61,24 +42,10 @@ export default function Sessions() {
             <Sidebar />
           </div>
           <div className="main-sessions-grid">
-            <p>Quizzes <button onClick={() => addSession("quiz")}>Add</button></p>
-            <div className="sessions-container-quizzes" ref={quizRef}>
+            <p>Quizzes</p>
+            <div className="sessions-container-quizzes">
               {quizzes.map((q, index) => (
-                <SessionCard key={index} title={q.title} description={q.description} />
-              ))}
-            </div>
-
-            <p>Flashcards <button onClick={() => addSession("flashcard")}>Add</button></p>
-            <div className="sessions-container-flashcards" ref={flashcardRef}>
-              {flashcards.map((f, index) => (
-                <SessionCard key={index} title={f.title} description={f.description} />
-              ))}
-            </div>
-
-            <p>AI Sessions <button onClick={() => addSession("ai")}>Add</button></p>
-            <div className="sessions-container-aichat" ref={aiRef}>
-              {aiSessions.map((ai, index) => (
-                <SessionCard key={index} title={ai.title} description={ai.description} />
+                <SessionCard key={index} title={q.title} description="Click to view questions." />
               ))}
             </div>
           </div>

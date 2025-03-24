@@ -1,6 +1,6 @@
-from django.contrib import admin
 from django.urls import path,include
-from . views import test_view
+from . views import GoogleLogin
+
 urlpatterns = [
-    path('test/', test_view),
+    path('social/google/', GoogleLogin.as_view(), name='google_login'),
 ]

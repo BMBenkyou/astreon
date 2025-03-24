@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/NHeader";
 import Psidebar from "../components/Psidebar";
-import SettingsPreferences from "../components/SettingsPreferences";
+import SettingsPreferences from "../components/settingsPreferences";
 import "./psettings.css";
 
 const Settings = () => {

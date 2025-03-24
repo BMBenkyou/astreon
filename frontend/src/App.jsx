@@ -13,7 +13,7 @@ import Quiz from "./pages/quiz";
 import Aichat from "./pages/ai-chat";
 import Flashcards from "./pages/flashcards";
 import Verification from "./pages/verification";
-import Session from "./pages/session";
+import Session from "./pages/sessions";
 
 
 
@@ -34,7 +34,7 @@ const App = () => (
       <Route path="/psettings" element={<PSettings />} />
       <Route path="/ai-chat" element={<Aichat />} />
       <Route path="/flashcards" element={<Flashcards />} />
-      <Route path="/session" element={<Session />} />
+      <Route path="/sessions" element={<Session />} />
     </Routes>
   </div>
 );

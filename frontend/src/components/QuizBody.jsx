@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { AiOutlineMessage } from "react-icons/ai"; // Import the icon
+import { AiOutlineMessage } from "react-icons/ai";
 import "./QuizBody.css";
 
-const QuizBody = () => {
+const QuizBody = ({ setTitle, setDescription }) => {
   const [titleFocused, setTitleFocused] = useState(false);
   const [descriptionFocused, setDescriptionFocused] = useState(false);
 
@@ -11,7 +11,7 @@ const QuizBody = () => {
       <h2 className="Navquiz-title">Create Quiz</h2>
 
       <div className="quiz-input-wrapper">
-        {/* Title Input with Icon */}
+        {/* Title Input */}
         <div className="quiz-input-group relative">
           <input
             type="text"
@@ -21,6 +21,7 @@ const QuizBody = () => {
             placeholder="Title"
             onFocus={() => setTitleFocused(true)}
             onBlur={(e) => setTitleFocused(e.target.value.length > 0)}
+            onChange={(e) => setTitle(e.target.value)} // 🟢 Update state
           />
           <AiOutlineMessage className="quiz-icon" />
         </div>
@@ -34,6 +35,7 @@ const QuizBody = () => {
             placeholder="Description"
             onFocus={() => setDescriptionFocused(true)}
             onBlur={(e) => setDescriptionFocused(e.target.value.length > 0)}
+            onChange={(e) => setDescription(e.target.value)} // 🟢 Update state
           ></textarea>
         </div>
       </div>
