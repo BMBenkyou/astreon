@@ -1,4 +1,4 @@
 **/.venv/
-*.env
+backend/astreon_backend/.env
 **/node_modules/
 **/__pycache__/
