@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import Header from "../components/HeaderLoggedIn";
 import Sidebar from "../components/NSidebar";
 import "./sessions.css";
@@ -20,14 +19,15 @@ export default function Sessions() {
   const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
-    // Fetch quizzes from the session
-    axios.get("http://127.0.0.1:8000//api/get-saved-quizzes/")
-      .then(response => {
-        if (response.data.success) {
-          setQuizzes(response.data.quizzes);
+    // Fetch quizzes using the Fetch API
+    fetch("http://127.0.0.1:8000/api/get-saved-quizzes/")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setQuizzes(data.quizzes);
         }
       })
-      .catch(error => console.error("Error fetching quizzes:", error));
+      .catch((error) => console.error("Error fetching quizzes:", error));
   }, []);
 
   return (
