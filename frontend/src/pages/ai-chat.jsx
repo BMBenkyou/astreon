@@ -9,6 +9,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
   // Load conversation when component mounts
   useEffect(() => {
@@ -120,7 +121,7 @@ const Chat = () => {
 
                     return updatedMessages;
                 });
-            }, 50); // Adjust typing speed here (50ms per character)
+            }, 50); 
 
         } else {
             console.error('Error from API:', data.error);
@@ -151,8 +152,8 @@ const Chat = () => {
     <div className="MainContaineR">
       <Header />
       <div className="nav-body">
-        <Sidebar onNewChat={startNewConversation} />
-        <div className="main-content-wrapperAC">
+        <Sidebar onNewChat={startNewConversation} onToggle={(open) => setIsSidebarOpen(open)} />
+        <div className={`main-content-wrapperAC ${!isSidebarOpen ? 'sidebar-closed' : ''}`}>
             <div className="main-contentAC">
                 <AiBody messages={messages} isLoading={isLoading} />
             </div>
