@@ -1,21 +1,68 @@
 /* Header */
-.header {
+/* Ensure the header spans the full width and is properly aligned */
+header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 20px;
-  margin-bottom: 70px;
-  flex-wrap: wrap;
-  font-family: "Poppins", sans-serif;
+  justify-content: space-between; /* Space out the elements evenly */
+  align-items: center; /* Vertically center the elements */
+  padding: 8px 24px; /* Adjust padding for spacing */
+  width: 100%; /* Ensure the header spans the full width */
+  background-color: #ffffff; /* Set a background color */
+  position: fixed; /* Make the header fixed to the top */
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 1000; /* Ensure the header stays above other elements */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Add subtle shadow */
 }
 
+/* Style for the logo or left-side content */
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-left: 0; /* Remove spacing from the left edge */
+  padding-left: 0; /* Remove padding from the left edge */
+}
+
+/* Style for the navigation or right-side content */
+header .nav-links {
+  display: flex;
+  gap: 20px; /* Add spacing between navigation links */
+  margin-right: 10px; /* Add some spacing from the right edge */
+}
+
+header .nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+header .nav-links a:hover {
+  color: #22c55e; /* Change color on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
+  }
+
+  header .nav-links {
+    flex-direction: column; /* Stack navigation links vertically */
+    gap: 10px;
+    margin-right: 0; /* Remove right margin */
+  }
+}
 /* Right Section */
 .right-section {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   font-family: "Poppins", sans-serif;
+  margin-right: 12px; /* Adjust spacing from the right edge */
 }
 
 /* Responsive Adjustments */
@@ -56,18 +103,21 @@
 
 /* Logo */
 .logo {
-  width: 73px;
-  height: 73px;
+  width: 60px; /* Adjust logo width */
+  height: 60px; /* Adjust logo height */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align logo to the start */
   overflow: hidden;
   font-family: "Poppins", sans-serif;
+  margin-left: 0; /* Remove margin from the left edge */
+  padding-left: 0; /* Remove padding from the left edge */
 }
 
 .logo img {
   width: 100%;
   height: auto;
+  object-fit: contain; /* Ensure the image fits properly */
 }
 
 /* Calendar Icon */
