@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "./NHeader.css";
 import { CgProfile } from "react-icons/cg";
+import { FaUserFriends } from "react-icons/fa";
+import { MdPeopleOutline } from "react-icons/md"
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { IoPerson, IoPersonAddOutline } from "react-icons/io5";
 import { IoMdCalendar } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -39,6 +43,18 @@ const Header = () => {
               <li className="element">
                 <CgProfile />
                 <Link to="/profile">Profile</Link>
+              </li>
+              <li className="element">
+                <AiOutlineUserAdd/>
+                <Link to="/add-friend">Find Friends</Link>
+              </li>
+              <li className="element">
+                <IoPersonAddOutline/>
+                <Link to="/profile">Friend Requests</Link>
+              </li>
+              <li className="element">
+                <MdPeopleOutline/>
+                <Link to="/profile">Friends</Link>
               </li>
               <hr className="separator" />
               <li className="element">
