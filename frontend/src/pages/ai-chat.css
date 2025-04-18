@@ -14,40 +14,77 @@ body {
 .MainContaineR {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  max-width: 90vw;
-  padding: 20px;
-  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #e3fef9;
   font-family: "Poppins", sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.nav-body {
+  display: flex;
+  position: relative;
+  margin-top: 73px; /* Header height + margin */
 }
 
 /* Content Wrapper */
 .main-content-wrapperAC {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1; /* Allows growing while keeping footer in place */
-  min-height: 0;
-  overflow: hidden;
+  min-height: calc(100vh - 73px);
   position: relative;
+  margin-left: 250px;
+  background-color: transparent;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-/* Footer should stay fixed at the bottom */
+/* When sidebar is closed */
+.main-content-wrapperAC.sidebar-closed {
+  margin-left: 70px;
+}
+
+/* Footer positioning */
 .footer-content {
-  position: relative;
-  bottom: 0;
+  position: sticky;
+  bottom: 20px;
   width: 100%;
-  background: transparent;
-  padding: 10px;
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 0 20px;
+  z-index: 10;
 }
 
-/* Add gap between main content and bottom of the page */
+/* Main content area */
 .main-contentAC {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding-bottom: 60px; /* Prevents overlap with footer */
+  flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: transparent;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for WebKit browsers */
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
 
 /* Prevent margin-bottom from pushing the input down */
@@ -127,5 +164,24 @@ body {
     gap: 5px;
     width: 100%;
     margin-left: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .main-content-wrapperAC {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .main-content-wrapperAC.sidebar-closed {
+    margin-left: 0;
+  }
+
+  .main-contentAC {
+    padding: 16px;
+  }
+
+  .footer-content {
+    padding: 0 16px;
   }
 }
