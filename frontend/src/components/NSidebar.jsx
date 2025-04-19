@@ -52,7 +52,7 @@ const Sidebar = () => {
             </div>
             {chatExpanded && (
               <div className="sidebar-submenu">
-                <NavLink to="/chat-with-file" className="sidebar-subitem">
+                <NavLink to="/file-chat" className="sidebar-subitem">
                   <BsFileEarmark className="sidebar-subicon" />
                   <span>Chat with File</span>
                 </NavLink>
