@@ -15,6 +15,7 @@ import Flashcards from "./pages/flashcards";
 import Verification from "./pages/verification";
 import Session from "./pages/sessions";
 import FileChat from "./pages/filechat";
+import AddFriend from "./pages/addfriend";
 
 
 
@@ -34,6 +35,7 @@ const App = () => (
       <Route path="/streak" element={<Streak />} />
       <Route path="/file-chat" element={<FileChat />} />
       <Route path="/psettings" element={<PSettings />} />
+      <Route path="/add-friend" element={<AddFriend/>} />
       <Route path="/ai-chat" element={<Aichat />} />
       <Route path="/flashcards" element={<Flashcards />} />
       <Route path="/sessions" element={<Session />} />
