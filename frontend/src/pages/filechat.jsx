@@ -271,38 +271,42 @@ const FileChat = () => {
             {/* Chat and Preview Section - Only shown when a file is selected AND showFileDetails is true */}
             {selectedFile && showFileDetails && (
               <div className="interaction-section">
-                <FilePreview file={selectedFile} />
-                <div className="chat-section">
-                  <h3>Chat with AI about this file</h3>
-                  <div className="messages-container">
-                    {messages.map((msg, index) => (
-                      <div 
-                        key={index}
-                        className={`message ${msg.sender}-message`}
+                <div className="preview-pane">
+                  <FilePreview file={selectedFile} />
+                </div>
+                <div className="chat-pane">
+                  <div className="chat-section">
+                    <h3>Chat with AI about this file</h3>
+                    <div className="messages-container">
+                      {messages.map((msg, index) => (
+                        <div 
+                          key={index}
+                          className={`message ${msg.sender}-message`}
+                        >
+                          {msg.text}
+                        </div>
+                      ))}
+                      {messages.length === 0 && (
+                        <p className="no-messages">Ask a question about this file to start a conversation.</p>
+                      )}
+                    </div>
+                    <div className="chat-input">
+                      <input
+                        type="text"
+                        value={currentMessage}
+                        onChange={(e) => setCurrentMessage(e.target.value)}
+                        placeholder="Ask about this file..."
+                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                        disabled={isLoading}
+                      />
+                      <button 
+                        onClick={handleSendMessage}
+                        disabled={isLoading}
+                        className="send-button"
                       >
-                        {msg.text}
-                      </div>
-                    ))}
-                    {messages.length === 0 && (
-                      <p className="no-messages">Ask a question about this file to start a conversation.</p>
-                    )}
-                  </div>
-                  <div className="chat-input">
-                    <input
-                      type="text"
-                      value={currentMessage}
-                      onChange={(e) => setCurrentMessage(e.target.value)}
-                      placeholder="Ask about this file..."
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                      disabled={isLoading}
-                    />
-                    <button 
-                      onClick={handleSendMessage}
-                      disabled={isLoading}
-                      className="send-button"
-                    >
-                      <AiOutlineSend />
-                    </button>
+                        <AiOutlineSend />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
