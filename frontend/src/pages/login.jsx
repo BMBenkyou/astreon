@@ -76,8 +76,6 @@ const handleLogin = async (e) => {
             
             {getNonFieldErrors()}
             
-            {/* Google Login Button */}
-            <GoogleLoginButton />
             
             <form onSubmit={handleLogin}>
               <InputGroup
