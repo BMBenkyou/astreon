@@ -23,7 +23,6 @@ class UploadedFile(models.Model):
 
 class Conversation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # Add title field
     title = models.CharField(max_length=255, blank=True, null=True)
     file = models.ForeignKey(UploadedFile, on_delete=models.SET_NULL, null=True, blank=True, related_name='conversations')
     created_at = models.DateTimeField(auto_now_add=True)
