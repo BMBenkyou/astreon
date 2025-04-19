@@ -25,29 +25,36 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+  const token = localStorage.getItem('accessToken'); 
   const fetchProfile = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem("accessToken"); // Assuming you store token in localStorage
-      const response = await axios.get("http://localhost:8080/user/profile/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const { user, bio, profile_pic } = response.data;
-      setUsername(user.username);
-      setBio(bio);
-      if (profile_pic) {
-        setProfilePicPreview(profile_pic);
-      }
-      setLoading(false);
-    } catch (err) {
-      setError("Failed to load profile data");
-      setLoading(false);
+  try {
+    setLoading(true);
+    const response = await axios.get("http://localhost:8080/user/profile/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const { user, bio, profile_pic } = response.data;
+    setUsername(user.username);
+    setBio(bio);
+    if (profile_pic) {
+      // Make sure the path includes 'media/'
+      // If profile_pic already contains 'media/', use it as is
+      // Otherwise, prepend 'media/' to the path
+      const fullImagePath = profile_pic.startsWith('/profile_pics/') 
+        ? `http://localhost:8080/${profile_pic}`
+        : `http://localhost:8080/media/${profile_pic}`;
+      
+      setProfilePicPreview(fullImagePath);
+      console.log("Image URL set to:", fullImagePath);
     }
-  };
-
-  const handleProfilePicChange = (e) => {
+    setLoading(false);
+  } catch (err) {
+    setError("Failed to load profile data");
+    setLoading(false);
+  }
+};
+   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setProfilePic(file);
