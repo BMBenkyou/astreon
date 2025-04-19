@@ -2,13 +2,14 @@ import os
 import json
 from dotenv import load_dotenv
 import google.generativeai as genai
-from markdown_it import MarkdownIt  # ✅ Import Markdown parser
+from markdown_it import MarkdownIt  
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view, permission_classes
 from .models import Conversation, Message, Quiz, QuizQuestion, UploadedFile, FileChat
 from .serializers import UploadedFileSerializer, FileChatSerializer
 from django.core.files.storage import default_storage
@@ -19,6 +20,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from datetime import timedelta
 import re
+from PyPDF2 import PdfReader
 # Load environment variables
 load_dotenv()
 
@@ -27,7 +29,6 @@ User = get_user_model()
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=GEMINI_API_KEY)
 
-# ✅ Define the system persona prompt correctly
 SYSTEM_PROMPT = """
 You are a highly knowledgeable AI tutor specializing in breaking down complex topics.
 - **Be concise and clear**: Explain as if teaching a beginner.
@@ -359,3 +360,154 @@ class UserFilesView(APIView):
         return Response({
             'files': file_list
         })
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def init_file_chat(request):
+    """Initialize chat context for a file or handle messages for existing conversations"""
+    # Check if this is an initialization request or a message for existing conversation
+    file_id = request.data.get('file_id')
+    conversation_id = request.data.get('conversation_id')
+    message = request.data.get('message')
+    
+    # CASE 1: This is a message for an existing conversation
+    if conversation_id and message:
+        try:
+            conversation = Conversation.objects.get(id=conversation_id, user=request.user)
+            
+            # Save user message
+            Message.objects.create(
+                conversation=conversation,
+                text=message,
+                sender='user'
+            )
+            
+            # Get file from conversation
+            file = conversation.file
+            if not file:
+                return Response({'error': 'No file associated with this conversation'}, status=404)
+            
+            # Get file content based on file type
+            file_content = get_file_content(file)
+            
+            # Create prompt with file context
+            context = f"Based on the file {file.name}: {file_content}"
+            full_prompt = f"""
+            {SYSTEM_PROMPT}
+            
+            Context: You are analyzing a file named {file.name} of type {file.file_type}.
+            The content of this file is available to you for reference.
+            
+            File Content:
+            {file_content}
+            
+            User question: {message}
+            
+            Please provide a specific answer based on the file content."""
+            
+            # Use Gemini model for response
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content([{"text": full_prompt}])
+            
+            # Save AI response
+            ai_response = response.text
+            Message.objects.create(
+                conversation=conversation,
+                text=ai_response,
+                sender='ai'
+            )
+            
+            return Response({
+                'response': ai_response,
+                'conversation_id': conversation.id
+            })
+            
+        except Conversation.DoesNotExist:
+            return Response({'error': 'Conversation not found'}, status=404)
+            
+    # CASE 2: This is an initialization request
+    elif file_id:
+        try:
+            # Get file from database
+            file = UploadedFile.objects.get(id=file_id, user=request.user)
+            
+            # Extract content based on file type
+            file_content = get_file_content(file)
+            
+            # Create new conversation for this file with file reference
+            conversation = Conversation.objects.create(
+                user=request.user,
+                file=file  # Store the file reference directly in the conversation
+            )
+
+            # Create initial AI message analyzing the file
+            initial_prompt = f"""You are analyzing a file named {file.name} of type {file.file_type}.
+            Here is the content of the file:
+            
+            {file_content}
+            
+            Please provide a brief summary of what you see in this file and let me know what kind of questions I can ask about it."""
+            
+            # Use Gemini model for response
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content([{"text": initial_prompt}])
+            
+            # Save AI message
+            Message.objects.create(
+                conversation=conversation,
+                text=response.text,
+                sender='ai'
+            )
+
+            return Response({
+                'conversation_id': conversation.id,
+                'initial_response': response.text
+            })
+
+        except UploadedFile.DoesNotExist:
+            return Response({'error': 'File not found'}, status=404)
+    
+    # CASE 3: Invalid request - missing required parameters
+    else:
+        return Response({
+            'error': 'Missing required parameters. For initialization, provide file_id. For messages, provide conversation_id and message.'
+        }, status=400)
+
+# Helper function to extract content based on file type
+def get_file_content(file):
+    """Extract content from files based on their type"""
+    # If we already have content stored, use it
+    if file.content:
+        return file.content
+    
+    # Otherwise, extract content based on file type
+    if file.file_type == 'text/plain':
+        # For text files, just read the content
+        try:
+            with file.file.open('r') as f:
+                return f.read()
+        except:
+            return "Could not read text file content"
+    
+    elif file.file_type == 'application/pdf':
+        # For PDF files, use PyPDF2 to extract text
+        try:
+            from PyPDF2 import PdfReader
+            reader = PdfReader(file.file.path)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text() + "\n"
+            
+            # Save the extracted content in the file object for future use
+            file.content = text
+            file.save()
+            
+            return text
+        except Exception as e:
+            return f"Could not extract PDF content: {str(e)}"
+    
+    elif file.file_type.startswith('image/'):
+        return "[This is an image file. No text content available for analysis.]"
+    
+    else:
+        return f"[File type {file.file_type} content extraction not supported]"
