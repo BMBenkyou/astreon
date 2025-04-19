@@ -8,11 +8,16 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .models import Conversation, Message,Quiz,QuizQuestion
+from rest_framework.parsers import MultiPartParser, FormParser
+from .models import Conversation, Message, Quiz, QuizQuestion, UploadedFile, FileChat
+from .serializers import UploadedFileSerializer, FileChatSerializer
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
-import uuid
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils import timezone
+from django.utils.decorators import method_decorator
+from datetime import timedelta
 import re
 # Load environment variables
 load_dotenv()
@@ -251,5 +256,106 @@ class QuizSessionView(APIView):
         quizzes = request.session.get("quizzes", [])
         return Response({"quizzes": quizzes, "success": True})
 
+class FileUploadView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [IsAuthenticated]
 
+    def post(self, request):
+        file_obj = request.FILES.get('file')
+        if not file_obj:
+            return Response({'error': 'No file provided'}, status=400)
+
+        # Extract text content if it's a text file
+        content = None
+        if file_obj.content_type == 'text/plain':
+            content = file_obj.read().decode('utf-8')
+            file_obj.seek(0)  # Reset file pointer
+
+        uploaded_file = UploadedFile.objects.create(
+            user=request.user,
+            file=file_obj,
+            name=file_obj.name,
+            file_type=file_obj.content_type,
+            content=content
+        )
+
+        serializer = UploadedFileSerializer(uploaded_file)
+        return Response({
+            'id': uploaded_file.id,
+            'name': uploaded_file.name,
+            'type': uploaded_file.file_type,
+            'url': request.build_absolute_uri(uploaded_file.file.url),
+            'content': content
+        })
+
+class FileChatView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        file_id = request.data.get('file_id')
+        message = request.data.get('message')
+
+        if not all([file_id, message]):
+            return Response({'error': 'Missing required fields'}, status=400)
+
+        try:
+            file = UploadedFile.objects.get(id=file_id, user=request.user)
+        except UploadedFile.DoesNotExist:
+            return Response({'error': 'File not found'}, status=404)
+
+        # Here you would integrate with your AI service
+        # For now, using a simple response
+        ai_response = f"Analyzing file: {file.name}. Your question: {message}"
+
+        chat = FileChat.objects.create(
+            file=file,
+            user=request.user,
+            message=message,
+            response=ai_response
+        )
+
+        return Response({
+            'response': ai_response
+        })
+
+    def get(self, request):
+        file_id = request.query_params.get('file_id')
+        if not file_id:
+            return Response({'error': 'File ID required'}, status=400)
+
+        chats = FileChat.objects.filter(
+            file_id=file_id,
+            user=request.user
+        )
+        serializer = FileChatSerializer(chats, many=True)
+        return Response(serializer.data)
+
+@method_decorator(xframe_options_exempt, name='dispatch')
+class UserFilesView(APIView):
+    permission_classes = [IsAuthenticated]
     
+    def get(self, request):
+        # Get files from the last week (7 days)
+        one_week_ago = timezone.now() - timedelta(days=7)
+        
+        # Query files uploaded by current user within the last week
+        files = UploadedFile.objects.filter(
+            user=request.user,
+            uploaded_at__gte=one_week_ago
+        )
+        
+        # Format the response
+        file_list = []
+        for file in files:
+            file_list.append({
+                'id': file.id,
+                'name': file.name,
+                'type': file.file_type,
+                'url': request.build_absolute_uri(file.file.url),
+                'content': file.content,
+                'uploaded_at': file.uploaded_at
+            })
+        
+        return Response({
+            'files': file_list
+        })

@@ -45,3 +45,24 @@ class QuizQuestion(models.Model):
     correct_answer = models.CharField(max_length=255)
     explanation = models.TextField(blank=True)
     order = models.IntegerField(default=0)
+
+class UploadedFile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='uploads/')
+    name = models.CharField(max_length=255)
+    file_type = models.CharField(max_length=100)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(null=True, blank=True)  # For storing text content
+
+    def __str__(self):
+        return f"{self.name} ({self.user.username})"
+
+class FileChat(models.Model):
+    file = models.ForeignKey(UploadedFile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    response = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
