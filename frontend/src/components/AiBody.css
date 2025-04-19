@@ -126,7 +126,7 @@
 
 /* AI message */
 .ai-message {
-  background-color: #888888;
-  color: white;
+  background-color: #3e3636;
+  color:black;
   align-self: flex-start;
 }
