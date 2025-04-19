@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -63,7 +64,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'rest_framework_simplejwt',
     'user',
-    'chatbot',
+    'chat',
     'rest_framework',
     'allauth.account',
     'allauth.socialaccount',
