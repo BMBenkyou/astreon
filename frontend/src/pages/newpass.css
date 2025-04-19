@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* Apply background to entire page */
+body {
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Wrap both login container and illustration in a flex container */
+.Fpage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .Fpage-container {
+    flex-direction: row;
+  }
+}
+
+/* Flex container for login form */
+.Fcontainer {
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  position: relative;
+  top: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .Fcontainer {
+    width: 27.5rem; /* Equivalent to md:w-110 */
+  }
+}
+
+/* Left side - Login form */
+.Fleft-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login container */
+.Fnewpass-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Login title */
+.Fnewpass-title {
+  text-align: left;
+  font-weight: 600;
+  font-size: 32px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Labels */
+.Fnew-password-label,
+.Fnew-confirm-password-label {
+  font-size: 0.875rem;
+  text-align: left;
+  font-weight: 400;
+  margin: 0.5rem 0;
+  font-family: "Poppins", sans-serif;
+  width: 315px;
+}
+
+/* Input field styles */
+.Finput-field {
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+/* Illustration container */
+.Fillustration-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .Fillustration-container {
+    width: 50%;
+  }
+}
+
+/* Illustration image */
+.Fillustration-container img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .Fillustration-container img {
+    max-width: 700px;
+  }
+}
+
+/* -------------------------------- */
+/* RESPONSIVE DESIGN */
+/* -------------------------------- */
+
+@media (max-width: 600px) {
+  body {
+    display: block;
+    height: auto;
+    padding: 1.25rem;
+  }
+
+  .Fcontainer {
+    width: 100%;
+    max-width: 350px;
+    padding: 1.5rem;
+    position: static;
+  }
+
+  .Fleft-side {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Flogin-container {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .Fillustration-container {
+    position: static;
+    width: 100%;
+    max-width: 350px;
+    margin: 1.25rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .Fillustration-container img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .Fcontainer {
+    width: 91.666667%;
+    max-width: 600px;
+    left: 0;
+  }
+
+  .Fillustration-container {
+    right: 50px;
+    width: 600px;
+    height: auto;
+  }
+
+  .Fillustration-container img {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .Fcontainer {
+    max-width: 900px;
+  }
+
+  .Fillustration-container {
+    width: 800px;
+    height: 800px;
+  }
+}

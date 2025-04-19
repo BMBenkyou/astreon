@@ -1,0 +1,59 @@
+/* Attach Button */
+.attach-button {
+  position: relative;
+  width: 250px;
+  height: 55px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 2px solid #323232;
+  box-shadow: 4px 4px 0 #323232;
+  background: transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+
+.attach-button:hover {
+  transform: scale(1.1);
+}
+
+.attach-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+/* Button Text */
+.button-text {
+  color: #323232;
+  font-weight: 600;
+  font-size: 20px;
+  transition: opacity 0.3s;
+}
+
+.attach-button:hover .button-text {
+  opacity: 0;
+}
+
+/* Icon */
+.attach-icon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 20px;
+  fill: #323232;
+  transition: all 0.5s;
+}
+
+.attach-button:hover .attach-icon {
+  left: 50%;
+  transform: translateX(-50%) scale(1.25);
+}
+
+/* Hidden input */
+.hidden-input {
+  display: none;
+}

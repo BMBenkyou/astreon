@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* Apply background to entire page */
+body {
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.error-messages-container {
+  background-color: rgba(255, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-left: 3px solid #ff3333;
+}
+
+.error-message {
+  color: #ff3333;
+  font-size: 14px;
+  margin: 4px 0;
+  font-weight: 500;
+}
+/* Wrap both login container and illustration in a flex container */
+.Tpage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Flex container for login form */
+.Tcontainer {
+  width: 100%;
+  max-width: 600px;
+  padding: 8px;
+  background: linear-gradient(to bottom, #dce6eb, #c3faf1);
+  position: relative;
+  top: 5px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Left side - Login form */
+.Tleft-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login container */
+.Tsignup-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Login title */
+.Tcontainerlogin-title {
+  text-align: left;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.Temail-label,
+.Tconfirm-password-label,
+.Tpassword-label {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  margin: 8px 0;
+}
+
+.Tsignup-title {
+  font-weight: bold;
+  font-size: 32px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input field styles */
+.Tinput-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Forgot password link */
+.Tforgot-password {
+  text-align: right;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.Tforgot-password a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Register link */
+.Tregister-link {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.Tregister-link a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Password toggle button */
+.show-hide-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.show-hide-btn img {
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+}
+
+/* Illustration container */
+.Tillustration-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Tillustration-container img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+/* -------------------------------- */
+/* RESPONSIVE DESIGN */
+/* -------------------------------- */
+
+/* Mobile View */
+@media (max-width: 600px) {
+  body {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .Tpage-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .Tcontainer {
+    width: 100%;
+    max-width: 350px;
+    padding: 24px;
+    position: static;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .Tillustration-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 20px;
+  }
+}
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .Tpage-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .Tcontainer {
+    width: 92%;
+    max-width: 600px;
+    padding: 32px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
+
+  .Tillustration-container {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Desktop View */
+@media (min-width: 1025px) {
+  .Tpage-container {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .Tcontainer {
+    max-width: 450px;
+    padding: 40px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  .Tillustration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+  }
+}

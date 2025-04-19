@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/* Streak Container */
+.streak-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  margin: 0 auto 32px auto;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  /* Laptop & Tablet */
+  .streak-container {
+    max-width: 700px;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets */
+  .streak-container {
+    padding: 12px;
+    width: 95%;
+    font-size: 14px;
+  }
+
+  /* Adjust heatmap size to fit smaller screens */
+  .heatmap {
+    display: grid;
+    grid-template-columns: repeat(53, 12px);
+    grid-template-rows: repeat(7, 12px);
+    gap: 4px;
+  }
+
+  /* Adjust heatmap cell size to fit smaller screens */
+  .heatmap-cell {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile */
+  .streak-container {
+    font-size: 12px;
+    padding: 8px;
+    width: 98%;
+  }
+
+  /* Adjust heatmap size to fit smaller screens */
+  .heatmap {
+    grid-template-columns: repeat(53, 10px);
+    grid-template-rows: repeat(7, 10px);
+    gap: 2px;
+  }
+
+  /* Adjust heatmap cell size to fit smaller screens */
+  .heatmap-cell {
+    width: 10px;
+    height: 10px;
+  }
+}

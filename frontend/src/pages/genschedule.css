@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* Apply background to entire page */
+body {
+  background-color: #e3fef9;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Main container styling */
+.MainContaineR {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 90vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Responsive MainContainer adjustments */
+@media (max-width: 1024px) {
+  .MainContaineR {
+    max-width: 100%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets and below */
+  .MainContaineR {
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Smartphones */
+  .MainContaineR {
+    padding: 8px;
+  }
+}
+
+/* Navigation body styling */
+.nav-body {
+  display: end;
+  flex-direction: row;
+  align-items: stretch;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsive Sidebar adjustments */
+@media (max-width: 1024px) {
+  .nav-body {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets */
+  .nav-body {
+    flex-direction: column;
+  }
+}
+
+/* Main content styling */
+.Amain-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+/* Responsive main content adjustments */
+@media (max-width: 1024px) {
+  .Amain-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+/* Schedule title styling */
+.schedule-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1c170d;
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Calendar section styling */
+.calendar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+/* Responsive Calendar adjustments */
+@media (max-width: 1024px) {
+  .calendar-section {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablets */
+  .calendar-section {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile */
+  .calendar-section {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Content wrapper styling */
+.GScontent-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  padding: 4px;
+  width: 100%;
+  margin-left: 40px;
+}
+
+/* Responsive content layout adjustments */
+@media (max-width: 1024px) {
+  .GScontent-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}

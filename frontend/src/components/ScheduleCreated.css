@@ -1,0 +1,58 @@
+/* Main container */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 432px;
+  height: 395px;
+  border-radius: 15px;
+  border: 1px solid #e6e6e6;
+  background-color: white;
+  backdrop-filter: blur(5.1px);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Grid layout */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+/* First row (Purple Boxes) */
+.purple-box {
+  display: flex;
+  width: 143px;
+  height: 140px;
+  border-radius: 8px;
+  background-color: rgba(
+    192,
+    132,
+    252,
+    0.1
+  ); /* Equivalent to bg-purple-400/10 */
+  font-family: "Poppins", sans-serif;
+}
+
+/* Second row (Blue Boxes) */
+.blue-box {
+  display: flex;
+  width: 143px;
+  height: 68px;
+  border-radius: 8px;
+  background-color: rgba(56, 189, 248, 0.1); /* Equivalent to bg-sky-400/10 */
+  font-family: "Poppins", sans-serif;
+}
+
+/* Third row (Purple Again) */
+.purple-box:nth-child(7),
+.purple-box:nth-child(8),
+.purple-box:nth-child(9) {
+  display: flex;
+  width: 143px;
+  height: 115px;
+  border-radius: 8px;
+  background-color: rgba(56, 189, 248, 0.1); /* Equivalent to bg-sky-400/10 */
+  font-family: "Poppins", sans-serif;
+}

@@ -1,0 +1,238 @@
+/* Main Sidebar Container */
+.NSidebar {
+  width: 250px;
+  background: linear-gradient(
+    to bottom,
+    rgba(200, 186, 186, 0.7),
+    rgba(3, 156, 135, 0.7)
+  );
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 56px; /* Match header height */
+  margin-top: 17px;
+  border-right: 1px solid #e5e7eb;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
+}
+
+.NSidebar.closed {
+  width: 70px;
+}
+
+.NSidebar.open {
+  width: 250px;
+}
+
+/* Navigation Container */
+.NSidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 8px;
+}
+
+/* Section Styles */
+.sidebar-section {
+  margin-bottom: 8px;
+}
+
+/* Header/Parent Items */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: #111827;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.sidebar-header:hover {
+  background-color: #f3f4f6;
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.925rem;
+}
+
+/* Icons */
+.sidebar-icon {
+  font-size: 1.25rem;
+  color: #4b5563;
+}
+
+/* Submenu Container */
+.sidebar-submenu {
+  padding-left: 28px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Submenu Items */
+.sidebar-subitem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  color: #6b7280;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.875rem;
+}
+
+.sidebar-subitem:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.sidebar-subicon {
+  font-size: 1.1rem;
+}
+
+/* Regular Menu Items */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: #111827;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+.sidebar-item:hover {
+  background-color: #f3f4f6;
+}
+
+/* Active States */
+.sidebar-item.active,
+.sidebar-subitem.active {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* Mobile Styles */
+@media (max-width: 1023px) {
+  .NSidebar {
+    margin-top: 56px;
+    height: 100%;
+    min-height: 400px;
+    max-height: calc(100vh - 56px);
+  }
+  
+  .NSidebar.closed {
+    transform: translateX(-100%);
+  }
+}
+
+/* Toggle Button for Mobile */
+.bar {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .bar {
+    display: flex;
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    z-index: 200;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .bar span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #4b5563;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .bar span + span {
+    margin-top: 5px;
+  }
+
+  .bar.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .bar.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .bar.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+/* Main Content Wrapper */
+.main-content {
+  transition: padding-left 0.3s ease-in-out;
+  padding-left: 250px;
+}
+
+.main-content.sidebar-closed {
+  padding-left: 70px;
+}
+
+@media (max-width: 1023px) {
+  .main-content {
+    padding-left: 0;
+  }
+  
+  .main-content.sidebar-closed {
+    padding-left: 0;
+  }
+}
+
+/* Add styles for the main page content wrapper */
+.page-wrapper {
+  margin-left: 250px; 
+  margin-top: 73px; 
+  min-height: 100vh;
+  transition: margin-left 0.3s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+.page-wrapper.sidebar-closed {
+  margin-left: 70px; 
+}
+
+header {
+  z-index: 1000;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1023px) {
+  .page-wrapper {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .page-wrapper.sidebar-closed {
+    margin-left: 0;
+  }
+}
+
+/* Update main content styles */
+.main-content {
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Default Sidebar (Desktop) ─── */

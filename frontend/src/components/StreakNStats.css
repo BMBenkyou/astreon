@@ -1,0 +1,188 @@
+/* ----- Streak Container (GitHub Heatmap Style) ----- */
+.streak-container {
+  background-color: transparent;
+  padding: 4px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto 32px auto;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.streak-title {
+  font-size: 22px;
+  color: #1c170d;
+  margin-bottom: 16px;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ----- Heatmap Grid Layout (53 Weeks x 7 Days) ----- */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(53, minmax(10px, 18px));
+  grid-template-rows: repeat(7, minmax(10px, 18px));
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.heatmap-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  opacity: 0;
+  animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+.heatmap-cell.empty {
+  background-color: transparent;
+}
+
+.heatmap-cell.low {
+  background-color: #a8ddb5;
+}
+
+.heatmap-cell.medium {
+  background-color: #4caf50;
+}
+
+.heatmap-cell.high {
+  background-color: #1b5e20;
+}
+
+/* Hover effect - glowing effect */
+.heatmap-cell:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+}
+
+/* ----- Legend with Animation ----- */
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards 0.5s;
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-box.empty {
+  background-color: transparent;
+}
+
+.legend-box.low {
+  background-color: #a8ddb5;
+}
+
+.legend-box.medium {
+  background-color: #4caf50;
+}
+
+.legend-box.high {
+  background-color: #1b5e20;
+}
+
+/* ----- Performance Chart Refinements ----- */
+.statistics-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards 0.3s;
+}
+
+.statistics-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Responsive Layout */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ----- Fade-In Animations ----- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----- RESPONSIVE BREAKPOINTS ----- */
+@media (max-width: 1024px) {
+  .streak-container {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .heatmap {
+    grid-template-columns: repeat(53, minmax(8px, 14px));
+    grid-template-rows: repeat(7, minmax(8px, 14px));
+  }
+
+  .statistics-container {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .streak-container {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .heatmap {
+    grid-template-columns: repeat(53, minmax(7px, 12px));
+    grid-template-rows: repeat(7, minmax(7px, 12px));
+  }
+
+  .statistics-container {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .streak-container {
+    width: 95%;
+    padding: 8px;
+  }
+
+  .heatmap {
+    grid-template-columns: repeat(53, minmax(5px, 10px));
+    grid-template-rows: repeat(7, minmax(5px, 10px));
+  }
+
+  .statistics-container {
+    max-width: 400px;
+  }
+}

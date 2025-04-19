@@ -1,0 +1,65 @@
+/* General styles for input group */
+.input-group {
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 370px;
+  font-family: "Poppins", sans-serif;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input wrapper styling */
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.375rem; /* rounded-md */
+  background-color: transparent;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input field styles */
+.input-group input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  font-size: 0.875rem;
+  background-color: transparent;
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: #9ca3af; /* gray-400 */
+  font-family: "Poppins", sans-serif;
+}
+
+/* Show/Hide Button */
+.show-hide-btn {
+  padding: 0.75rem;
+  height: 42px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: black;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  border-left: 1px solid #d1d5db; /* gray-300 */
+  font-family: "Poppins", sans-serif;
+}
+
+.show-hide-btn:hover {
+  background-color: #028577;
+  transform: scale(1.1);
+}
+
+.show-hide-btn:active {
+  transform: scale(0.9);
+}

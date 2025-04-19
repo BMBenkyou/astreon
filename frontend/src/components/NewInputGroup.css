@@ -1,0 +1,91 @@
+/* Input Group */
+.Ninput-group {
+  margin: 1px;
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}
+
+.Ninput-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input Field Wrapper */
+.Ninput-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 900px;
+  border: 1px solid #d1d5db; /* Equivalent to Tailwind's gray-300 */
+  border-radius: 6px;
+  background: transparent;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input Field */
+.Ninput-group input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  font-size: 32px;
+  height: 36px;
+  font-family: "Poppins", sans-serif;
+  background: transparent;
+  outline: none;
+}
+
+.Ninput-group input::placeholder {
+  color: #9c9292;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Show/Hide Button */
+.show-hide-btn {
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: black;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  border-left: 1px solid #d1d5db; /* Equivalent to Tailwind's gray-300 */
+  font-family: "Poppins", sans-serif;
+}
+
+.show-hide-btn:hover {
+  background-color: #028577;
+  transform: scale(1.1);
+}
+
+.show-hide-btn:active {
+  transform: scale(0.9);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .Ninput-group {
+    width: 90%;
+  }
+
+  .Ninput-group input {
+    font-size: 16px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Ninput-group {
+    width: 100%;
+  }
+
+  .Ninput-group input {
+    font-size: 14px;
+    height: 32px;
+  }
+}

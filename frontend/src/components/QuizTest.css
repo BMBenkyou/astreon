@@ -1,0 +1,250 @@
+/* Quiz Test Container */
+.quiz-test-container {
+  background-color: #ccfbf1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 664px;
+  height: 590px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Quiz Header */
+.quiz-header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 100%;
+  height: 160px;
+}
+
+/* Title */
+.quiz-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Options */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 56px;
+  align-items: center;
+}
+
+.option {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 75%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid #9ca3af;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+.option.selected {
+  border-color: #0d9488;
+  background-color: #0d9488;
+  font-weight: bold;
+  color: white;
+}
+
+/* Progress Bar */
+.progress-container {
+  width: 100%;
+  background-color: #9ca3af;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #0d9488;
+  transition: width 0.3s ease-in-out;
+  border-radius: 9999px;
+}
+
+.progress-number {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #0d9488;
+  padding: 4px 16px;
+  border-radius: 9999px;
+  color: white;
+}
+
+/* Buttons */
+.quiz-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 56px;
+  padding: 0 20px;
+}
+
+.prev-btn,
+.next-btn,
+.finish-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Previous Button */
+.prev-btn {
+  background-color: #cdd5da;
+  color: white;
+}
+
+.prev-btn:hover {
+  background-color: #b0b4b6;
+}
+
+.prev-btn:active {
+  transform: scale(0.95);
+}
+
+/* Next Button */
+.next-btn {
+  background-color: #039c87;
+  color: white;
+}
+
+.next-btn:hover {
+  background-color: #028976;
+}
+
+.next-btn:active {
+  transform: scale(0.95);
+}
+
+.next-btn:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Finish Button */
+.finish-btn {
+  background-color: #22c55e;
+  color: white;
+}
+
+.finish-btn:hover {
+  background-color: #16a34a;
+}
+
+.finish-btn:active {
+  transform: scale(0.95);
+}
+
+/* Exit Button */
+.exit-btn {
+  background-color: #ef4444;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.exit-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Quiz Summary */
+.quiz-summary {
+  text-align: center;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ResultQuiz-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.result-box {
+  background-color: #99f6e4;
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 28px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .quiz-test-container {
+    width: 80vw;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz-test-container {
+    width: 90vw;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-test-container {
+    width: 95vw;
+    height: auto;
+    padding: 15px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .prev-btn,
+  .next-btn,
+  .finish-btn {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+  }
+}

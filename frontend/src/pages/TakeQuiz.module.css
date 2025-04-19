@@ -1,0 +1,58 @@
+/* This file will be imported as a CSS Module and won't affect other components */
+
+.quizTypeSelection {
+  padding: 24px;
+  background-color: #f9fafb;
+}
+
+.quizTypeSelection h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #333;
+}
+
+.quizTypeOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.typeOption {
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.typeOption:hover {
+  border-color: #0CC0A3;
+  background-color: rgba(12, 192, 163, 0.05);
+}
+
+.typeOption.selected {
+  border-color: #0CC0A3;
+  background-color: rgba(12, 192, 163, 0.1);
+}
+
+.startQuizButton {
+  padding: 12px 24px;
+  background-color: #0CC0A3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.startQuizButton:hover {
+  background-color: #0aa08a;
+}

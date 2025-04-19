@@ -1,0 +1,254 @@
+/* Header */
+/* Ensure the header spans the full width and is properly aligned */
+header {
+  display: flex;
+  justify-content: space-between; /* Space out the elements evenly */
+  align-items: center; /* Vertically center the elements */
+  padding: 8px 24px; /* Adjust padding for spacing */
+  width: 100%; /* Ensure the header spans the full width */
+  background-color: #ffffff; /* Set a background color */
+  position: fixed; /* Make the header fixed to the top */
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 1000; /* Ensure the header stays above other elements */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Add subtle shadow */
+}
+
+/* Style for the logo or left-side content */
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-left: 0; /* Remove spacing from the left edge */
+  padding-left: 0; /* Remove padding from the left edge */
+}
+
+/* Style for the navigation or right-side content */
+header .nav-links {
+  display: flex;
+  gap: 20px; /* Add spacing between navigation links */
+  margin-right: 10px; /* Add some spacing from the right edge */
+}
+
+header .nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+header .nav-links a:hover {
+  color: #22c55e; /* Change color on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
+  }
+
+  header .nav-links {
+    flex-direction: column; /* Stack navigation links vertically */
+    gap: 10px;
+    margin-right: 0; /* Remove right margin */
+  }
+}
+/* Right Section */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: "Poppins", sans-serif;
+  margin-right: 12px; /* Adjust spacing from the right edge */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .header {
+    padding: 15px;
+    margin-bottom: 60px;
+  }
+  .right-section {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px;
+    margin-bottom: 30px;
+  }
+  .logo {
+    width: 55px;
+    height: 55px;
+  }
+  .right-section {
+    gap: 12px;
+  }
+  .calendar {
+    width: 32px;
+    height: 32px;
+  }
+  .profile-icon {
+    width: 45px;
+    height: 45px;
+  }
+  .dropdown-icon {
+    font-size: 18px;
+  }
+}
+
+/* Logo */
+.logo {
+  width: 60px; /* Adjust logo width */
+  height: 60px; /* Adjust logo height */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align logo to the start */
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  margin-left: 0; /* Remove margin from the left edge */
+  padding-left: 0; /* Remove padding from the left edge */
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Ensure the image fits properly */
+}
+
+/* Calendar Icon */
+.calendar {
+  width: 40px;
+  height: 40px;
+  color: #4a4a4a;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.calendar:hover {
+  transform: scale(1.25);
+  color: black;
+}
+
+/* Profile Icon */
+.profile-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+}
+
+.profile-icon:hover {
+  background-color: white;
+}
+
+/* Profile Container */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Dropdown Icon */
+.dropdown-icon {
+  font-size: 24px;
+  color: #4a4a4a;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.dropdown-icon:hover {
+  transform: scale(1.2);
+  color: black;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 170px;
+  background-color: rgba(36, 40, 50, 1);
+  background-image: linear-gradient(
+    139deg,
+    rgba(36, 40, 50, 1) 0%,
+    rgba(37, 28, 40, 1) 100%
+  );
+  border-radius: 10px;
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile Dropdown Adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    right: -10px;
+    width: 180px;
+  }
+}
+
+.dropdown-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(220, 230, 235, 1);
+  background-image: linear-gradient(
+    139deg,
+    rgba(220, 230, 235, 1) 0%,
+    rgba(195, 250, 241, 1) 100%
+  );
+  backdrop-filter: blur(80%);
+}
+
+/* Dropdown Separator */
+.separator {
+  border-top: 1.5px solid #42434a;
+}
+
+/* Dropdown List */
+.list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px 10px;
+}
+
+/* Dropdown List Elements */
+.list .element {
+  display: flex;
+  align-items: center;
+  color: #000000;
+  gap: 10px;
+  transition: all 0.3s ease-out;
+  padding: 4px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.list .element:hover {
+  background-color: #039c87;
+  color: #ffffff;
+  transform: translate(1px, -1px);
+}
