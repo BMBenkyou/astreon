@@ -9,7 +9,20 @@ body {
   align-items: center;
   height: 100vh;
 }
+.error-messages-container {
+  background-color: rgba(255, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-left: 3px solid #ff3333;
+}
 
+.error-message {
+  color: #ff3333;
+  font-size: 14px;
+  margin: 4px 0;
+  font-weight: 500;
+}
 /* Wrap both login container and illustration in a flex container */
 .Tpage-container {
   display: flex;

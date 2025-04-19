@@ -8,5 +8,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    include: ['react-pdf'],
+  },
+  build: {
+    commonjsOptions: {
+      include: [/react-pdf/, /pdfjs-dist/],
+    },
+  }
 })
 

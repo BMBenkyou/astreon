@@ -23,7 +23,7 @@ const Signup = () => {
     
     // Validate password confirmation
     if (password !== confirmPassword) {
-      setErrors({ password2: ["Passwords do not match!"] });
+      setErrors({ password: ["Passwords do not match!"] });
       return;
     }
 
@@ -46,7 +46,7 @@ const Signup = () => {
     
     try {
       // Send POST request to Django backend
-      const response = await fetch("http://127.0.0.1:8000/auth/registration/", {
+      const response = await fetch("http://127.0.0.1:8080/api/auth/registration/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,16 +81,30 @@ const Signup = () => {
     }
   };
 
-  // Helper to display field errors
-  const getFieldError = (fieldName) => {
-    return errors[fieldName] ? 
-      <div className="error-message">{errors[fieldName].join(' ')}</div> : null;
-  };
-
-  // Helper to display non-field errors
-  const getNonFieldErrors = () => {
-    return errors.non_field_errors ? 
-      <div className="error-message general">{errors.non_field_errors.join(' ')}</div> : null;
+  // Helper to collect all error messages
+  const getAllErrorMessages = () => {
+    if (Object.keys(errors).length === 0) return null;
+    
+    const errorMessages = [];
+    
+    // Collect all error messages from different fields
+    Object.keys(errors).forEach(key => {
+      if (Array.isArray(errors[key])) {
+        errors[key].forEach(error => {
+          errorMessages.push(`${key === 'non_field_errors' ? '' : key + ': '}${error}`);
+        });
+      }
+    });
+    
+    if (errorMessages.length === 0) return null;
+    
+    return (
+      <div className="error-messages-container">
+        {errorMessages.map((message, index) => (
+          <div key={index} className="error-message">{message}</div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -101,8 +115,8 @@ const Signup = () => {
           <LoginContainer className="Tsignup-container">
             <h2 className="Tsignup-title">Sign Up</h2>
             
-            {/* General error messages */}
-            {getNonFieldErrors()}
+            {/* Consolidated error messages */}
+            {getAllErrorMessages()}
             
             <form onSubmit={handleSignup}>
               {/* Email Field */}
@@ -113,7 +127,6 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="Tinput-field"
               />
-              {getFieldError('email')}
 
               {/* Username Field */}
               <InputGroup
@@ -123,7 +136,6 @@ const Signup = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="Tinput-field"
               />
-              {getFieldError('username')}
 
               {/* Password Field */}
               <InputGroup
@@ -145,7 +157,6 @@ const Signup = () => {
                   <span>{showPassword ? "Hide" : "Show"}</span>
                 </button>
               </InputGroup>
-              {getFieldError('password1')}
 
               {/* Confirm Password Field */}
               <InputGroup
@@ -167,7 +178,6 @@ const Signup = () => {
                   <span>{showConfirmPassword ? "Hide" : "Show"}</span>
                 </button>
               </InputGroup>
-              {getFieldError('password2')}
 
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? "Signing Up..." : "Sign Up"}
