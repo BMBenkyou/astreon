@@ -200,8 +200,8 @@
 
 /* Add styles for the main page content wrapper */
 .page-wrapper {
-  margin-left: 250px; /* Match sidebar width */
-  margin-top: 73px; /* Account for header height + top margin */
+  margin-left: 250px; 
+  margin-top: 73px; 
   min-height: 100vh;
   transition: margin-left 0.3s ease-in-out;
   position: relative;
@@ -209,10 +209,9 @@
 }
 
 .page-wrapper.sidebar-closed {
-  margin-left: 70px; /* Match collapsed sidebar width */
+  margin-left: 70px; 
 }
 
-/* Adjust header z-index to stay on top */
 header {
   z-index: 1000;
 }
