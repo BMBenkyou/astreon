@@ -66,3 +66,22 @@ class FileChat(models.Model):
 
     class Meta:
         ordering = ['created_at']
+
+class FlashcardSet(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='flashcard_sets')
+    title = models.CharField(max_length=255)
+    prompt = models.TextField(blank=True, null=True)
+    original_file_name = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.title} - {self.user.username}"
+
+class Flashcard(models.Model):
+    flashcard_set = models.ForeignKey(FlashcardSet, on_delete=models.CASCADE, related_name='cards')
+    front = models.TextField()
+    back = models.TextField()
+    order = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"Card {self.order} for {self.flashcard_set.title}"
