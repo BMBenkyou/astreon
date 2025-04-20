@@ -1,16 +1,13 @@
-# views.py
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from .models import FriendRequest, Profile
-from .models import Profile
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, UserWithProfileSerializer, FriendRequestSerializer
 from django.contrib.auth.hashers import check_password
-from .serializers import UserWithProfileSerializer, FriendRequestSerializer
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q  
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -41,7 +38,8 @@ def send_friend_request(request):
     # Check if friend request already exists
     existing_request = FriendRequest.objects.filter(
         from_user=request.user,
-        to_user_id=to_user_id
+        to_user_id=to_user_id,
+        accepted=False  # Only check non-accepted requests
     ).exists()
     
     if existing_request:
@@ -50,19 +48,30 @@ def send_friend_request(request):
     # Check if recipient has already sent a request
     reverse_request = FriendRequest.objects.filter(
         from_user_id=to_user_id,
-        to_user=request.user
+        to_user=request.user,
+        accepted=False  # Only check non-accepted requests
     ).exists()
     
     if reverse_request:
         return Response({"error": "This user has already sent you a friend request"}, status=status.HTTP_400_BAD_REQUEST)
     
-    # Create a new request with the current user as sender
-    serializer = FriendRequestSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(from_user=request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # Check if they are already friends
+    already_friends = FriendRequest.objects.filter(
+        (Q(from_user=request.user) & Q(to_user_id=to_user_id)) |
+        (Q(from_user_id=to_user_id) & Q(to_user=request.user)),
+        accepted=True
+    ).exists()
     
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if already_friends:
+        return Response({"error": "You are already friends with this user"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Create a new request with the current user as sender
+    to_user = get_object_or_404(User, id=to_user_id)
+    friend_request = FriendRequest(from_user=request.user, to_user=to_user)
+    friend_request.save()
+    
+    serializer = FriendRequestSerializer(friend_request)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -70,8 +79,8 @@ def get_friend_requests(request):
     """
     Get all friend requests for the current user (both sent and received)
     """
-    sent_requests = FriendRequest.objects.filter(from_user=request.user)
-    received_requests = FriendRequest.objects.filter(to_user=request.user)
+    sent_requests = FriendRequest.objects.filter(from_user=request.user, accepted=False)
+    received_requests = FriendRequest.objects.filter(to_user=request.user, accepted=False)
     
     sent_serializer = FriendRequestSerializer(sent_requests, many=True)
     received_serializer = FriendRequestSerializer(received_requests, many=True)
@@ -128,7 +137,16 @@ def get_friends(request):
     """
     Get all friends of the current user
     """
-    friends_list = request.user.friends()
+    # Get accepted friend requests in both directions
+    sent_accepted = FriendRequest.objects.filter(from_user=request.user, accepted=True).values_list('to_user', flat=True)
+    received_accepted = FriendRequest.objects.filter(to_user=request.user, accepted=True).values_list('from_user', flat=True)
+    
+    # Combine the user IDs
+    friend_ids = set(list(sent_accepted) + list(received_accepted))
+    
+    # Get the actual user objects
+    friends_list = User.objects.filter(id__in=friend_ids)
+    
     serializer = UserWithProfileSerializer(friends_list, many=True)
     return Response(serializer.data)
 
@@ -154,10 +172,13 @@ def check_friendship_status(request, user_id):
     Check friendship status with another user
     """
     # Check if they are already friends
-    target_user = get_object_or_404(User, id=user_id)
-    user_friends = request.user.friends()
+    already_friends = FriendRequest.objects.filter(
+        (Q(from_user=request.user) & Q(to_user_id=user_id)) |
+        (Q(from_user_id=user_id) & Q(to_user=request.user)),
+        accepted=True
+    ).exists()
     
-    if target_user in user_friends:
+    if already_friends:
         return Response({'status': 'friends'})
     
     # Check for pending friend requests
@@ -188,9 +209,21 @@ def get_profile(request):
     """
     Get the authenticated user's profile
     """
-    profile = Profile.objects.get(user=request.user)
-    serializer = ProfileSerializer(profile)
-    return Response(serializer.data)
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        profile = Profile.objects.create(user=request.user)
+        
+    # Return user object along with profile
+    user_data = {
+        'user': {
+            'id': request.user.id,
+            'username': request.user.username,
+        },
+        'profile': ProfileSerializer(profile).data
+    }
+    
+    return Response(user_data)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
