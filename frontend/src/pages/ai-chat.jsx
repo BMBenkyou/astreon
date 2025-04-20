@@ -11,55 +11,58 @@ const Chat = () => {
   const [conversationId, setConversationId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
-  // Load conversation when component mounts
+  // Load conversation when component mounts or when conversationId changes
   useEffect(() => {
     const loadConversation = async () => {
       setIsLoading(true);
       const token = localStorage.getItem('accessToken');
-      
       if (!token) {
         console.error("No access token found");
         setIsLoading(false);
         return;
       }
-      
       try {
-        const url = conversationId 
-          ? `http://127.0.0.1:8000/api/chat/?conversation_id=${conversationId}`
-          : 'http://127.0.0.1:8000/api/chat/';
-          
+        // Always try to load the latest conversation if no conversationId
+        let url;
+        if (conversationId) {
+          url = `http://localhost:8080/api/chat/?conversation_id=${conversationId}`;
+        } else {
+          url = 'http://localhost:8080/api/chat/';
+        }
         const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        
         const data = await response.json();
-        
         if (response.ok && data.messages) {
           setMessages(data.messages);
           if (data.conversation_id) {
             setConversationId(data.conversation_id);
-            // Save conversation ID in localStorage
             localStorage.setItem('currentConversationId', data.conversation_id);
           }
+        } else {
+          setMessages([]);
         }
       } catch (error) {
         console.error('Error loading conversation:', error);
+        setMessages([]);
       } finally {
         setIsLoading(false);
       }
     };
-    
-    // Try to get conversation ID from localStorage
-    const savedConversationId = localStorage.getItem('currentConversationId');
-    if (savedConversationId) {
-      setConversationId(savedConversationId);
+    // Try to get conversation ID from localStorage if not set
+    if (!conversationId) {
+      const savedConversationId = localStorage.getItem('currentConversationId');
+      if (savedConversationId) {
+        setConversationId(savedConversationId);
+        // Don't call loadConversation here, will be triggered by conversationId change
+        return;
+      }
     }
-    
     loadConversation();
-  }, []);
+  }, [conversationId]);
   
   // Handle sending messages
   const handleSendMessage = async (message) => {
@@ -121,7 +124,7 @@ const Chat = () => {
 
                     return updatedMessages;
                 });
-            }, 50); 
+            }, 50); // Adjust typing speed here (50ms per character)
 
         } else {
             console.error('Error from API:', data.error);
