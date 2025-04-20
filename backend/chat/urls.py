@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ChatView, QuizGenerationView, FileUploadView, FileChatView, UserFilesView
+from .views import ChatView, QuizGenerationView, FileUploadView, FileChatView, UserFilesView, UserQuizzesView, QuizDetailView
 from . import views
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
     path('chat/file/', FileChatView.as_view(), name='file-chat'),
     path('files/', UserFilesView.as_view(), name='user-files'),
     path('chat/file-context/init/', views.init_file_chat, name='init_file_chat'),
+    path('quizzes/', UserQuizzesView.as_view(), name='user-quizzes'),
+    path('quizzes/<int:quiz_id>/', QuizDetailView.as_view(), name='quiz-detail'),
 ]

@@ -146,15 +146,47 @@ class ChatView(APIView):
 class QuizGenerationView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request):
         try:
             prompt = request.data.get("prompt", "")
             file = request.FILES.get("file")
             file_content = None
+            original_file_name = None
 
             if file:
-                file_content = file.read().decode("utf-8")
+                file_type = file.content_type
+                original_file_name = file.name
+                
+                # Handle different file types
+                if file_type == 'text/plain':
+                    # Handle text files with error handling for encoding issues
+                    try:
+                        file_content = file.read().decode("utf-8")
+                    except UnicodeDecodeError:
+                        # Try with a different encoding or use errors='replace'
+                        file_content = file.read().decode("utf-8", errors="replace")
+                        file.seek(0)  # Reset file pointer
+                    
+                elif file_type == 'application/pdf':
+                    # Handle PDF files
+                    try:
+                        reader = PdfReader(file)
+                        file_content = ""
+                        for page in reader.pages:
+                            file_content += page.extract_text() + "\n"
+                    except Exception as e:
+                        return Response({"error": f"Error extracting PDF content: {str(e)}"}, 
+                                       status=status.HTTP_400_BAD_REQUEST)
+                
+                elif file_type.startswith('image/'):
+                    # For images, we'll tell the AI it's an image file
+                    file_content = "[This is an image file. Generate a quiz based on the concepts this image might represent.]"
+                
+                else:
+                    return Response({"error": f"Unsupported file type: {file_type}"}, 
+                                   status=status.HTTP_400_BAD_REQUEST)
 
             # System prompt with clear JSON formatting instructions
             full_prompt = SYSTEM_PROMPT + "\n\n"
@@ -234,20 +266,56 @@ class QuizGenerationView(APIView):
                 return Response({"error": "Quiz generation failed: No questions found in response"}, 
                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
-            # Store in session
+            # Save quiz to database
+            try:
+                # Create the Quiz object
+                quiz = Quiz.objects.create(
+                    user=request.user,
+                    title=quiz_data["title"],
+                    prompt=prompt,
+                    original_file_name=original_file_name
+                )
+                
+                # Create QuizQuestion objects for each question
+                for index, question_data in enumerate(quiz_data["questions"]):
+                    QuizQuestion.objects.create(
+                        quiz=quiz,
+                        question_text=question_data["question"],
+                        options=question_data["choices"],  # Store choices as JSON
+                        correct_answer=question_data["correct_answer"],
+                        explanation=question_data.get("explanation", ""),  # Optional field
+                        order=index
+                    )
+                
+                # Store the quiz ID in the quiz_data for frontend
+                quiz_data["id"] = quiz.id
+                quiz_data["question_count"] = len(quiz_data["questions"])
+                
+            except Exception as e:
+                print(f"Error saving quiz to database: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                return Response({"error": f"Failed to save quiz to database: {str(e)}"}, 
+                               status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            # Store in session (optional, since we're now saving to the database)
             if "quizzes" not in request.session:
                 request.session["quizzes"] = []
 
             request.session["quizzes"].append(quiz_data)
             request.session.modified = True
 
-            return Response({"quiz_data": quiz_data, "success": True})
+            return Response({
+                "quiz_data": quiz_data, 
+                "quiz_id": quiz.id,
+                "success": True
+            })
 
         except Exception as e:
             print(f"Error in quiz generation: {str(e)}")
             import traceback
             traceback.print_exc()
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
 class QuizSessionView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -389,6 +457,7 @@ def init_file_chat(request):
             
             # Get file content based on file type
             file_content = get_file_content(file)
+            file_content = file.read().decode("utf-8", errors="ignore")
             
             # Create prompt with file context
             context = f"Based on the file {file.name}: {file_content}"
@@ -511,3 +580,76 @@ def get_file_content(file):
     
     else:
         return f"[File type {file.file_type} content extraction not supported]"
+
+# Add this to your views.py
+class UserQuizzesView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Retrieve all quizzes created by the current user"""
+        try:
+            quizzes = Quiz.objects.filter(user=request.user).order_by('-created_at')
+            quiz_data = []
+            
+            for quiz in quizzes:
+                questions = quiz.questions.all().order_by('order')
+                quiz_data.append({
+                    'id': quiz.id,
+                    'title': quiz.title,
+                    'prompt': quiz.prompt,
+                    'created_at': quiz.created_at,
+                    'question_count': questions.count(),
+                })
+            
+            return Response({
+                'quizzes': quiz_data,
+                'success': True
+            })
+            
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class QuizDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, quiz_id):
+        """Retrieve a specific quiz with its questions"""
+        try:
+            quiz = Quiz.objects.get(id=quiz_id, user=request.user)
+            questions = quiz.questions.all().order_by('order')
+            
+            question_data = []
+            for q in questions:
+                question_data.append({
+                    'id': q.id,
+                    'question_text': q.question_text,
+                    'options': q.options,
+                    'correct_answer': q.correct_answer,
+                    'explanation': q.explanation,
+                    'order': q.order
+                })
+            
+            return Response({
+                'id': quiz.id,
+                'title': quiz.title,
+                'prompt': quiz.prompt,
+                'created_at': quiz.created_at,
+                'questions': question_data,
+                'success': True
+            })
+            
+        except Quiz.DoesNotExist:
+            return Response(
+                {"error": "Quiz not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

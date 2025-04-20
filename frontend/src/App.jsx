@@ -16,7 +16,7 @@ import Verification from "./pages/verification";
 import Session from "./pages/sessions";
 import FileChat from "./pages/filechat";
 import AddFriend from "./pages/addfriend";
-
+import QuizTaking from "./pages/takequiz";
 
 
 const App = () => (
@@ -29,6 +29,7 @@ const App = () => (
       <Route path="/passwordreset" element={<Passwordreset />} />
       <Route path="/verification" element={<Verification />} />
       <Route path="/newpass" element={<Newpassword />} />
+      <Route path="/quiz/:quizId" element={<QuizTaking/>} />
       <Route path="/genschedule" element={<GenerateSchedule />} />
       <Route path="/quiz" element={<Quiz />} />
       <Route path="/profile" element={<Profile />} />
