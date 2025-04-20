@@ -33,7 +33,7 @@
 .user-cards-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 30px;
   width: 100%;
   margin: 0 auto;
   padding-bottom: 20px;
@@ -72,7 +72,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 300px; /* Fixed height for consistent cards */
+  height: 400px; /* Fixed height for consistent cards */
   transition: transform 0.2s, box-shadow 0.2s;
 }
 

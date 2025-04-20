@@ -10,7 +10,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, permission_classes
-from .models import Conversation, Message, Quiz, QuizQuestion, UploadedFile, FileChat
+from .models import Conversation, Message, Quiz, QuizQuestion, UploadedFile, FileChat, Flashcard, FlashcardSet
 from .serializers import UploadedFileSerializer, FileChatSerializer
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -153,7 +153,6 @@ class QuizGenerationView(APIView):
             prompt = request.data.get("prompt", "")
             file = request.FILES.get("file")
             file_content = None
-            original_file_name = None
 
             if file:
                 file_type = file.content_type
@@ -220,9 +219,6 @@ class QuizGenerationView(APIView):
             response = model.generate_content([{"text": full_prompt}])
             
             response_text = response.text
-            
-            # Print for debugging
-            print("Raw AI response:", response_text)
             
             # Extract JSON from the response using regex
             json_match = re.search(r'```(?:json)?\s*({[\s\S]*?})\s*```|({[\s\S]*})', response_text)
@@ -646,6 +642,234 @@ class QuizDetailView(APIView):
         except Quiz.DoesNotExist:
             return Response(
                 {"error": "Quiz not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class FlashcardGenerationView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request):
+        try:
+            prompt = request.data.get("prompt", "")
+            file = request.FILES.get("file")
+            file_content = None
+            original_file_name = None
+
+            if file:
+                file_type = file.content_type
+                original_file_name = file.name
+                
+                # Handle different file types
+                if file_type == 'text/plain':
+                    try:
+                        file_content = file.read().decode("utf-8")
+                    except UnicodeDecodeError:
+                        file_content = file.read().decode("utf-8", errors="replace")
+                        file.seek(0)  # Reset file pointer
+                    
+                elif file_type == 'application/pdf':
+                    try:
+                        reader = PdfReader(file)
+                        file_content = ""
+                        for page in reader.pages:
+                            file_content += page.extract_text() + "\n"
+                    except Exception as e:
+                        return Response({"error": f"Error extracting PDF content: {str(e)}"}, 
+                                       status=status.HTTP_400_BAD_REQUEST)
+                
+                elif file_type.startswith('image/'):
+                    file_content = "[This is an image file. Generate flashcards based on the concepts this image might represent.]"
+                
+                else:
+                    return Response({"error": f"Unsupported file type: {file_type}"}, 
+                                   status=status.HTTP_400_BAD_REQUEST)
+
+            # System prompt with clear JSON formatting instructions
+            full_prompt = SYSTEM_PROMPT + "\n\n"
+            full_prompt += "Generate a set of flashcards in JSON format. Return ONLY the raw JSON with no additional text, markdown formatting, or code blocks. The JSON should have the following structure:\n"
+            full_prompt += """
+{
+  "title": "Flashcard Set Title",
+  "cards": [
+    {
+      "front": "Term or question",
+      "back": "Definition or answer"
+    }
+  ]
+}
+"""
+            full_prompt += "\nEnsure the JSON is valid and contains multiple flashcards (at least 5).\n\n"
+
+            if file_content:
+                full_prompt += f"Content:\n{file_content}\n\n"
+            if prompt:
+                full_prompt += f"Additional Instructions: {prompt}"
+
+            # Generate response using Gemini AI
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            response = model.generate_content([{"text": full_prompt}])
+            
+            response_text = response.text
+            
+            # Extract JSON from the response using regex
+            json_match = re.search(r'```(?:json)?\s*({[\s\S]*?})\s*```|({[\s\S]*})', response_text)
+            
+            if json_match:
+                json_str = json_match.group(1) or json_match.group(2)
+                try:
+                    parsed_cards = json.loads(json_str)
+                except json.JSONDecodeError as e:
+                    print(f"JSON decode error: {e}, JSON string: {json_str}")
+                    return Response({"error": f"Invalid JSON format: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                # If the regex doesn't match, try to extract any JSON-like structure
+                try:
+                    parsed_cards = json.loads(response_text)
+                except json.JSONDecodeError:
+                    # Look for anything that resembles a JSON object
+                    start_idx = response_text.find('{')
+                    end_idx = response_text.rfind('}')
+                    
+                    if start_idx != -1 and end_idx != -1 and start_idx < end_idx:
+                        potential_json = response_text[start_idx:end_idx+1]
+                        try:
+                            parsed_cards = json.loads(potential_json)
+                        except json.JSONDecodeError:
+                            return Response({"error": "Could not extract valid JSON from AI response"}, 
+                                           status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    else:
+                        return Response({"error": "Could not find JSON in AI response"}, 
+                                       status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            # Ensure response contains necessary fields
+            flashcard_data = {
+                "title": parsed_cards.get("title", "Generated Flashcards"),
+                "cards": parsed_cards.get("cards", []),
+            }
+            
+            # Validate the flashcard structure
+            if not flashcard_data["cards"]:
+                return Response({"error": "Flashcard generation failed: No cards found in response"}, 
+                               status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            # Save flashcards to database
+            try:
+                # Create the Flashcard Set object
+                flashcard_set = FlashcardSet.objects.create(
+                    user=request.user,
+                    title=flashcard_data["title"],
+                    prompt=prompt,
+                    original_file_name=original_file_name
+                )
+                
+                # Create Flashcard objects for each card
+                for index, card_data in enumerate(flashcard_data["cards"]):
+                    Flashcard.objects.create(
+                        flashcard_set=flashcard_set,
+                        front=card_data["front"],
+                        back=card_data["back"],
+                        order=index
+                    )
+                
+                # Store the flashcard set ID in the flashcard_data for frontend
+                flashcard_data["id"] = flashcard_set.id
+                flashcard_data["card_count"] = len(flashcard_data["cards"])
+                
+            except Exception as e:
+                print(f"Error saving flashcards to database: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                return Response({"error": f"Failed to save flashcards to database: {str(e)}"}, 
+                               status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            # Store in session (optional)
+            if "flashcard_sets" not in request.session:
+                request.session["flashcard_sets"] = []
+
+            request.session["flashcard_sets"].append(flashcard_data)
+            request.session.modified = True
+
+            return Response({
+                "flashcard_data": flashcard_data, 
+                "flashcard_set_id": flashcard_set.id,
+                "success": True
+            })
+
+        except Exception as e:
+            print(f"Error in flashcard generation: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class UserFlashcardSetsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Retrieve all flashcard sets created by the current user"""
+        try:
+            flashcard_sets = FlashcardSet.objects.filter(user=request.user).order_by('-created_at')
+            sets_data = []
+            
+            for set in flashcard_sets:
+                cards = set.cards.all().order_by('order')
+                sets_data.append({
+                    'id': set.id,
+                    'title': set.title,
+                    'prompt': set.prompt,
+                    'created_at': set.created_at,
+                    'card_count': cards.count(),
+                })
+            
+            return Response({
+                'flashcard_sets': sets_data,
+                'success': True
+            })
+            
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class FlashcardSetDetailView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, set_id):
+        """Retrieve a specific flashcard set with its cards"""
+        try:
+            flashcard_set = FlashcardSet.objects.get(id=set_id, user=request.user)
+            cards = flashcard_set.cards.all().order_by('order')
+            
+            card_data = []
+            for card in cards:
+                card_data.append({
+                    'id': card.id,
+                    'front': card.front,
+                    'back': card.back,
+                    'order': card.order
+                })
+            
+            return Response({
+                'id': flashcard_set.id,
+                'title': flashcard_set.title,
+                'prompt': flashcard_set.prompt,
+                'created_at': flashcard_set.created_at,
+                'cards': card_data,
+                'success': True
+            })
+            
+        except FlashcardSet.DoesNotExist:
+            return Response(
+                {"error": "Flashcard set not found"}, 
                 status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
