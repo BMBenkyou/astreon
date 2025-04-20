@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../components/NHeader";
-import Psidebar from "../components/Psidebar";
 import "./addfriend.css";
 
 const AddFriend = () => {
@@ -10,21 +9,23 @@ const AddFriend = () => {
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [friendshipStatuses, setFriendshipStatuses] = useState({});
-  const [dataFetched, setDataFetched] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0); // Used to force re-fetching data
 
   // Get the authentication token
   const token = localStorage.getItem('accessToken');
 
-  // Fetch current user profile only once on component mount
+  // Fetch current user profile
   useEffect(() => {
     const fetchCurrentUserProfile = async () => {
       try {
+        setLoading(true);
         const response = await axios.get("http://localhost:8080/user/profile/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setCurrentUser(response.data.user);
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching current user:", err);
         setError("Failed to authenticate user");
@@ -33,11 +34,11 @@ const AddFriend = () => {
     };
 
     fetchCurrentUserProfile();
-  }, []); // Empty dependency array means this runs once on mount
+  }, [token]); // Only dependency is the token
 
   // Fetch all users and their friendship statuses
   useEffect(() => {
-    if (!currentUser || dataFetched) return;
+    if (!currentUser) return;
 
     const fetchAllUsersAndFriendships = async () => {
       try {
@@ -76,7 +77,6 @@ const AddFriend = () => {
         
         setFriendshipStatuses(statuses);
         setLoading(false);
-        setDataFetched(true); // Mark data as fetched to prevent re-fetching
       } catch (err) {
         console.error("Error fetching users:", err);
         setError("Failed to fetch users");
@@ -85,10 +85,32 @@ const AddFriend = () => {
     };
 
     fetchAllUsersAndFriendships();
-  }, [currentUser, token, dataFetched]); // Add dataFetched to dependencies
+  }, [currentUser, token, refreshKey]); // Added refreshKey as dependency to force re-fetching
+
+  // Function to refresh friendship statuses after actions
+  const refreshFriendshipStatus = async (userId) => {
+    try {
+      const statusResponse = await axios.get(`http://localhost:8080/user/friendship-status/${userId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      setFriendshipStatuses(prev => ({
+        ...prev,
+        [userId]: statusResponse.data.status
+      }));
+      
+      console.log(`Updated status for user ${userId} to ${statusResponse.data.status}`);
+    } catch (err) {
+      console.error(`Error refreshing status for user ${userId}:`, err);
+    }
+  };
 
   const handleAddFriend = async (userId) => {
     try {
+      console.log(`Sending friend request to user ${userId}`);
+      
       // Send friend request
       await axios.post(
         "http://localhost:8080/user/friend-requests/",
@@ -101,11 +123,16 @@ const AddFriend = () => {
         }
       );
       
-      // Update friendship status for this user
+      console.log(`Friend request sent successfully to user ${userId}`);
+      
+      // Update friendship status immediately for better UX
       setFriendshipStatuses(prev => ({
         ...prev,
         [userId]: 'request_sent'
       }));
+      
+      // Then refresh the actual status from server
+      await refreshFriendshipStatus(userId);
       
     } catch (err) {
       console.error("Error sending friend request:", err);
@@ -115,6 +142,8 @@ const AddFriend = () => {
   
   const handleCancelRequest = async (userId) => {
     try {
+      console.log(`Canceling friend request to user ${userId}`);
+      
       // Cancel friend request
       await axios.delete(`http://localhost:8080/user/friend-requests/cancel/${userId}/`, {
         headers: {
@@ -122,11 +151,16 @@ const AddFriend = () => {
         },
       });
       
-      // Update friendship status for this user
+      console.log(`Friend request canceled successfully for user ${userId}`);
+      
+      // Update friendship status immediately for better UX
       setFriendshipStatuses(prev => ({
         ...prev,
         [userId]: 'none'
       }));
+      
+      // Then refresh the actual status from server
+      await refreshFriendshipStatus(userId);
       
     } catch (err) {
       console.error("Error canceling friend request:", err);
@@ -136,6 +170,8 @@ const AddFriend = () => {
   
   const handleRemoveFriend = async (userId) => {
     try {
+      console.log(`Removing friend ${userId}`);
+      
       // Remove friend
       await axios.delete(`http://localhost:8080/user/friends/remove/${userId}/`, {
         headers: {
@@ -143,11 +179,16 @@ const AddFriend = () => {
         },
       });
       
-      // Update friendship status for this user
+      console.log(`Friend removed successfully: ${userId}`);
+      
+      // Update friendship status immediately for better UX
       setFriendshipStatuses(prev => ({
         ...prev,
         [userId]: 'none'
       }));
+      
+      // Then refresh the actual status from server
+      await refreshFriendshipStatus(userId);
       
     } catch (err) {
       console.error("Error removing friend:", err);
@@ -157,6 +198,8 @@ const AddFriend = () => {
   
   const handleAcceptRequest = async (userId) => {
     try {
+      console.log(`Accepting friend request from user ${userId}`);
+      
       // Get the request ID first
       const requestsResponse = await axios.get("http://localhost:8080/user/friend-requests/list/", {
         headers: {
@@ -168,6 +211,8 @@ const AddFriend = () => {
       const requestToAccept = receivedRequests.find(req => req.from_user.id === userId);
       
       if (requestToAccept) {
+        console.log(`Found request ID ${requestToAccept.id} to accept`);
+        
         // Accept the friend request
         await axios.put(`http://localhost:8080/user/friend-requests/accept/${requestToAccept.id}/`, {}, {
           headers: {
@@ -175,16 +220,29 @@ const AddFriend = () => {
           },
         });
         
-        // Update friendship status for this user
+        console.log(`Friend request accepted successfully for user ${userId}`);
+        
+        // Update friendship status immediately for better UX
         setFriendshipStatuses(prev => ({
           ...prev,
           [userId]: 'friends'
         }));
+        
+        // Then refresh the actual status from server
+        await refreshFriendshipStatus(userId);
+      } else {
+        console.error(`No request found from user ${userId}`);
+        alert(`No friend request found from this user.`);
       }
     } catch (err) {
       console.error("Error accepting friend request:", err);
       alert(`Failed to accept friend request: ${err.response?.data?.error || err.message}`);
     }
+  };
+
+  // Function to force refresh all data
+  const refreshData = () => {
+    setRefreshKey(prevKey => prevKey + 1);
   };
 
   // Improved function to safely get profile image URL or return default image
@@ -255,6 +313,12 @@ const AddFriend = () => {
         <div className="add-friend-container">
           <h1 className="page-title">Add Friends</h1>
           
+          <div className="controls">
+            <button className="refresh-btn" onClick={refreshData}>
+              Refresh Users
+            </button>
+          </div>
+          
           {error && <div className="error-message">{error}</div>}
           
           {loading ? (
@@ -292,6 +356,9 @@ const AddFriend = () => {
                     <div className="user-card-body">
                       <h3 className="user-name">{user.username}</h3>
                       <p className="user-bio">{user.profile?.bio || "No bio available."}</p>
+                      <div className="friendship-status">
+                        Status: {friendshipStatuses[user.id] || 'unknown'}
+                      </div>
                     </div>
                     <div className="user-card-footer">
                       {getFriendshipButton(user)}
