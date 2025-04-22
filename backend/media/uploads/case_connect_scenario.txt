@@ -1,0 +1,97 @@
+rrs
+local 
+https://www.researchgate.net/publication/382266822_Automated_waste_segregation_system_using_Arduino_Uno_R3
+https://www.neliti.com/publications/411212/a-long-standing-problem-a-review-on-the-solid-waste-management-in-the-philippine /
+https://en.apu.ac.jp/rcaps/uploads/fckeditor/publications/journal/RJAPS_V24_Atienza.pdf
+https://ieeexplore.ieee.org/document/9495890
+https://ieeexplore.ieee.org/document/10453863
+
+
+international
+https://www.researchgate.net/publication/364028676_Smart_Wastage_Segregation_using_Arduino_UNO
+https://www.researchgate.net/publication/343818943_IoT_E-Waste_Monitoring_System_to_Support_Smart_City_Initiatives /
+https://rsisinternational.org/journals/ijriss/articles/enhancing-e-waste-management-with-iot-based-monitoring-solutions/#:~:text=This%20IoT%20monitoring%20system%20enables,sustainability%20and%20Green%20Campus%20initiatives.
+https://www.researchgate.net/publication/385678883_Automatic_Waste_Segregation_System
+https://www.researchgate.net/publication/373563973_A_Review_Paper_on_Techniques_for_Collection_and_Segregation_of_Solid_Waste
+
+RRL==============
+local
+https://www.pna.gov.ph/articles/1175460
+https://woimacorporation.com/drowning-in-waste-case-manila-the-philippines/
+https://en.renovablesverdes.com/improper-waste-disposal-in-the-philippines/
+https://www.pids.gov.ph/details/news/press-releases/pids-study-adopt-circular-economy-to-improve-solid-waste-management
+
+
+
+
+https://www.conbelt.com/industry-news-blog/how-automatic-waste-segregation-systems-improve-efficiency/
+https://www.commercialwastequotes.co.uk/blog/waste-segregation/
+https://plasticpyrolysisplants.com/benefits-of-using-an-automatic-waste-segregation-machine/
+
+international
+
+
+
+IoT in Waste Management
+
+How IoT sensors improve waste collection efficiency.
+Real-time monitoring of garbage levels using IoT devices.
+Automated Waste Segregation
+
+AI or sensor-based sorting of biodegradable and non-biodegradable waste.
+Smart bins that categorize waste types.
+Optimization of Waste Collection Routes
+
+Route planning using GPS and real-time data.
+Reducing fuel consumption and operational costs.
+Smart Cities and Sustainable Waste Management
+
+Integrating IoT waste management into smart city infrastructure.
+Government policies supporting tech-based waste solutions.
+Challenges and Research Gaps in IoT Waste Management
+
+Cost and maintenance of IoT-based waste systems.
+Data security and privacy concerns.
+
+
+
+
+IoT-Based Waste Segregation
+
+Uses sensors (moisture, weight, infrared) to distinguish wet and dry waste.
+Automates the sorting process, reducing human error.
+Smart Bin Technology
+
+Equipped with IoT devices to monitor waste levels and notify collection services.
+Prevents waste overflow and ensures timely collection.
+Environmental Benefits
+
+Reduces landfill waste by promoting proper segregation.
+Enhances recycling processes for sustainable waste management.
+Challenges and Future Improvements
+
+High implementation costs of IoT waste systems.
+Need for public awareness and adoption of smart waste solutions.
+
+
+https://www.researchgate.net/publication/311161719_The_Concept_of_Waste_and_Waste_Management/citations (international)
+https://www.researchgate.net/publication/356492091_A_LONG-STANDING_PROBLEM_A_REVIEW_ON_THE_SOLID_WASTE_MANAGEMENT_IN_THE_PHILIPPINES (local)
+https://www.researchgate.net/publication/389783298_AI_and_IoT-Enabled_Smart_Urban_Waste_Management_System_for_Efficient_Collection_Segregation_and_Disposal/link/67d1fa1032265243f585b99b/download
+
+
+
+
+local - 4
+international -2 
+
+
+https://www.researchgate.net/publication/389788656_Urban_Waste_Crisis_Challenges_and_Innovations_in_Solid_Waste_Management_in_Gurugram (international)
+https://www.researchgate.net/publication/356492091_A_LONG-STANDING_PROBLEM_A_REVIEW_ON_THE_SOLID_WASTE_MANAGEMENT_IN_THE_PHILIPPINES (local)
+https://www.researchgate.net/publication/380238149_Smart_Wet_and_Dry_Waste_Management_System_Using_IoT (international)
+https://www.researchgate.net/publication/382266822_Automated_waste_segregation_system_using_Arduino_Uno_R3 (local)
+https://www.researchgate.net/publication/349002096_A_Study_of_Policy_Implementation_and_Community_Participation_in_the_Municipal_Solid_Waste_Management_in_the_Philippines
+https://animorepository.dlsu.edu.ph/conf_shsrescon/2023/paper_csr/6/
+
+
+
+

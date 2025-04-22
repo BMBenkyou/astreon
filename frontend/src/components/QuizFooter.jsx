@@ -24,7 +24,7 @@ const handleSend = async () => {
     }
    
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/quiz/generate/", {
+      const response = await fetch("http://127.0.0.1:8080/api/quiz/generate/", {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`

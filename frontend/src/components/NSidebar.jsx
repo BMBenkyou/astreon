@@ -56,7 +56,7 @@ const Sidebar = () => {
                   <BsFileEarmark className="sidebar-subicon" />
                   <span>Chat with File</span>
                 </NavLink>
-                <NavLink to="/chat-with-friend" className="sidebar-subitem">
+                <NavLink to="/friend-chat" className="sidebar-subitem">
                   <FaUserFriends className="sidebar-subicon" />
                   <span>Chat with Friend</span>
                 </NavLink>

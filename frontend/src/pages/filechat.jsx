@@ -137,6 +137,7 @@ const FileChat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showFileDetails, setShowFileDetails] = useState(false);
+  const [conversations, setConversations] = useState({});
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -181,52 +182,113 @@ const FileChat = () => {
     }
   };
 
-  const handleCardClick = (file) => {
+  const handleCardClick = async (file) => {
     setSelectedFile(file);
-    setShowFileDetails(true); // Show preview and chat when a card is clicked
-    setMessages([]); // Clear previous chat messages
-  };
-
-  const handleSendMessage = async () => {
-    if (!currentMessage.trim() || !selectedFile) return;
-
-    const userMessage = { text: currentMessage, sender: "user" };
-    setMessages(prev => [...prev, userMessage]);
-    setCurrentMessage("");
+    setShowFileDetails(true);
     setIsLoading(true);
 
     try {
+      // Check if we already have a conversation for this file
+      if (conversations[file.id]) {
+        setMessages(conversations[file.id].messages);
+        return;
+      }
+
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('http://127.0.0.1:8080/api/chat/file/', {
+      const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {  //Updated endpoint
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          file_id: selectedFile.id,
-          message: currentMessage
-        })
+        body: JSON.stringify({ file_id: file.id })
       });
 
       const data = await response.json();
-      
       if (response.ok) {
-        setMessages(prev => [...prev, { text: data.response, sender: "ai" }]);
-      } else {
-        throw new Error(data.error || 'Failed to get response');
+        const initialMessages = [{ text: data.initial_response, sender: "ai" }];
+        setMessages(initialMessages);
+        setConversations(prev => ({
+          ...prev,
+          [file.id]: {
+            conversationId: data.conversation_id,
+            messages: initialMessages
+          }
+        }));
       }
     } catch (error) {
-      console.error('Chat error:', error);
-      setMessages(prev => [...prev, { 
-        text: "Sorry, I couldn't process your request.", 
-        sender: "ai" 
-      }]);
+      console.error('Error initializing file chat:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleSendMessage = async () => {
+  if (!currentMessage.trim() || !selectedFile) return;
+
+  const userMessage = { text: currentMessage, sender: "user" };
+  const updatedMessages = [...messages, userMessage];
+  setMessages(updatedMessages);
+  setCurrentMessage("");
+  setIsLoading(true);
+
+  try {
+    const token = localStorage.getItem('accessToken');
+    const conversation = conversations[selectedFile.id];
+    
+    // Make sure we have a conversation ID
+    if (!conversation || !conversation.conversationId) {
+      throw new Error("No active conversation for this file");
+    }
+
+    // Log the request details for debugging
+    console.log("Sending message to:", 'http://localhost:8080/api/chat/file-context/init/');
+    console.log("Request payload:", {
+      conversation_id: conversation.conversationId,
+      message: currentMessage
+    });
+
+    const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        conversation_id: conversation.conversationId,
+        message: currentMessage
+      })
+    });
+
+    // Check for non-404 errors first
+    if (response.status === 404) {
+      throw new Error("API endpoint not found. Please check server configuration.");
+    }
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const newMessages = [...updatedMessages, { text: data.response, sender: "ai" }];
+    setMessages(newMessages);
+    setConversations(prev => ({
+      ...prev,
+      [selectedFile.id]: {
+        ...prev[selectedFile.id],
+        messages: newMessages
+      }
+    }));
+  } catch (error) {
+    console.error('Chat error:', error);
+    setMessages(prev => [...prev, { 
+      text: `Sorry, I couldn't process your request: ${error.message}`, 
+      sender: "ai" 
+    }]);
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <div className="MainContainer">
       <Header />
@@ -271,38 +333,42 @@ const FileChat = () => {
             {/* Chat and Preview Section - Only shown when a file is selected AND showFileDetails is true */}
             {selectedFile && showFileDetails && (
               <div className="interaction-section">
-                <FilePreview file={selectedFile} />
-                <div className="chat-section">
-                  <h3>Chat with AI about this file</h3>
-                  <div className="messages-container">
-                    {messages.map((msg, index) => (
-                      <div 
-                        key={index}
-                        className={`message ${msg.sender}-message`}
+                <div className="preview-pane">
+                  <FilePreview file={selectedFile} />
+                </div>
+                <div className="chat-pane">
+                  <div className="chat-section">
+                    <h3>Chat with AI about this file</h3>
+                    <div className="messages-container">
+                      {messages.map((msg, index) => (
+                        <div 
+                          key={index}
+                          className={`message ${msg.sender}-message`}
+                        >
+                          {msg.text}
+                        </div>
+                      ))}
+                      {messages.length === 0 && (
+                        <p className="no-messages">Ask a question about this file to start a conversation.</p>
+                      )}
+                    </div>
+                    <div className="chat-input">
+                      <input
+                        type="text"
+                        value={currentMessage}
+                        onChange={(e) => setCurrentMessage(e.target.value)}
+                        placeholder="Ask about this file..."
+                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                        disabled={isLoading}
+                      />
+                      <button 
+                        onClick={handleSendMessage}
+                        disabled={isLoading}
+                        className="send-button"
                       >
-                        {msg.text}
-                      </div>
-                    ))}
-                    {messages.length === 0 && (
-                      <p className="no-messages">Ask a question about this file to start a conversation.</p>
-                    )}
-                  </div>
-                  <div className="chat-input">
-                    <input
-                      type="text"
-                      value={currentMessage}
-                      onChange={(e) => setCurrentMessage(e.target.value)}
-                      placeholder="Ask about this file..."
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                      disabled={isLoading}
-                    />
-                    <button 
-                      onClick={handleSendMessage}
-                      disabled={isLoading}
-                      className="send-button"
-                    >
-                      <AiOutlineSend />
-                    </button>
+                        <AiOutlineSend />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

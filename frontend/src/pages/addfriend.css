@@ -1,87 +1,239 @@
+/* addfriend.css */
+
+.schedule-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.nav-body {
+  display: flex;
+  height: calc(100vh - 60px); /* Adjust based on header height */
+  overflow: hidden;
+}
+
 .add-friend-container {
+  flex: 1;
   padding: 20px;
-  margin-top: -200px; /* Add space to account for the fixed header height */
+  overflow-y: auto;
+  height: 100%;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24px;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Grid layout for user cards - 5x5 */
+.user-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+/* For smaller screens, adjust grid */
+@media (max-width: 1400px) {
+  .user-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .user-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .user-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .user-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* User card styling */
+.user-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 400px; /* Fixed height for consistent cards */
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.add-friends-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-  margin-top: 0;
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
-.card-row {
+.user-card-header {
+  height: 120px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+  padding: 15px;
+  position: relative;
 }
 
-.card {
-  width: 200px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Profile pic container to maintain stable dimensions */
+.profile-pic-container {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  border-radius: 50%;
   overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  background-color: #e0e0e0; /* Placeholder color */
+}
+
+.user-profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 3px solid white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.default-pic {
+  display: block; /* Always show by default */
+  z-index: 1;
+}
+
+.user-card-body {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
   text-align: center;
 }
 
-.card-img-top {
+.user-bio {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.user-card-footer {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #efefef;
+}
+
+/* Button styles */
+.add-friend-btn,
+.remove-friend-btn,
+.cancel-request-btn,
+.accept-request-btn {
   width: 100%;
-  height: auto;
-  border-bottom: 1px solid #ddd;
-}
-
-.card-body {
-  padding: 10px;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
-
-.card-text {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  border: none;
+  outline: none;
+  text-align: center;
 }
 
 .add-friend-btn {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  color: white;
-  background-color: #22c55e;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  background-color: #74e4d0;
+  color:black;
 }
 
 .add-friend-btn:hover {
-  background-color: #16a34a;
-  transform: scale(1.05);
+  background-color: #81c274;
+  color:white;
 }
 
-.delete-friend-btn {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: bold;
+.remove-friend-btn {
+  background-color: #f0f2f5;
+  color: #4b4f56;
+  border: 1px solid #ccd0d5;
+}
+
+.remove-friend-btn:hover {
+  background-color: #e4e6eb;
+}
+
+.cancel-request-btn {
+  background-color: #f0f2f5;
+  color: #4b4f56;
+  border: 1px solid #ccd0d5;
+}
+
+.cancel-request-btn:hover {
+  background-color: #e4e6eb;
+}
+
+.accept-request-btn {
+  background-color: #42b72a;
   color: white;
-  background-color: #ef4444;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 
-.delete-friend-btn:hover {
-  background-color: #dc2626;
-  transform: scale(1.05);
+.accept-request-btn:hover {
+  background-color: #36a420;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  color: #e53935;
+  background-color: #ffebee;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.no-users-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.action-buttons {
+  width: 100%;
 }
