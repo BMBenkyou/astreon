@@ -9,7 +9,7 @@ import Profile from "./pages/profile";
 import Streak from "./pages/streak";
 import PSettings from "./pages/psettings";
 import Quiz from "./pages/quiz";
-import Aichat from "./pages/ai-chat";
+import Chat from "./pages/ai-chat";
 import Flashcards from "./pages/flashcards";
 import QuizTaking from "./pages/takequiz";
 import Verification from "./pages/verification";
@@ -43,7 +43,7 @@ const App = () => (
       <Route path="/add-friend" element={<AddFriend/>} />
       <Route path="/friend-request" element={<FriendRequest/>} />
       <Route path="/friend-chat" element={<FriendChat/>} />
-      <Route path="/ai" element={<Aichat />} />
+      <Route path="/ai" element={<Chat/>} />
       <Route path="/flashcards" element={<Flashcards />} />
       <Route path="/sessions" element={<Session />} />
     </Routes>

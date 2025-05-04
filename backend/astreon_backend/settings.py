@@ -36,7 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 # Allow credentials
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Set token expiration to 30 minutes
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=90),  # Set token expiration to 30 minutes
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Optional: refresh token lifetime
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,

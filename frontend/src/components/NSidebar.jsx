@@ -60,7 +60,7 @@ const Sidebar = () => {
                   <FaUserFriends className="sidebar-subicon" />
                   <span>Chat with Friend</span>
                 </NavLink>
-                <NavLink to="/ai-chat" className="sidebar-subitem">
+                <NavLink to="/ai" className="sidebar-subitem">
                   <TbRobot className="sidebar-subicon" />
                   <span>Chat with Astreon</span>
                 </NavLink>

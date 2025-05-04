@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header className="header">
       {/* Left side: Logo */}
-      <Link to="/">
+      <Link to="/ai">
         <div className="logo">
           <img src="../src/assets/logo.svg" alt="Astreon Logo" />
         </div>

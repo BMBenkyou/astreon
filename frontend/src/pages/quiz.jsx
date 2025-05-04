@@ -8,9 +8,9 @@ import "./quiz.css";
 
 const Quiz = () => {
   const [quizStarted, setQuizStarted] = useState(false);
-  const [title, setTitle] = useState(""); // 🟢 State for title
-  const [description, setDescription] = useState(""); // 🟢 State for description
-  const [selectedFile, setSelectedFile] = useState(null); // 🟢 State for file upload
+  const [title, setTitle] = useState(""); 
+  const [description, setDescription] = useState(""); 
+  const [selectedFile, setSelectedFile] = useState(null); 
 
   return (
     <div className="MainContaineR">

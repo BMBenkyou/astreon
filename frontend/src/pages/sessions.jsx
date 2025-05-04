@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/HeaderLoggedIn";
+import Header from "../components/NHeader";
 import Sidebar from "../components/NSidebar";
 import "./sessions.css";
 

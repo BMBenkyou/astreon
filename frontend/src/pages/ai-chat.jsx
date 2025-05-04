@@ -12,6 +12,7 @@ const Chat = () => {
   const [conversationId, setConversationId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [prompt, setPrompt] = useState("");
+  const [isAiTyping, setIsAiTyping] = useState(false); // New state to track AI typing
   const chatContainerRef = useRef(null);
   
   // Auto-scroll to the latest message
@@ -74,9 +75,58 @@ const Chat = () => {
     loadConversation();
   }, [conversationId]);
   
+  // Ref to store typing interval ID outside of the message sending function
+  const typingRef = useRef(null);
+  
   // Toggle pause state for AI typing
   const togglePause = () => {
-    setIsPaused(!isPaused);
+    const newPausedState = !isPaused;
+    setIsPaused(newPausedState);
+    
+    // If pausing, clear the interval
+    if (newPausedState && typingRef.current) {
+      clearInterval(typingRef.current);
+      typingRef.current = null;
+    } 
+    // If resuming, restart the typing animation
+    else if (!newPausedState && !typingRef.current && isAiTyping) {
+      runTypingAnimation();
+    }
+  };
+  
+  // Function to handle the typing animation (defined outside the handleSendMessage)
+  const runTypingAnimation = () => {
+    if (typingRef.current) {
+      clearInterval(typingRef.current);
+    }
+    
+    // Access the latest messages and continue from current position
+    const aiResponse = messages[messages.length - 1]?.text || "";
+    let currentIndex = aiResponse.length;
+    const fullResponse = window.lastAiResponse || "";
+    
+    if (currentIndex >= fullResponse.length) return;
+    
+    typingRef.current = setInterval(() => {
+      setMessages(prevMessages => {
+        const updatedMessages = [...prevMessages];
+        const lastMessage = updatedMessages[updatedMessages.length - 1];
+
+        if (currentIndex < fullResponse.length) {
+          lastMessage.text += fullResponse[currentIndex]; // Add one character at a time
+          currentIndex++;
+        } else {
+          // Stop animation when done
+          if (typingRef.current) {
+            clearInterval(typingRef.current);
+            typingRef.current = null;
+          }
+          setIsAiTyping(false); // Turn off AI typing state when done
+        }
+
+        return updatedMessages;
+      });
+    }, 50); // Adjust typing speed here (50ms per character)
   };
   
   // Handle sending messages
@@ -122,28 +172,18 @@ const Chat = () => {
                 ...prevMessages,
                 { text: "", sender: "ai" }
             ]);
+            
+            // Set AI typing state to true
+            setIsAiTyping(true);
 
-            // Simulate typing effect
-            let index = 0;
-            const interval = setInterval(() => {
-                if (isPaused) {
-                    return; // Don't add more text if paused
-                }
-                
-                setMessages(prevMessages => {
-                    const updatedMessages = [...prevMessages];
-                    const lastMessage = updatedMessages[updatedMessages.length - 1];
-
-                    if (index < aiResponse.length) {
-                        lastMessage.text += aiResponse[index]; // Add one character at a time
-                        index++;
-                    } else {
-                        clearInterval(interval); // Stop animation when done
-                    }
-
-                    return updatedMessages;
-                });
-            }, 50); // Adjust typing speed here (50ms per character)
+            // Store the full AI response in window object for access during pause/resume
+            window.lastAiResponse = aiResponse;
+            
+            // Set AI typing state to true
+            setIsAiTyping(true);
+            
+            // Start the typing animation
+            runTypingAnimation();
 
         } else {
             console.error('Error from API:', data.error);
@@ -151,6 +191,7 @@ const Chat = () => {
                 ...prevMessages,
                 { text: "Sorry, I encountered an error. Please try again.", sender: "ai" }
             ]);
+            setIsAiTyping(false);
         }
     } catch (error) {
         console.error('Error sending message:', error);
@@ -158,6 +199,13 @@ const Chat = () => {
             ...prevMessages,
             { text: "Sorry, I couldn't connect to the AI service. Please check your connection.", sender: "ai" }
         ]);
+        setIsAiTyping(false);
+        
+        // Clean up typing interval if there's an error
+        if (typingRef.current) {
+            clearInterval(typingRef.current);
+            typingRef.current = null;
+        }
     } finally {
         setIsLoading(false);
     }
@@ -325,7 +373,7 @@ const Chat = () => {
           </div>
           
           {/* Pause button - only show when AI is typing */}
-          {isLoading && messages.length > 0 && messages[messages.length - 1]?.sender === "ai" && (
+          {isAiTyping && (
             <div className="flex justify-center my-2">
               <button 
                 onClick={togglePause} 

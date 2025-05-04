@@ -41,7 +41,7 @@ const handleLogin = async (e) => {
         console.log("Stored Access Token:", data.access);
 
         // Redirect to ai chat page after login
-        window.location.href = "/ai-chat"; 
+        window.location.href = "/ai"; 
       } else {
         console.error("Access token is missing in response.");
       }

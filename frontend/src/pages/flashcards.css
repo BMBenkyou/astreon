@@ -14,67 +14,23 @@ body {
 .MainContaineR {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: auto; /* Adjusted to auto instead of 100vh */
   width: 100vw;
   max-width: 90vw;
   padding: 20px;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  margin-top: 60px; 
 }
 
-/* Responsive Layout */
 @media (max-width: 1024px) {
   .MainContaineR {
     max-width: 100%;
     padding: 16px;
+    margin-top: 50px; /* Adjusted for smaller screens */
   }
 }
 
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .MainContaineR {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  .nav-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-
-  .main-content-wrapperFC {
-    margin-left: 0;
-    width: 100%;
-    gap: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Smartphones and below */
-  .MainContaineR {
-    padding: 8px;
-    width: 100%;
-  }
-
-  .nav-body {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .main-contentFC {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
-}
 
 /* Add gap between main content and bottom of the page */
 .main-contentFC {
