@@ -100,22 +100,24 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
           </div>
         </div>
       )}
-
-      {/* File Information */}
-      <div className="file-info">
-        {showAcceptedTypes && (
-          <p><strong>Accepted file types:</strong> PDF, TXT, JPG, PNG, HTML</p>
-        )}
-        {fileError && <p className="file-error">{fileError}</p>}
-        {uploadedFileName && (
-          <p><strong>Uploaded File:</strong> {uploadedFileName}</p>
-        )}
-      </div>
+      
+      {/* File Information Above Footer */}
+      {(showAcceptedTypes || fileError || uploadedFileName) && (
+        <div className="file-messages">
+          {showAcceptedTypes && (
+            <p className="accepted-files-info">Accepted file types: PDF, TXT, JPG, PNG, HTML</p>
+          )}
+          {fileError && <p className="error-message">{fileError}</p>}
+          {uploadedFileName && (
+            <p className="file-message"><strong>Uploaded File:</strong> {uploadedFileName}</p>
+          )}
+        </div>
+      )}
 
       <div className="flash-footer">
         {/* Attachment Button */}
         <button
-          className="footer-btn attach-boton"
+          className="footer-btn attach-bton"
           onClick={() => {
             setShowAcceptedTypes(true);
             if (fileInputRef.current) {
