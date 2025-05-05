@@ -1,145 +1,46 @@
-@import "tailwindcss";
-
-/* Apply background to entire page */
+```css
+/* Base styles with minimal approach */
 body {
-  background-color: #e3fef9;
+  background-color: #f8fafa;
   margin: 0;
   font-family: "Poppins", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  color: #333;
 }
 
-/* Navigation body */
-.nav-body {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 4px;
-  font-family: "Poppins", sans-serif;
-}
-
-/* Style the input field wrapper */
-.Ninput-wrapper {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Style the input field */
-.Ninput-wrapper input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1.125rem; /* text-lg */
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-family: "Poppins", sans-serif;
-}
-
-/* Placeholder styling */
-.Ninput-wrapper input::placeholder {
-  color: #9c9292;
-}
-
-/* Schedule container */
+/* Layout container */
 .schedule-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* Button group */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
+  min-height: 100vh;
   width: 100%;
-  margin-top: 48px;
 }
 
-/* Danger Zone Styling */
-.danger-zone {
+/* Content area with scrolling */
+.nav-body {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto; /* Makes content scrollable */
+  flex: 1;
+}
+
+/* Form container */
+.Ninput-group-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 16px;
 }
 
-.danger-zone p {
-  color: #ef4444; /* Red-500 */
-  font-size: 1.25rem; /* text-xl */
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  text-align: center;
-  margin: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  /* Laptops and tablets */
-  .Ninput-group-wrapper {
-    max-width: 80%;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Tablets and below */
-  .schedule-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 12px;
-  }
-
-  .nav-body {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
-
-  .Ninput-group-wrapper {
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .button-group {
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Smartphones */
-  .Ninput-group-wrapper {
-    width: 100%;
-  }
-
-  .Ninput-field {
-    font-size: 1.125rem; /* text-lg */
-  }
-
-  .save-button,
-  .del-button {
-    width: 100%;
-    font-size: 1rem; /* text-base */
-  }
-}
-
-/* Additional styles to add to your profile.css */
-
+/* Profile image styling */
 .profile-pic-container {
   display: flex;
   flex-direction: column;
@@ -148,15 +49,16 @@ body {
 }
 
 .profile-pic-preview {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  border: 2px solid #e0e0e0;
 }
 
 .profile-image {
@@ -180,39 +82,121 @@ body {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 14px;
+  transition: background-color 0.2s;
 }
 
 .file-input-label:hover {
-  background-color: #356ac3;
+  background-color: #3367d6;
 }
 
+/* Input styling - simplified */
+.Ninput-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.Ninput-wrapper:focus-within {
+  border-color: #4285f4;
+}
+
+.Ninput-wrapper input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+/* Text area styling */
 .textarea-group {
-  margin-bottom: 16px;
   width: 100%;
 }
 
-.textarea-group label {
+.textarea-group label,
+.Ninput-label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
+  font-size: 14px;
+  color: #555;
 }
 
 .textarea-group textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
   resize: vertical;
+  min-height: 80px;
   font-family: inherit;
+  font-size: 16px;
 }
 
+.textarea-group textarea:focus {
+  border-color: #4285f4;
+  outline: none;
+}
+
+/* Section headers */
+h3 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Password toggle */
+.password-toggle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.password-toggle input {
+  margin-right: 8px;
+}
+
+/* Button group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* Danger zone */
+.danger-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.danger-zone p {
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Status messages */
 .error-message {
   background-color: #ffebee;
   color: #c62828;
   padding: 10px;
   border-radius: 4px;
-  margin-bottom: 16px;
+  font-size: 14px;
 }
 
 .success-message {
@@ -220,22 +204,23 @@ body {
   color: #2e7d32;
   padding: 10px;
   border-radius: 4px;
-  margin-bottom: 16px;
+  font-size: 14px;
 }
 
-.password-toggle {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.password-toggle input {
-  margin-right: 8px;
-}
-
-h3 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
+/* Responsive design */
+@media (max-width: 768px) {
+  .Ninput-group-wrapper {
+    max-width: 100%;
+    padding: 16px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .danger-zone {
+    margin-top: 16px;
+    width: 100%;
+  }
 }
