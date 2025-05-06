@@ -1,37 +1,39 @@
-```css
-/* Base styles with minimal approach */
-body {
-  background-color: #f8fafa;
+/* Minimal Profile UI CSS */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e3fef9;
   font-family: "Poppins", sans-serif;
   color: #333;
+  line-height: 1.5;
 }
 
-/* Layout container */
+/* Main container */
 .schedule-container {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Content area with scrolling */
+/* Scrollable content area */
 .nav-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 16px;
   display: flex;
   justify-content: center;
-  padding: 20px;
-  overflow-y: auto; /* Makes content scrollable */
-  flex: 1;
 }
 
 /* Form container */
 .Ninput-group-wrapper {
   width: 100%;
-  max-width: 600px;
-  padding: 24px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 480px;
+  padding: 0 8px;
 }
 
 form {
@@ -40,25 +42,26 @@ form {
   gap: 16px;
 }
 
-/* Profile image styling */
+/* Profile pic */
 .profile-pic-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .profile-pic-preview {
-  width: 120px;
-  height: 120px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
   margin-bottom: 12px;
-  border: 2px solid #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .profile-image {
@@ -77,27 +80,41 @@ form {
 }
 
 .file-input-label {
-  background-color: #4285f4;
-  color: white;
-  padding: 8px 16px;
+  background-color: transparent;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  padding: 6px 14px;
   border-radius: 4px;
+  font-size: 13px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .file-input-label:hover {
-  background-color: #3367d6;
+  background-color: rgba(66, 133, 244, 0.05);
 }
 
-/* Input styling - simplified */
+/* Loading indicator */
+.loading-indicator {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Labels */
+label, .Ninput-label {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Input fields */
 .Ninput-wrapper {
-  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: white;
   transition: border-color 0.2s;
 }
 
@@ -107,58 +124,62 @@ form {
 
 .Ninput-wrapper input {
   width: 100%;
-  padding: 12px;
+  padding: 8px 0;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
   background-color: transparent;
 }
 
-/* Text area styling */
+/* Textarea - Ultra minimal */
 .textarea-group {
-  width: 100%;
-}
-
-.textarea-group label,
-.Ninput-label {
-  display: block;
   margin-bottom: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  color: #555;
 }
 
 .textarea-group textarea {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 8px 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   resize: vertical;
   min-height: 80px;
+  max-height: 200px;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
+  background-color: transparent;
+  outline: none;
 }
 
 .textarea-group textarea:focus {
   border-color: #4285f4;
-  outline: none;
 }
 
 /* Section headers */
 h3 {
-  margin-top: 16px;
-  margin-bottom: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  color: #444;
+  position: relative;
   padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
+}
+
+h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 32px;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Password toggle */
 .password-toggle {
   display: flex;
   align-items: center;
+  margin-top: 4px;
   margin-bottom: 8px;
 }
 
@@ -166,13 +187,35 @@ h3 {
   margin-right: 8px;
 }
 
+.password-toggle label {
+  display: inline;
+  font-size: 13px;
+  color: #666;
+}
+
 /* Button group */
 .button-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin-top: 24px;
+  margin-top: 32px;
+}
+
+/* Status messages */
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-bottom: 16px;
+  padding-left: 8px;
+  border-left: 2px solid #d32f2f;
+}
+
+.success-message {
+  color: #388e3c;
+  font-size: 14px;
+  margin-bottom: 16px;
+  padding-left: 8px;
+  border-left: 2px solid #388e3c;
 }
 
 /* Danger zone */
@@ -184,43 +227,25 @@ h3 {
 }
 
 .danger-zone p {
-  color: #ef4444;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* Status messages */
-.error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.success-message {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 14px;
+  color: #d32f2f;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
-  .Ninput-group-wrapper {
-    max-width: 100%;
-    padding: 16px;
+@media (max-width: 640px) {
+  .nav-body {
+    padding: 16px 12px;
   }
   
   .button-group {
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
   }
   
   .danger-zone {
-    margin-top: 16px;
+    margin-top: 8px;
     width: 100%;
+    align-items: center;
   }
 }
