@@ -52,6 +52,7 @@
 .quiz-input:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+  color:black;
 }
 
 @media (min-width: 640px) {
