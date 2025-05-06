@@ -330,7 +330,7 @@ const Chat = () => {
                 </div>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-6 px-4 py-6">
                 {messages.map((msg, index) => (
                   <div 
                     key={index} 
