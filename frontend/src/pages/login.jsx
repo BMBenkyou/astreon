@@ -79,7 +79,7 @@ const handleLogin = async (e) => {
             
             <form onSubmit={handleLogin}>
               <InputGroup
-                label={<h5 className="Tusername-label">Username or Email</h5>}
+                label={<h5 className="Tusername-label">Username</h5>}
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
