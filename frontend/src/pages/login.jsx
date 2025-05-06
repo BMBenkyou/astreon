@@ -41,7 +41,7 @@ const handleLogin = async (e) => {
         console.log("Stored Access Token:", data.access);
 
         // Redirect to ai chat page after login
-        window.location.href = "/ai-chat"; 
+        window.location.href = "/ai"; 
       } else {
         console.error("Access token is missing in response.");
       }
@@ -79,7 +79,7 @@ const handleLogin = async (e) => {
             
             <form onSubmit={handleLogin}>
               <InputGroup
-                label={<h5 className="Tusername-label">Username or Email</h5>}
+                label={<h5 className="Tusername-label">Username</h5>}
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}

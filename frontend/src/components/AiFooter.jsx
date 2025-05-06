@@ -13,7 +13,7 @@ const AIFooter = ({ onSendMessage }) => {
   };
 
   return (
-    <div className="ai-footer">
+    <div className="ai-footer" style={{position: 'relative', zIndex: 1, width: "100%", maxWidth: "none", margin: 0, padding: 0}}>
       {/* Attachment Button */}
       <button className="footer-btn attach-btn" onClick={() => document.getElementById('attach-file').click()}>
           <AiOutlinePaperClip className="footer-icon" />
@@ -38,7 +38,12 @@ const AIFooter = ({ onSendMessage }) => {
         placeholder="Ask me anything"
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault(); // Prevent scroll jump
+            handleSend();
+          }
+        }}
       />
 
       {/* Send Button */}
@@ -46,7 +51,8 @@ const AIFooter = ({ onSendMessage }) => {
         <div className="svg-wrapper">
           <AiOutlineSend className="footer-icon send-icon" />
         </div>
-        <span>Send</span>
+        <span>
+        </span>
       </button>
     </div>
   );

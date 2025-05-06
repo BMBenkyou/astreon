@@ -1,67 +1,133 @@
-@import "tailwindcss";
-
-/* Streak Container */
-.streak-container {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 90%;
+/* StreakNStats.css */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
   max-width: 900px;
+  margin: 0 auto;
+}
+
+.streak-container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.streak-title, .statistics-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
   text-align: center;
-  margin: 0 auto 32px auto;
-  font-family: "Poppins", sans-serif;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  /* Laptop & Tablet */
-  .streak-container {
-    max-width: 700px;
-    padding: 16px;
-  }
+.streak-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
 }
 
+.streak-stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 150px;
+}
+
+.streak-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.streak-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20px);
+  grid-auto-rows: 20px;
+  gap: 4px;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.heatmap-cell {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.2);
+}
+
+.heatmap-cell.empty {
+  background-color: #ebedf0;
+}
+
+.heatmap-cell.low {
+  background-color: #9be9a8;
+}
+
+.heatmap-cell.medium {
+  background-color: #40c463;
+}
+
+.heatmap-cell.high {
+  background-color: #216e39;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.legend-box {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+}
+
+.statistics-container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Responsive design for mobile */
 @media (max-width: 768px) {
-  /* Tablets */
-  .streak-container {
-    padding: 12px;
-    width: 95%;
-    font-size: 14px;
-  }
-
-  /* Adjust heatmap size to fit smaller screens */
   .heatmap {
-    display: grid;
-    grid-template-columns: repeat(53, 12px);
-    grid-template-rows: repeat(7, 12px);
-    gap: 4px;
+    grid-template-columns: repeat(auto-fill, 16px);
+    grid-auto-rows: 16px;
+    gap: 3px;
   }
-
-  /* Adjust heatmap cell size to fit smaller screens */
+  
   .heatmap-cell {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
-}
-
-@media (max-width: 480px) {
-  /* Mobile */
-  .streak-container {
-    font-size: 12px;
-    padding: 8px;
-    width: 98%;
-  }
-
-  /* Adjust heatmap size to fit smaller screens */
-  .heatmap {
-    grid-template-columns: repeat(53, 10px);
-    grid-template-rows: repeat(7, 10px);
-    gap: 2px;
-  }
-
-  /* Adjust heatmap cell size to fit smaller screens */
-  .heatmap-cell {
-    width: 10px;
-    height: 10px;
+  
+  .statistics-container {
+    padding: 1rem;
   }
 }

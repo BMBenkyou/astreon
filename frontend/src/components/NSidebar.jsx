@@ -60,7 +60,7 @@ const Sidebar = () => {
                   <FaUserFriends className="sidebar-subicon" />
                   <span>Chat with Friend</span>
                 </NavLink>
-                <NavLink to="/ai-chat" className="sidebar-subitem">
+                <NavLink to="/ai" className="sidebar-subitem">
                   <TbRobot className="sidebar-subicon" />
                   <span>Chat with Astreon</span>
                 </NavLink>
@@ -100,10 +100,6 @@ const Sidebar = () => {
           </NavLink>
 
           {/* Generate Schedule Section */}
-          <NavLink to="/genschedule" className="sidebar-item">
-            <AiOutlineSchedule className="sidebar-icon" />
-            <span>Generate Schedule</span>
-          </NavLink>
 
           {/* Feedback Section */}
           <NavLink to="/feedback" className="sidebar-item">
@@ -112,9 +108,7 @@ const Sidebar = () => {
           </NavLink>
         </nav>
       </div>
-      <div className={`main-content ${!isOpen ? 'sidebar-closed' : ''}`}>
-        {/* Your main content will be wrapped here */}
-      </div>
+      
     </>
   );
 };

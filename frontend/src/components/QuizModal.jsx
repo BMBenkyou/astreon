@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./QuizModal.css";
 
 const QuizModal = ({ isOpen, onClose, promptText, onStartQuiz }) => {
+  const navigate = useNavigate();
+
+  const handleStartQuiz = () => {
+    onStartQuiz();           // Run any parent logic (e.g., close modal, update state)
+    navigate("/sessions");       // Navigate to the quiz page
+  };
+
   return (
     <div className={`quiz-modal-overlay ${isOpen ? "visible" : "hidden"}`}>
       <div className="quiz-modal-content">
@@ -17,7 +25,7 @@ const QuizModal = ({ isOpen, onClose, promptText, onStartQuiz }) => {
           <button className="close-btn" onClick={onClose}>
             Close
           </button>
-          <button className="StartQuiz-btn" onClick={onStartQuiz}>
+          <button className="StartQuiz-btn" onClick={handleStartQuiz}>
             Start Quiz
           </button>
         </div>

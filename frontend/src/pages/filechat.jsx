@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../components/NHeader";
 import Sidebar from "../components/NSidebar";
 import { AiOutlineSend } from "react-icons/ai";
 import "./filechat.css";
+import GeminiFormattedResponse from "../utils/GeminiFormatter";
 
+/**
+ * Component to display a file card in the files grid
+ */
 const FileCard = ({ file, onClick, isSelected }) => (
   <div className={`file-card ${isSelected ? 'selected' : ''}`} onClick={onClick}>
     <div className="file-header">
@@ -11,7 +15,8 @@ const FileCard = ({ file, onClick, isSelected }) => (
       <span className="file-icon-wrapper">
         <img 
           src={getFileIcon(file.type)} 
-          className="file-icon" 
+          className="file-icon"
+          alt={`${getFileTypeLabel(file.type)} icon`}
         />
       </span>
     </div>
@@ -19,6 +24,9 @@ const FileCard = ({ file, onClick, isSelected }) => (
   </div>
 );
 
+/**
+ * Component to display a preview of the selected file
+ */
 const FilePreview = ({ file }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -130,6 +138,24 @@ const getFileIcon = (type) => {
   return iconMap[category] || '/session-icon.svg';
 };
 
+/**
+ * Check if text is likely a Gemini API response needing formatting
+ */
+const isGeminiResponse = (text) => {
+  if (!text) return false;
+  
+  // Check for patterns common in Gemini responses that need formatting
+  const geminiPatterns = [
+    /\*\*.*?\*\*/,                      // Bold text markers
+    /^\s*\*\*[^*]+\*\*\s*:/m,           // Section headers
+    /^\s*".*?"\s*$/m,                   // Quoted text
+    /^\s*\*\s+/m,                       // Bullet points
+    /^\s*\d+\.\s+/m                     // Numbered lists
+  ];
+  
+  return geminiPatterns.some(pattern => pattern.test(text));
+};
+
 const FileChat = () => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -191,11 +217,12 @@ const FileChat = () => {
       // Check if we already have a conversation for this file
       if (conversations[file.id]) {
         setMessages(conversations[file.id].messages);
+        setIsLoading(false);
         return;
       }
 
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {  //Updated endpoint
+      const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -206,7 +233,7 @@ const FileChat = () => {
 
       const data = await response.json();
       if (response.ok) {
-        const initialMessages = [{ text: data.initial_response, sender: "ai" }];
+        const initialMessages = [{ text: data.initial_response, sender: "ai", isGemini: isGeminiResponse(data.initial_response) }];
         setMessages(initialMessages);
         setConversations(prev => ({
           ...prev,
@@ -224,71 +251,93 @@ const FileChat = () => {
   };
 
   const handleSendMessage = async () => {
-  if (!currentMessage.trim() || !selectedFile) return;
+    if (!currentMessage.trim() || !selectedFile) return;
 
-  const userMessage = { text: currentMessage, sender: "user" };
-  const updatedMessages = [...messages, userMessage];
-  setMessages(updatedMessages);
-  setCurrentMessage("");
-  setIsLoading(true);
+    const userMessage = { text: currentMessage, sender: "user" };
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
+    setCurrentMessage("");
+    setIsLoading(true);
 
-  try {
-    const token = localStorage.getItem('accessToken');
-    const conversation = conversations[selectedFile.id];
-    
-    // Make sure we have a conversation ID
-    if (!conversation || !conversation.conversationId) {
-      throw new Error("No active conversation for this file");
-    }
+    try {
+      const token = localStorage.getItem('accessToken');
+      const conversation = conversations[selectedFile.id];
+      
+      // Make sure we have a conversation ID
+      if (!conversation || !conversation.conversationId) {
+        throw new Error("No active conversation for this file");
+      }
 
-    // Log the request details for debugging
-    console.log("Sending message to:", 'http://localhost:8080/api/chat/file-context/init/');
-    console.log("Request payload:", {
-      conversation_id: conversation.conversationId,
-      message: currentMessage
-    });
-
-    const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+      // Log the request details for debugging
+      console.log("Sending message to:", 'http://localhost:8080/api/chat/file-context/init/');
+      console.log("Request payload:", {
         conversation_id: conversation.conversationId,
         message: currentMessage
-      })
-    });
+      });
 
-    // Check for non-404 errors first
-    if (response.status === 404) {
-      throw new Error("API endpoint not found. Please check server configuration.");
+      const response = await fetch('http://localhost:8080/api/chat/file-context/init/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          conversation_id: conversation.conversationId,
+          message: currentMessage
+        })
+      });
+
+      // Check for non-404 errors first
+      if (response.status === 404) {
+        throw new Error("API endpoint not found. Please check server configuration.");
+      }
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Check if the response has Gemini API characteristics
+      const isGeminiText = isGeminiResponse(data.response);
+      
+      const newMessages = [...updatedMessages, { 
+        text: data.response, 
+        sender: "ai",
+        isGemini: isGeminiText
+      }];
+      
+      setMessages(newMessages);
+      setConversations(prev => ({
+        ...prev,
+        [selectedFile.id]: {
+          ...prev[selectedFile.id],
+          messages: newMessages
+        }
+      }));
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        text: `Sorry, I couldn't process your request: ${error.message}`, 
+        sender: "ai" 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Render the message based on whether it's a Gemini API response or not
+  const renderMessage = (msg) => {
+    if (msg.sender === "user") {
+      return <div className="message-text">{msg.text}</div>;
     }
     
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
+    // For AI responses, check if it needs Gemini formatting
+    return msg.isGemini ? 
+      <GeminiFormattedResponse rawText={msg.text} /> : 
+      <div className="message-text">{msg.text}</div>;
+  };
 
-    const data = await response.json();
-    const newMessages = [...updatedMessages, { text: data.response, sender: "ai" }];
-    setMessages(newMessages);
-    setConversations(prev => ({
-      ...prev,
-      [selectedFile.id]: {
-        ...prev[selectedFile.id],
-        messages: newMessages
-      }
-    }));
-  } catch (error) {
-    console.error('Chat error:', error);
-    setMessages(prev => [...prev, { 
-      text: `Sorry, I couldn't process your request: ${error.message}`, 
-      sender: "ai" 
-    }]);
-  } finally {
-    setIsLoading(false);
-  }
-};
   return (
     <div className="MainContainer">
       <Header />
@@ -345,7 +394,7 @@ const FileChat = () => {
                           key={index}
                           className={`message ${msg.sender}-message`}
                         >
-                          {msg.text}
+                          {renderMessage(msg)}
                         </div>
                       ))}
                       {messages.length === 0 && (

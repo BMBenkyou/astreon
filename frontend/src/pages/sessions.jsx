@@ -1,31 +1,57 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/HeaderLoggedIn";
+import Header from "../components/NHeader";
 import Sidebar from "../components/NSidebar";
 import "./sessions.css";
 
-const sessionicon = "/session-icon.svg";
-const flashcardIcon = "/flashcard-icon.svg"; // Add this icon to your project
-
-// Card component that can be used for both quizzes and flashcards
-const SessionCard = ({ item, type, onClick }) => (
-  <div className={`sessions-div ${type}-card`} onClick={onClick}>
-    <div className="session-header">
-      <p className="session-title">{item.title}</p>
-      <img 
-        src={type === 'quiz' ? sessionicon : flashcardIcon} 
-        alt={`${type}-icon`} 
-        className="session-icon" 
-      />
-    </div>
-    <p className="session-description">
-      {type === 'quiz' 
-        ? `${item.question_count} questions` 
-        : `${item.card_count} cards`} 
-      • Created on {new Date(item.created_at).toLocaleDateString()}
-    </p>
-  </div>
+// Arrow icon for navigation
+const ArrowIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="arrow-icon">
+    <path d="M9 18L15 12L9 6" stroke="#888888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
 );
+
+// Enhanced SessionCard component with score display
+const SessionCard = ({ item, type, onClick }) => {
+  // Format the date nicely
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
+  return (
+    <div className={`sessions-div ${type}-card`} onClick={onClick}>
+      <div className="session-header">
+        <h3 className="session-title">{item.title}</h3>
+        <ArrowIcon />
+      </div>
+      
+      {/* Description with "No description available" if none */}
+      <p className="session-description-text">{item.description || "No description available"}</p>
+      
+      <div className="session-meta">
+        <span className="session-count">
+          {type === 'quiz' 
+            ? `${item.question_count} questions` 
+            : `${item.card_count} cards`}
+        </span>
+        <span className="session-date">Created {formatDate(item.created_at)}</span>
+      </div>
+      
+      {/* Display score if available (for quizzes only) */}
+      {type === 'quiz' && item.latest_score !== undefined && (
+        <div className="session-score">
+          <span className="score-label">Latest Score:</span>
+          <span className="score-value">{item.latest_score}%</span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Sessions() {
   const [quizzes, setQuizzes] = useState([]);
@@ -34,7 +60,7 @@ export default function Sessions() {
   const [loadingFlashcards, setLoadingFlashcards] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch quizzes
+  // Fetch quizzes with latest scores
   useEffect(() => {
     const fetchQuizzes = async () => {
       setLoadingQuizzes(true);
@@ -58,7 +84,31 @@ export default function Sessions() {
         const data = await response.json();
         
         if (data.success) {
-          setQuizzes(data.quizzes);
+          // Now fetch latest scores for each quiz
+          const quizzesWithScores = await Promise.all(data.quizzes.map(async (quiz) => {
+            try {
+              const scoreResponse = await fetch(`http://127.0.0.1:8080/api/quizzes/${quiz.id}/latest-score`, {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              const scoreData = await scoreResponse.json();
+              
+              if (scoreData.success && scoreData.score !== undefined) {
+                return { ...quiz, latest_score: scoreData.score };
+              }
+              
+              return quiz;
+            } catch (error) {
+              console.error(`Error fetching score for quiz ${quiz.id}:`, error);
+              return quiz;
+            }
+          }));
+          
+          setQuizzes(quizzesWithScores);
         } else {
           console.error("Failed to fetch quizzes:", data);
         }
@@ -118,6 +168,21 @@ export default function Sessions() {
     navigate(`/flashcards/${flashcardSetId}`);
   };
 
+  // Loading component for better UX
+  const LoadingState = () => (
+    <div className="flex justify-center items-center h-40">
+      <div className="loading-spinner"></div>
+      <p className="ml-3">Loading...</p>
+    </div>
+  );
+
+  // Empty state component
+  const EmptyState = ({ type }) => (
+    <div className="empty-state">
+      <p>No {type} found. Create {type === 'quizzes' ? 'a quiz' : 'flashcards'} to get started!</p>
+    </div>
+  );
+
   return (
     <>
       <header>
@@ -132,14 +197,20 @@ export default function Sessions() {
           <div className="main-sessions-grid">
             {/* Quizzes Section */}
             <div className="session-category">
-              <h2 className="category-title">Quizzes</h2>
+              <div className="category-header">
+                <h2 className="category-title">Quizzes</h2>
+                <button 
+                  className="create-btn"
+                  onClick={() => navigate('/quiz')}
+                >
+                  Create New Quiz
+                </button>
+              </div>
               
               {loadingQuizzes ? (
-                <div className="flex justify-center items-center h-40">
-                  <p>Loading quizzes...</p>
-                </div>
+                <LoadingState />
               ) : quizzes.length > 0 ? (
-                <div className="sessions-container-quizzes">
+                <div className="sessions-grid">
                   {quizzes.map((quiz) => (
                     <SessionCard 
                       key={quiz.id} 
@@ -150,22 +221,25 @@ export default function Sessions() {
                   ))}
                 </div>
               ) : (
-                <div className="empty-state">
-                  <p>No quizzes found. Create a quiz to get started!</p>
-                </div>
+                <EmptyState type="quizzes" />
               )}
             </div>
             
             {/* Flashcards Section */}
             <div className="session-category">
-              <h2 className="category-title">Flashcards</h2>
+              <div className="category-header">
+                <h2 className="category-title">Flashcards</h2>
+                <button className="create-btn"
+                  onClick={() => navigate('/flashcards')}
+                >
+                  Create New Flashcards
+                </button>
+              </div>
               
               {loadingFlashcards ? (
-                <div className="flex justify-center items-center h-40">
-                  <p>Loading flashcards...</p>
-                </div>
+                <LoadingState />
               ) : flashcards.length > 0 ? (
-                <div className="sessions-container-flashcards">
+                <div className="sessions-grid">
                   {flashcards.map((flashcardSet) => (
                     <SessionCard 
                       key={flashcardSet.id} 
@@ -176,9 +250,7 @@ export default function Sessions() {
                   ))}
                 </div>
               ) : (
-                <div className="empty-state">
-                  <p>No flashcard sets found. Create flashcards to get started!</p>
-                </div>
+                <EmptyState type="flashcards" />
               )}
             </div>
           </div>

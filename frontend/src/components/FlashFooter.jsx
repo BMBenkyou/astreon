@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
 import FlashModal from "./FlashcardModel";
 import "./FlashFooter.css";
@@ -7,9 +7,26 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
   const [prompt, setPrompt] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [showAcceptedTypes, setShowAcceptedTypes] = useState(false);
+  const [fileError, setFileError] = useState("");
+  const [uploadedFileName, setUploadedFileName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fileInputRef = useRef(null);
+
+  const acceptedTypes = [
+    "application/pdf",
+    "text/plain",
+    "text/html",
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+  ];
 
   const handleSend = async () => {
     if (prompt.trim() !== "" || selectedFile) {
+      setIsLoading(true);
+
       const formData = new FormData();
       formData.append("title", title || "Flashcard Set");
       formData.append("description", description || "");
@@ -17,13 +34,14 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
         formData.append("file", selectedFile);
       }
       formData.append("prompt", prompt);
-      
-      const token = localStorage.getItem('accessToken');  
+
+      const token = localStorage.getItem('accessToken');
       if (!token) {
         console.error("No access token found");
+        setIsLoading(false);
         return;
       }
-     
+
       try {
         const response = await fetch("http://127.0.0.1:8080/api/flashcard/generate/", {
           method: "POST",
@@ -32,42 +50,91 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
           },
           body: formData,
         });
-        
+
         if (response.ok) {
           const data = await response.json();
-          localStorage.setItem("currentFlashcards", JSON.stringify(data.flashcard_data)); 
+          localStorage.setItem("currentFlashcards", JSON.stringify(data.flashcard_data));
+          setIsLoading(false);
           setIsModalOpen(true);
         } else {
           const errorData = await response.json();
           console.error("Error generating flashcards:", errorData);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error("Error sending request:", error);
+        setIsLoading(false);
       }
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!acceptedTypes.includes(file.type)) {
+        setFileError("Unsupported file type. Accepted types: PDF, TXT, JPG, PNG, HTML.");
+        setUploadedFileName("");
+        setSelectedFile(null);
+      } else {
+        setFileError("");
+        setUploadedFileName(file.name);
+        setSelectedFile(file);
+        console.log("File attached:", file.name);
+      }
+    }
+    // Reset the file input to allow re-selection of the same file
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   return (
-    <>
+    <div className="flash-footer-container">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-dots">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+          </div>
+        </div>
+      )}
+      
+      {/* File Information Above Footer */}
+      {(showAcceptedTypes || fileError || uploadedFileName) && (
+        <div className="file-messages">
+          {showAcceptedTypes && (
+            <p className="accepted-files-info">Accepted file types: PDF, TXT, JPG, PNG, HTML</p>
+          )}
+          {fileError && <p className="error-message">{fileError}</p>}
+          {uploadedFileName && (
+            <p className="file-message"><strong>Uploaded File:</strong> {uploadedFileName}</p>
+          )}
+        </div>
+      )}
+
       <div className="flash-footer">
         {/* Attachment Button */}
-        <button 
-          className="footer-btn attach-boton" 
-          onClick={() => document.getElementById('attach-file').click()}
+        <button
+          className="footer-btn attach-bton"
+          onClick={() => {
+            setShowAcceptedTypes(true);
+            if (fileInputRef.current) {
+              fileInputRef.current.click();
+            }
+          }}
         >
           <AiOutlinePaperClip className="footer-icon" />
         </button>
+
+        {/* Hidden File Input */}
         <input
           type="file"
           id="attach-file"
           style={{ display: 'none' }}
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (file) {
-              setSelectedFile(file);
-              console.log("File attached:", file.name);
-            }
-          }}
+          onChange={handleFileChange}
+          ref={fileInputRef}
         />
 
         {/* Input Field */}
@@ -84,7 +151,7 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
           <div className="svg-wrapper">
             <AiOutlineSend className="footer-icon send-icon" />
           </div>
-          <span>Send</span>
+          <span></span>
         </button>
       </div>
 
@@ -94,11 +161,11 @@ const FlashFooter = ({ title, description, onStartFlash }) => {
         onClose={() => setIsModalOpen(false)}
         promptText={prompt}
         onStartFlash={() => {
-          setIsModalOpen(false); // Close modal
-          onStartFlash(); // Trigger Flash start
+          setIsModalOpen(false);
+          onStartFlash();
         }}
       />
-    </>
+    </div>
   );
 };
 
