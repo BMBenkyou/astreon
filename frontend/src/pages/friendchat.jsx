@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Header from "../components/NHeader";
 import "./friendchat.css";
+import { useNavigate } from "react-router-dom"; // Import for navigation
 
 const FriendChat = () => {
   const [friends, setFriends] = useState([]);
@@ -11,13 +12,72 @@ const FriendChat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
+  const [currentUser, setCurrentUser] = useState(null);
   const messagesEndRef = useRef(null);
+  const navigate = useNavigate(); // For redirecting
   
   // Get the authentication token
   const token = localStorage.getItem('accessToken');
   
+  // Check authentication on component mount
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+  
+  // Function to check if user is authenticated
+  const checkAuthentication = () => {
+    const token = localStorage.getItem('accessToken');
+    const currentUserStr = localStorage.getItem('currentUser');
+    
+    if (!token) {
+      console.warn('No access token found, redirecting to login');
+      navigate('/login'); // Redirect to login page
+      return;
+    }
+    
+    if (!currentUserStr) {
+      console.warn('No current user found, fetching user data');
+      fetchCurrentUser();
+    } else {
+      try {
+        const userData = JSON.parse(currentUserStr);
+        setCurrentUser(userData);
+        console.log('Current user loaded:', userData.id, userData.username);
+      } catch (error) {
+        console.error('Error parsing currentUser from localStorage:', error);
+        fetchCurrentUser(); // Try fetching user data if parsing fails
+      }
+    }
+  };
+  
+  // Fetch current user data from API
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/user/profile/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      if (response.data) {
+        // Save user data to localStorage and state
+        localStorage.setItem('currentUser', JSON.stringify(response.data));
+        setCurrentUser(response.data);
+        console.log('User data fetched and saved:', response.data.id, response.data.username);
+      } else {
+        console.error('No user data returned from API');
+        navigate('/login'); // Redirect if no user data
+      }
+    } catch (err) {
+      console.error("Error fetching current user:", err);
+      navigate('/login'); // Redirect on error
+    }
+  };
+  
   // Fetch friends list
   useEffect(() => {
+    if (!token || !currentUser) return; // Don't fetch if not authenticated
+    
     const fetchFriends = async () => {
       try {
         setLoading(true);
@@ -37,15 +97,15 @@ const FriendChat = () => {
     };
 
     fetchFriends();
-  }, [token, refreshKey]);
+  }, [token, refreshKey, currentUser]);
   
   // Fetch messages when a friend is selected
   useEffect(() => {
-    if (!selectedFriend) return;
+    if (!selectedFriend || !token || !currentUser) return;
     
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/messages/${selectedFriend.id}/`, {
+        const response = await axios.get(`http://localhost:8080/user/messages/${selectedFriend.id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -66,7 +126,7 @@ const FriendChat = () => {
     const intervalId = setInterval(fetchMessages, 5000);
     
     return () => clearInterval(intervalId);
-  }, [selectedFriend, token]);
+  }, [selectedFriend, token, currentUser]);
   
   // Auto scroll to bottom when new messages arrive
   useEffect(() => {
@@ -85,7 +145,7 @@ const FriendChat = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     
-    if (!newMessage.trim() || !selectedFriend) return;
+    if (!newMessage.trim() || !selectedFriend || !currentUser) return;
     
     try {
       await axios.post(
@@ -103,10 +163,12 @@ const FriendChat = () => {
       );
       
       // Add the message to the UI immediately for better UX
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const tempMessage = {
         id: `temp-${Date.now()}`,
-        sender: currentUser,
+        sender: {
+          id: currentUser.id,
+          username: currentUser.username
+        },
         content: newMessage,
         timestamp: new Date().toISOString()
       };
@@ -139,7 +201,6 @@ const FriendChat = () => {
     }
   };
   
-  // Function to safely get profile image URL or return default image
   const getProfileImageUrl = (profilePic) => {
     // If no profile pic is provided, immediately return default
     if (!profilePic) return '/default-avatar.png';
@@ -160,10 +221,23 @@ const FriendChat = () => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
   
-  // Check if message is from current user
+  // FIXED: Improved, safer isCurrentUserMessage function
   const isCurrentUserMessage = (message) => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return message.sender.id === currentUser.id;
+    if (!currentUser || !message) return false;
+    
+    try {
+      // Check if the message sender ID matches current user ID
+      if (message.sender && message.sender.id) {
+        return parseInt(message.sender.id) === parseInt(currentUser.id);
+      } else if (message.sender_id) {
+        return parseInt(message.sender_id) === parseInt(currentUser.id);
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Error determining message sender:', error);
+      return false;
+    }
   };
   
   // Get time for displaying in the friends list (last message time or status)
@@ -172,6 +246,19 @@ const FriendChat = () => {
     // For now we'll just return "Online" for demo purposes
     return "Online";
   };
+
+  // If still loading user data, show loading indicator
+  if (!currentUser && !error) {
+    return (
+      <div className="loading-container">
+        <Header />
+        <div className="loading-message">
+          <div className="spinner"></div>
+          <p>Loading your profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="chat-container">
@@ -216,13 +303,11 @@ const FriendChat = () => {
                     <div className="friend-info">
                       <div className="friend-name">{friend.username}</div>
                       <div className="last-message">
-                        {/* This would show the last message preview */}
                         {friend.last_message || "Start a conversation"}
                       </div>
                     </div>
                     <div className="friend-meta">
                       <div className="last-time">{getLastActivityTime(friend)}</div>
-                      {/* Badge for unread messages */}
                       {friend.unread_count > 0 && (
                         <div className="unread-badge">{friend.unread_count}</div>
                       )}
@@ -278,19 +363,24 @@ const FriendChat = () => {
                 
                 {messages.length > 0 ? (
                   <div className="messages-list">
-                    {messages.map((message) => (
-                      <div 
-                        key={message.id}
-                        className={`message ${isCurrentUserMessage(message) ? 'sent' : 'received'}`}
-                      >
-                        <div className="message-content">
-                          <p>{message.content}</p>
-                          <span className="message-time">
-                            {formatMessageTime(message.timestamp)}
-                          </span>
+                    {messages.map((message) => {
+                      // FIXED: Correctly determine if message is sent or received
+                      const isSent = isCurrentUserMessage(message);
+                      
+                      return (
+                        <div 
+                          key={message.id}
+                          className={`message ${isSent ? 'sent' : 'received'}`}
+                        >
+                          <div className="message-content">
+                            <p>{message.content}</p>
+                            <span className="message-time">
+                              {formatMessageTime(message.timestamp)}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     <div ref={messagesEndRef} />
                   </div>
                 ) : (

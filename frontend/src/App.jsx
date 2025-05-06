@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Login from "./pages/login"; 
+import Feedback from "./pages/feedback";
 import Signup from "./pages/signup";
 import Passwordreset from "./pages/passwordreset";
 import Newpassword from "./pages/newpass";
@@ -18,7 +19,7 @@ import FileChat from "./pages/filechat";
 import AddFriend from "./pages/addfriend";
 import FriendRequest from "./pages/friendrequest";
 import FriendChat from "./pages/friendchat";
-import HomeTest from "./pages/homepagetest";
+import HomePage from "./pages/homepage";
 import FlashcardDetail from "./pages/flashcard-details";
 
 
@@ -26,7 +27,7 @@ import FlashcardDetail from "./pages/flashcard-details";
 const App = () => (
   <div className="app-container">
     <Routes>
-      <Route path="/" element={<HomeTest/>} />
+      <Route path="/" element={<HomePage/>} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/passwordreset" element={<Passwordreset />} />
@@ -46,6 +47,7 @@ const App = () => (
       <Route path="/ai" element={<Chat/>} />
       <Route path="/flashcards" element={<Flashcards />} />
       <Route path="/sessions" element={<Session />} />
+      <Route path="/feedback" element={<Feedback/>} />
     </Routes>
   </div>
 );

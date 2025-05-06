@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 from markdown_it import MarkdownIt  
 from rest_framework.views import APIView
+from django.db.models import Count
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -151,8 +152,11 @@ class QuizGenerationView(APIView):
     def post(self, request):
         try:
             prompt = request.data.get("prompt", "")
+            title = request.data.get("title", "Generated Quiz")  # Get the title from request
+            description = request.data.get("description", "")  # Get the description from request
             file = request.FILES.get("file")
             file_content = None
+            original_file_name = None
 
             if file:
                 file_type = file.content_type
@@ -211,6 +215,12 @@ class QuizGenerationView(APIView):
 
             if file_content:
                 full_prompt += f"Content:\n{file_content}\n\n"
+            
+            # Ensure we have either a prompt or file content
+            if not prompt and not file_content:
+                return Response({"error": "Please provide either a prompt or a file to generate a quiz"}, 
+                               status=status.HTTP_400_BAD_REQUEST)
+                
             if prompt:
                 full_prompt += f"Additional Instructions: {prompt}"
 
@@ -253,7 +263,8 @@ class QuizGenerationView(APIView):
 
             # Ensure response contains necessary fields
             quiz_data = {
-                "title": parsed_quiz.get("title", "Generated Quiz"),
+                "title": title or parsed_quiz.get("title", "Generated Quiz"),  # Use provided title first
+                "description": description,  # Add description to quiz_data
                 "questions": parsed_quiz.get("questions", []),
             }
             
@@ -269,7 +280,8 @@ class QuizGenerationView(APIView):
                     user=request.user,
                     title=quiz_data["title"],
                     prompt=prompt,
-                    original_file_name=original_file_name
+                    description=description,  # Save the description to the database
+                    original_file_name=original_file_name  # Will be None if no file was uploaded
                 )
                 
                 # Create QuizQuestion objects for each question
@@ -311,8 +323,7 @@ class QuizGenerationView(APIView):
             print(f"Error in quiz generation: {str(e)}")
             import traceback
             traceback.print_exc()
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
-
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 class QuizSessionView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -427,6 +438,7 @@ class UserFilesView(APIView):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+
 def init_file_chat(request):
     """Initialize chat context for a file or handle messages for existing conversations"""
     # Check if this is an initialization request or a message for existing conversation
@@ -451,12 +463,14 @@ def init_file_chat(request):
             if not file:
                 return Response({'error': 'No file associated with this conversation'}, status=404)
             
-            # Get file content based on file type
-            file_content = get_file_content(file)
-            file_content = file.read().decode("utf-8", errors="ignore")
+            # Get file content from the model
+            file_content = file.content  # Using the content field from the model
+            
+            # If content is not stored in the model, use get_file_content helper
+            if not file_content:
+                file_content = get_file_content(file)
             
             # Create prompt with file context
-            context = f"Based on the file {file.name}: {file_content}"
             full_prompt = f"""
             {SYSTEM_PROMPT}
             
@@ -496,8 +510,12 @@ def init_file_chat(request):
             # Get file from database
             file = UploadedFile.objects.get(id=file_id, user=request.user)
             
-            # Extract content based on file type
-            file_content = get_file_content(file)
+            # Get file content from model or helper function
+            file_content = file.content  # Use content field from model
+            
+            # If content is not stored in the model field, use get_file_content helper
+            if not file_content:
+                file_content = get_file_content(file)
             
             # Create new conversation for this file with file reference
             conversation = Conversation.objects.create(
@@ -585,18 +603,14 @@ class UserQuizzesView(APIView):
     def get(self, request):
         """Retrieve all quizzes created by the current user"""
         try:
-            quizzes = Quiz.objects.filter(user=request.user).order_by('-created_at')
-            quiz_data = []
+            # Use annotate to count questions in a single query
+            quizzes = Quiz.objects.filter(user=request.user)\
+                .annotate(question_count=Count('questions'))\
+                .order_by('-created_at')\
+                .values('id', 'title', 'prompt', 'created_at', 'question_count')
             
-            for quiz in quizzes:
-                questions = quiz.questions.all().order_by('order')
-                quiz_data.append({
-                    'id': quiz.id,
-                    'title': quiz.title,
-                    'prompt': quiz.prompt,
-                    'created_at': quiz.created_at,
-                    'question_count': questions.count(),
-                })
+            # Convert QuerySet to list for the response
+            quiz_data = list(quizzes)
             
             return Response({
                 'quizzes': quiz_data,
@@ -604,11 +618,12 @@ class UserQuizzesView(APIView):
             })
             
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             return Response(
                 {"error": str(e)}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 class QuizDetailView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -815,18 +830,15 @@ class UserFlashcardSetsView(APIView):
     def get(self, request):
         """Retrieve all flashcard sets created by the current user"""
         try:
-            flashcard_sets = FlashcardSet.objects.filter(user=request.user).order_by('-created_at')
-            sets_data = []
+            # Use annotate to count cards in a single query
+            # Use select_related/prefetch_related if needed for other related data
+            flashcard_sets = FlashcardSet.objects.filter(user=request.user)\
+                .annotate(card_count=Count('cards'))\
+                .order_by('-created_at')\
+                .values('id', 'title', 'prompt', 'created_at', 'card_count')
             
-            for set in flashcard_sets:
-                cards = set.cards.all().order_by('order')
-                sets_data.append({
-                    'id': set.id,
-                    'title': set.title,
-                    'prompt': set.prompt,
-                    'created_at': set.created_at,
-                    'card_count': cards.count(),
-                })
+            # Convert QuerySet to list for the response
+            sets_data = list(flashcard_sets)
             
             return Response({
                 'flashcard_sets': sets_data,
@@ -834,6 +846,8 @@ class UserFlashcardSetsView(APIView):
             })
             
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             return Response(
                 {"error": str(e)}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR

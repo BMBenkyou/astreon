@@ -60,9 +60,10 @@
 
 .option.selected {
   border-color: #0d9488;
-  background-color: #0d9488;
+  background-color: green;
   font-weight: bold;
-  color: white;
+  color:black;
+  
 }
 
 /* Progress Bar */

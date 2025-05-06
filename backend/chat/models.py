@@ -46,6 +46,7 @@ class Quiz(models.Model):
     prompt = models.TextField()
     original_file_name = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True)
     
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')

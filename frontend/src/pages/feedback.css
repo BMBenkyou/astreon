@@ -1,0 +1,117 @@
+.feedback-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-container h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 20px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.feedback-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: #028577;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+}
+
+.feedback-textarea::placeholder {
+  color: #adb5bd;
+}
+
+.submit-feedback-btn {
+  background-color: #028577;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-feedback-btn:hover {
+  background-color: #adb5bd;
+}
+
+.submit-feedback-btn:disabled {
+  background-color: #b5b1f8;
+  cursor: not-allowed;
+}
+
+.feedback-error {
+  color: #dc3545;
+  margin-bottom: 15px;
+  font-size: 14px;
+  padding: 8px 12px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+}
+
+.feedback-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.feedback-success p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.new-feedback-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.new-feedback-btn:hover {
+  background-color: #5a6268;
+}

@@ -28,7 +28,6 @@ const Header = () => {
 
       {/* Right side: Calendar and Profile */}
       <div className="right-section">
-        <IoMdCalendar className="calendar" />
 
         {/* Profile Dropdown */}
         <div className="profile-container" onClick={toggleDropdown}>
@@ -49,12 +48,8 @@ const Header = () => {
                 <Link to="/add-friend">Find Friends</Link>
               </li>
               <li className="element">
-                <IoPersonAddOutline/>
-                <Link to="/profile">Friend Requests</Link>
-              </li>
-              <li className="element">
-                <MdPeopleOutline/>
-                <Link to="/profile">Friends</Link>
+                <IoMdCalendar/>
+                <Link to="/streak">Streak</Link>
               </li>
               <hr className="separator" />
               <li className="element">
