@@ -33,7 +33,7 @@ export default function HomePage() {
                   {/* Learn More Button (as a link) */}
                   <a
                     href="#what-youre-getting" // Link to the ID of the second section
-                    className="inline-block border border-[#23BA8E] text-[#23BA8E] px-6 py-3 rounded-lg font-semibold text-center transition duration-300 ease-in-out hover:bg-[#E3FEF9] shadow-lg" // Added Tailwind classes for styling and hover
+                    className="inline-block border border-[#23BA8E] text-[#23BA8E] mt-8 px-6 py-3 rounded-lg font-semibold text-center transition duration-300 ease-in-out hover:bg-[#E3FEF9] shadow-lg" // Added Tailwind classes for styling and hover
                   >
                     Learn More
                   </a>
